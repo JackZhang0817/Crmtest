@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+<meta charset="utf-8"/>
+<title>员工列表 | CRM客户管理系统</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta content="" name="description"/>
+<meta content="gaorenhua" name="author"/>
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<link href="__PUBLIC__/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN THEME STYLES -->
+<include file="Common:css" />
+<!-- END THEME STYLES -->
+<link rel="shortcut icon" href="favicon.ico"/>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed page-quick-sidebar-over-content ">
+<!-- 包含公共头部和公共侧边栏 -->
+<include file="Common:header" />
+	<!-- BEGIN CONTENT -->
+	<div class="page-content-wrapper">
+		<div class="page-content">
+			<!-- BEGIN PAGE CONTENT-->
+			<div class="row">
+				<div class="col-md-12">
+					<!-- BEGIN SAMPLE TABLE PORTLET-->
+					<div class="portlet box blue">
+						<div class="portlet-title">
+							<div class="caption"><i class="fa fa-cogs"></i>员工列表 - <span style="font-size:14px;">{:club_comname(fid())}</span></div>
+						</div>
+						<div class="portlet-body">
+                            <eq name="pos" value="3">
+                                <a href="{:U('Auth/userList')}" class="btn btn-success" style="margin-right:1px;margin-bottom:10px;">{$group}</a>
+                            <else/>
+                            <a href="{:U('Auth/userList')}" <empty name="_GET['gid']">class="btn btn-success"<else/>class="btn btn-primary"</empty> style="margin-right:1px;margin-bottom:10px;">所有员工</a>
+                            </eq>
+                            <volist name="group" id="gp">
+                            <a href="{:U('Auth/groupUsers',array('gid' => $gp['id']))}" <eq name="gp.id" value="$_GET['gid']">class="btn btn-success"<else/>class="btn btn-primary"</eq> style="margin-right:5px;margin-bottom:10px;">{$gp.title}</a>
+                            </volist>
+							<div class="table-responsive">
+								<table class="table table-bordered">
+								<thead>
+								<tr>
+									<th>序号</th>
+									<th>用户名</th>
+									<th>真实姓名</th>
+									<th>联系方式</th>
+									<th>Email</th>
+									<!--<th>所属公司</th>-->
+									<th>担任职务</th>
+									<th>创建时间</th>
+									<th>用户状态</th>
+									<th>授权状态</th>
+									<th>操作</th>
+								</tr>
+								</thead>
+								<tbody>
+								<volist name="list" id="data" empty="管理员很懒,还未添加任何员工">
+								<tr>
+									<td>{$i}</td>
+									<td>{$data.username}</td>
+									<td>{$data.realname}</td>
+									<td>{$data.tel}</td>
+									<td>{$data.email}</td>
+									<!--<td>{$data.cid|comname}</td>-->
+									<td>{$data.id|job}</td>
+									<td>{$data.createtime|date='Y-m-d H:i', ###}</td>
+									<td><eq name="data['status']" value="1">
+											<i class="fa fa-check"></i> 启用
+										<else/>
+											<i class="fa fa-times"></i> 禁用
+										</eq>
+									</td>
+                                    <td><eq name="data['auth']" value="1">
+                                        <i class="fa fa-check"></i> 授权
+                                        <else/>
+                                        <i class="fa fa-times"></i> 未授权
+                                    </eq>
+                                    </td>
+									<td>[<a href="{:U('Auth/updateUser', array('id' => $data['id']))}">修改</a>] | 
+									<eq name="data['status']" value="1">
+									[<a href="{:U('Auth/disableUser', array('id' => $data['id']))}">禁用</a>] | 
+									<else/>
+									[<a href="{:U('Auth/enableUser', array('id' => $data['id']))}">启用</a>] | 
+									</eq>
+									[<a class="delcfm" src="{:U('Auth/deleteUser', array('id' => $data['id']))}">删除</a>]</td>
+								</tr>
+								</volist>
+								</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- END SAMPLE TABLE PORTLET-->
+                    <neq name="pos" value="3">
+                    <!-- BEGIN SAMPLE TABLE PORTLET-->
+                    <div class="portlet box green">
+                        <div class="portlet-title">
+                            <div class="caption"><i class="fa fa-cogs"></i>待授权员工列表 <span style="font-size:12px;">(分配部门)</span></div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="table-responsive">
+                                <form class="form-horizontal" action="{:U('Auth/addUserRules')}" method="post">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                        <tr><td>
+                                            <volist name="users" id="user" empty="没有未授权的员工">
+                                                <input type="checkbox" name="uid[]" value="{$user.id}">{$user.realname}　
+                                            </volist>
+                                        </td></tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="form-actions">
+                                        <div class="row">
+                                            <div class="col-md-2 col-xs-3">
+                                                <select name="group_id" class="form-control">
+                                                <volist name="group" id="gps">
+                                                    <option value="{$gps.id}">{$gps.title}</option>
+                                                </volist>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-8  col-xs-5">
+                                                <button type="submit" class="btn green">　确认授权　</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    </neq>
+                    <!-- END SAMPLE TABLE PORTLET-->
+				</div>
+			</div>
+			<!-- END PAGE CONTENT-->
+		</div>
+	</div>
+	<!-- END CONTENT -->
+</div>
+<!-- END CONTAINER -->
+<include file="Common:footer" />
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="__PUBLIC__/global/plugins/respond.min.js"></script>
+<script src="__PUBLIC__/global/plugins/excanvas.min.js"></script> 
+<![endif]-->
+<script src="__PUBLIC__/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="__PUBLIC__/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<script src="__PUBLIC__/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="__PUBLIC__/layer/layer.min.js"></script>
+<script>
+jQuery(document).ready(function() {       
+    // initiate layout and plugins
+    Metronic.init(); // init metronic core components
+    Layout.init(); // init current layout
+    QuickSidebar.init(); // init quick sidebar
+    Demo.init(); // init demo features
+
+    // 是否删除提示
+    $('.delcfm').click(function(){
+        var url = $(this).attr('src');
+        $.layer({
+            shade: [0],
+            area: ['auto','auto'],
+            dialog: {
+                msg: '确定要删除该用户吗? 为保证客户信息的准确性, 请先将该员工的客户信息转移给其他员工 或者 我们建议您禁用该员工! ',
+                btns: 2,
+                type: 4,
+                btn: ['确定','取消'],
+                yes: function(){
+                    window.location = url;
+                }, no: function(){
+                    return false;
+                }
+            }
+        });
+    });
+});
+</script>
+</body>
+<!-- END BODY -->
+</html>

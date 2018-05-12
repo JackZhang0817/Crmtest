@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="maximum-scale=1.0,width=device-width, initial-scale=1.0">
+<title>帮助中心 – 家装CRM客户管理系统</title>
+<meta name="keywords" content="家装crm, 家装crm软件,家装crm系统,装修crm,免费crm系统" />
+<meta name="description" content="家装crm系统，让工作更简单。家装crm系统是一个专门为家装行业量身定制的客户管理系统，通过简单的协作、沟通、共享和记录，以及云技术和跨平台，轻松实现团队的交互与客户管理工作，从而极大地提高工作效率。" />
+<include file="Index:css" />
+</head>
+<body>
+<!-- 头部 -->
+<include file="Index:header" />
+<!-- /头部 -->
+<!-- 主体 -->
+<!-- 顶部导航 -->
+<include file="Index:help_topnav" />
+<!-- /顶部导航 -->
+<div class="help-center-warpper clearfix">
+<!-- 左侧导航 -->
+<include file="Index:help_leftnav" />
+<!-- /左侧导航 -->
+    <div class="right">
+        <div class="nav">帮助中心 > 开始使用CRM > 权限控制</div>
+        <div class="content">
+            <p><strong>权限控制概述：</strong>本系统采用的是RBAC模型-基于角色的访问控制（Role-Based Access Control），这极大地简化了权限的管理。RBAC认为权限授权实际上是Who、What、How的问题。在RBAC模型中，who、what、how构成了访问权限三元组,也就是“Who对What(Which)进行How的操作”，从而实现权限自由分配。</p>
+            <h4 class="red">我们建议按照“最小权限”原则进行设置，如下：</h4>
+            <h4>部门权限设置：如下示例</h4>
+            <p><strong>1、管理组权限：</strong>拥有完全控制权限，即对系统所有设置都可以进行查看和配置。独有权限（只有管理员才有的权限）：用户中心（部门管理-添加、修改、删除、员工管理-添加、修改、删除）、系统配置（添加客户状态、添加客户来源、添加装修方式、添加施工工序）</p>
+            <p class="center"><img src="/Public/qiguweb/images/help/permission-1.jpg" alt="管理组权限设置" /></p>
+            <p><strong>2、市场部权限：</strong>可以添加、查看、修改和删除所有相关的所有客户信息及跟踪记录信息，无系统管理权限（例如：用户中心和系统配置权限等）</p>
+            <p class="center"><img src="/Public/qiguweb/images/help/permission-2.jpg" alt="市场部权限设置" /></p>
+            <p><strong>3、工程部权限：</strong>可以添加、查看、修改和删除所有相关的所有客户信息及跟踪记录信息，无系统管理权限（例如：用户中心和系统配置权限等）</p>
+            <p class="center"><img src="/Public/qiguweb/images/help/permission-3.jpg" alt="工程部权限设置" /></p>
+            <p><strong>4、其他：</strong>例如：设计部、财务部等不在一一举例说明，请根据实际情况自行配置。</p>
+            <h4>个人权限设置：如下示例</h4>
+            <p><strong>1、管理员权限：</strong>拥有完全控制权限，即对系统所有设置都可以进行查看和配置。独有权限（只有管理员才有的权限）：用户中心（部门管理-添加、修改、删除、员工管理-添加、修改、删除）、系统配置（添加客户状态、添加客户来源、添加装修方式、添加施工工序）</p>
+            <p><strong>2、总监级别权限：</strong>可以添加、查看、修改和删除所有相关的所有客户信息及跟踪记录信息和少部分系统配置权限（例如：更改员工权限、部门等）</p>
+            <p><strong>3、经理级别权限：</strong>可以添加、查看、修改和删除本部门相关的所有客户信息及客户跟踪记录信息，无系统配置权限，如下图所示：</p>
+            <p><strong>4、普通员工权限：</strong>仅可以添加、查看、修改和删除和自己相关的客户信息以及客户跟踪记录信息，无系统配置权限</p>
+        </div>
+    </div>
+</div>
+<!-- /主体 -->
+<!-- 底部 -->
+<include file="Index:footer" />
+<!-- /底部 -->
+</body>
+</html>

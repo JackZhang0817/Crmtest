@@ -1,0 +1,40 @@
+
+    <div style="padding:10px 60px 20px 60px">
+        <form id="ff" method="post">
+            <table cellpadding="5">
+                <tr>
+                    <td>用户名:</td>
+                    <td>
+                        <select class="easyui-combobox" name="userid">
+                            <volist name="users" id="vo"  >
+                                <option value="{$vo.id}">{$vo.username}</option>
+                            </volist>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>赠送金额:</td>
+                    <td><input class="easyui-textbox easyui-validatebox" type="text" name="discount" required="required" validType="number" ></input></td>
+                </tr>
+            </table>
+        </form>
+        <div style="text-align:center;padding:5px">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">提交</a>
+        </div>
+    </div>
+    <script>
+        function submitForm(){
+            var userid = $('input[name=userid]').val();
+            var discount = $('input[name=discount]').val();
+            $.ajax({
+                url: "{:U('Trade/addDiscount')}",
+                data: {userid:userid, discount:discount},
+                cache: false,
+                success: function(data){
+                    console.log(data);
+                    $('#dd').dialog('close');
+                }
+            });
+        }
+
+    </script>

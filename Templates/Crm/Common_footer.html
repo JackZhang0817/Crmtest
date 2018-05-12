@@ -1,0 +1,23 @@
+<!-- BEGIN FOOTER -->
+<div class="page-footer">
+	<div class="page-footer-inner">
+		 2014 &copy; 客户关系管理系统(CRM) - 奇古兄弟网络.
+	</div>
+	<div class="scroll-to-top">
+		<i class="icon-arrow-up"></i>
+	</div>
+</div>
+<!-- END FOOTER -->
+<script src="__PUBLIC__/global/plugins/jquery.min.js" type="text/javascript"></script>
+<!--时时更新消息提醒状态-->
+<script type="text/javascript">
+$(function(){
+    $(".news_status").click(function(){
+        var url = $(this).attr('data-href');
+        var id = $(this).attr('data-id');
+        $.post("{:U('Customer/updatenews')}", {id:id}, function(msg){
+            window.location = url;
+        });
+    });
+});
+</script>

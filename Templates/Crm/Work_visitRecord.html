@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+<meta charset="utf-8"/>
+<title>追踪记录 | CRM客户管理系统</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="format-detection" content="telephone=no"/>
+<meta content="" name="description"/>
+<meta content="gaorenhua" name="author"/>
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<link href="__PUBLIC__/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN THEME STYLES -->
+<include file="Common:css" />
+<!-- END THEME STYLES -->
+<link rel="shortcut icon" href="favicon.ico"/>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed page-quick-sidebar-over-content ">
+<!-- 包含公共头部和公共侧边栏 -->
+<include file="Common:header" />
+	<!-- BEGIN CONTENT -->
+	<div class="page-content-wrapper">
+		<div class="page-content">
+			<!-- BEGIN PAGE CONTENT-->
+			<div class="row">
+				<div class="col-md-6 col-sm-6">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				<div class="portlet box green">
+					<div class="portlet-title">
+						<div class="caption"><i class="fa fa-file-text"></i>客户信息</div>
+                        <a style="float:right; color:#fff; height:26px; line-height:18px;padding:3px 5px;margin:8px 0px 0 0;border:#fff solid 1px;" href="{:U('Work/updateCustomer',array('id' => $info['id']))}">修改</a>
+                        <a style="float:right; color:#fff; height:26px; line-height:18px;padding:3px 5px;margin:8px 10px 0 0;border:#fff solid 1px;" href="{:U('customerList')}">返回列表页</a>
+					</div>
+					<div class="portlet-body">
+						<table class="table table-bordered table-striped">
+						<tbody>
+						<tr>
+						  <td style="width:120px;" align="right"><strong>跟单负责人：</strong></td>
+						  <td>{$info.realname}</td>
+                          <td style="width:120px;" align="right"><strong>跟单设计师：</strong></td>
+                          <td>{$info.Designer|realname}</td>
+						</tr>
+						<tr>
+						  <td align="right"><strong>项目名称：</strong></td>
+						  <td>{$info.Company}</td>
+                          <td align="right"><strong>联系人：</strong></td>
+                          <td>{$info.Contact}</td>
+						</tr>
+						<tr>
+						  <td align="right"><strong>职务：</strong></td>
+						  <td>{$info.Position}</td>
+                          <td align="right"><strong>联系电话：</strong></td>
+                          <td>{$info.Tel}</td>
+						</tr>
+						<tr>
+                          <td align="right"><strong>来源渠道：</strong></td>
+                          <td>{$info.channelname}</td>
+                            <td align="right"><strong>第三方业务：</strong></td>
+                            <td><empty name="info.ThirdBiz">--<else/>{$info.ThirdBiz}</empty></td>
+						</tr>						
+                        <tr>
+                            <td align="right"><strong>项目地址：</strong></td>
+                            <td><empty name="info.Address">--<else/>{$info.Address}</empty></td>                        	
+                          <td align="right"><strong>面积：</strong></td>
+                          <td><empty name="info.Space">--<else/>{$info.Space}㎡</empty></td>
+
+						</tr>
+                        <tr>
+                          <td align="right"><strong>项目类型：</strong></td>
+                          <td><empty name="info.Type">--<else/>{$info.Type}</empty></td>                        	
+                            <td align="right"><strong>项目总价：</strong></td>
+                            <td><empty name="info.Amount">--<else/>{$info.Amount}</empty></td>
+                        </tr>
+						<tr>
+                          <td align="right"><strong>跟进状态：</strong></td>
+                          <td>{$info.State}</td>
+                           <td align="right"><strong>项目分级：</strong></td>
+                          <td>{$info.level}</td>                        
+						</tr>
+						<tr>
+                          <td align="right"><strong>咨询时间：</strong></td>
+                          <td>{$info.ConsultDate}</td>
+                           <td align="right"><strong></strong></td>
+                          <td></td>                        
+						</tr>
+						<tr>
+                          <td align="right"><strong>项目要求：</strong></td>
+                          <td colspan="3">{$info.Content}</td>
+						</tr>						
+						<tr><td colspan="4"><b>施工费用</b></td></tr>													
+
+						<tr>
+                          <td align="right"><strong>人工费：</strong></td>
+                          <td colspan="3">{$info.rengongfei}</td>
+						</tr>
+						<tr>
+                          <td align="right"><strong>付款计划：</strong></td>
+                          <td colspan="3">{$info.fukuanjihua}</td>
+						</tr>
+						<tr class="hidden">
+                          <td align="right"><strong>备注：</strong></td>
+                          <td colspan="3">{$info.Remark}</td>
+						</tr>							
+						<tr><td colspan="4"><b>施工信息</b></td></tr>															
+						<tr>
+							<td align="right"><strong>项目经理：</strong></td>
+							<td>{$info.Project|realname}</td>
+							<td align="right"><strong>合同编号：</strong></td>
+							<td>{$info.hetongbianhao}</td>
+						</tr>
+						<tr>
+							<td align="right"><strong>材料员：</strong></td>
+							<td>{$info.cailiaoyuan}</td>
+							<td align="right"></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td align="right"><strong>开工时间：</strong></td>
+							<td>{$info.kaigongshijian}</td>
+							<td align="right">竣工时间：</td>
+							<td>{$info.jungongshijian}</td>
+						</tr>
+						<tr>
+							<td align="right"><strong>质保金：</strong></td>
+							<td>{$info.zhibaojin}</td>
+							<td align="right">质保到期</td>
+							<td>{$info.zhibaodaoqi}</td>
+						</tr>																		
+						</tbody>
+						</table>
+                        <!--上一页  下一页-->
+                        <empty name="pre">
+                            <a class="btn btn-circle" style="padding:0px 15px;height:27px;line-height:27px; width:80px; float:left;" >没有了</a>
+                        <else/>
+                            <a class="btn btn-circle" style="background:#f2dede;padding:0px 15px;color:#a94442;height:27px;line-height:27px; width:80px; float:left;" href="{:U('Work/visitRecord',array('id' => $pre))}">上一条</a>
+                        </empty>
+                        <empty name="next">
+                            <a class="btn btn-circle" style="padding:0px 15px;height:27px;line-height:27px; width:80px; float:right;" >没有了</a>
+                        <else/>
+                            <a class="btn btn-circle" style="background:#f2dede;padding:0px 15px;color:#a94442;height:27px;line-height:27px; width:80px; float:right;" href="{:U('Work/visitRecord',array('id' => $next))}">下一条</a>
+                        </empty>
+                        <br/>
+                        <br/>
+					</div>
+				</div>
+				<!-- END EXAMPLE TABLE PORTLET-->
+				</div>
+				<div class="col-md-6 col-sm-6">
+				<!-- BEGIN PORTLET-->
+					<div class="portlet box blue">
+						<div class="portlet-title">
+							<div class="caption"><i class="fa fa-comments"></i>跟踪记录</div>
+						</div>
+						<div class="portlet-body" id="chats">
+							<ul class="chats">
+							<volist name="record" id="rd">
+								<li <eq name="rd.uid" value="$_SESSION['uid']">class="out"<else/>class="in"</eq>>
+									<img <eq name="rd.uid|photo" value="0">src="__PUBLIC__/images/80_80.png"<else/>src="/Uploads/Headimg/thumb_{$rd.uid|photo}"</eq> class="avatar img-responsive" />
+									<div class="message">
+										<span class="arrow"></span><a class="name">{$rd.uid|realname}</a>
+										<span class="datetime">{$rd.entrytime|date='Y-m-d H:i', ###}</span>　
+										<a class="update" data-toggle="modal" nums='{$rd.id}' href="#responsive"><i>修改</i></a>
+										<a onClick='delcfm()' href="{:U('deleteRecord',array('id' => $rd['id'], 'cid' => $rd['customer_id']))}"><i>删除</i></a>
+										<span class="body">{$rd.content|strip_tags}</span>
+									</div>
+								</li>
+							</volist>
+							</ul>
+							<div class="chat-form">
+							<form action="__SELF__" method="post" onSubmit="return checkRecord()">
+								<div class="input-cont">
+									<input type='hidden' name='customer_id' value="{$info.id}" />
+									<input class="form-control" id="textrecord" name="record" type="text" placeholder="点击这里添加跟踪记录..." />
+								</div>
+								<div class="btn-cont">
+									<input type='submit' name='submit' class="btn blue" value='√' />
+								</div>
+							</form>
+							</div>
+                            <br/>
+                            <form action="{:U('Work/upremind')}" method="post">
+                            <if condition="is_salesman()">
+                                <div class="form-group" style="border-top:#ddd solid 1px;padding-top:15px;">
+                                    <label class="control-label col-md-12" style="padding:0px;"> 下次回访提醒</label>
+                                </div>
+                                <br/>
+                                <div class="form-group" >
+                                    <div class="col-md-3 input-icon" style="padding:0px;">
+                                        <i class="fa fa-calendar"></i>
+                                        <input type='hidden' name='id' value="{$_GET['id']}" />
+                                        <input class="form-control date-picker" type="text" name="sremind" placeholder="例 : 2014-11-15" value="{$info.sremind}" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type='submit' name='submit' class="btn blue" value='更新' />
+                                    </div>
+                                </div>
+                            <elseif condition="is_designer()"/>
+                                <div class="form-group" style="border-top:#ddd solid 1px;padding-top:15px;">
+                                    <label class="control-label col-md-12" style="padding:0px;"> 下次回访提醒</label>
+                                </div>
+                                <br/>
+                                <div class="form-group" >
+                                    <div class="col-md-3 input-icon" style="padding:0px;">
+                                        <i class="fa fa-calendar"></i>
+                                        <input type='hidden' name='id' value="{$_GET['id']}" />
+                                        <input class="form-control date-picker" type="text" name="dremind" placeholder="例 : 2014-11-15" value="{$info.dremind}" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type='submit' name='submit' class="btn blue" value='更新' />
+                                    </div>
+                                </div>
+                            <elseif condition="is_project()"/>
+                                <div class="form-group" style="border-top:#ddd solid 1px;padding-top:15px;">
+                                    <label class="control-label col-md-12" style="padding:0px;"> 下次回访提醒</label>
+                                </div>
+                                <br/>
+                                <div class="form-group" >
+                                    <div class="col-md-3 input-icon" style="padding:0px;">
+                                        <i class="fa fa-calendar"></i>
+                                        <input type='hidden' name='id' value="{$_GET['id']}" />
+                                        <input class="form-control date-picker" type="text" name="premind" placeholder="例 : 2014-11-15" value="{$info.premind}" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type='submit' name='submit' class="btn blue" value='更新' />
+                                    </div>
+                                </div>
+                            </if>
+                            </form>
+                            <br/>
+						</div>
+					</div>
+					<!-- END PORTLET-->
+				</div>
+				<div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+								<h4 class="modal-title">修改追踪记录</h4>
+							</div>
+							<form action="{:U('updateRecord')}" method="post">
+								<div class="modal-body form-body">
+									<div class="row">
+										<div class="form-group">
+											<div id="updaterecord" class="col-md-12"></div>
+										</div>
+                                        <br/>
+									</div>
+                                    <if condition="is_salesman()">
+                                        <div class="form-group" style="padding-top:15px;">
+                                            <label class="control-label col-md-12" style="padding:0px;"> 下次回访提醒</label>
+                                        </div>
+                                        <br/>
+                                        <div class="form-group" >
+                                            <div class="col-md-3 input-icon" style="padding:0px;">
+                                                <i class="fa fa-calendar"></i>
+                                                <input type='hidden' name='id' value="{$_GET['id']}" />
+                                                <input class="form-control date-picker" type="text" name="sremind" placeholder="例 : 2014-11-15" value="{$info.sremind}" />
+                                            </div>
+                                        </div>
+                                        <elseif condition="is_designer()"/>
+                                        <div class="form-group" style="padding-top:15px;">
+                                            <label class="control-label col-md-12" style="padding:0px;"> 下次回访提醒</label>
+                                        </div>
+                                        <br/>
+                                        <div class="form-group" >
+                                            <div class="col-md-3 input-icon" style="padding:0px;">
+                                                <i class="fa fa-calendar"></i>
+                                                <input type='hidden' name='id' value="{$_GET['id']}" />
+                                                <input class="form-control date-picker" type="text" name="dremind" placeholder="例 : 2014-11-15" value="{$info.dremind}" />
+                                            </div>
+                                        </div>
+                                        <elseif condition="is_project()"/>
+                                        <div class="form-group" style="padding-top:15px;">
+                                            <label class="control-label col-md-12" style="padding:0px;"> 下次回访提醒</label>
+                                        </div>
+                                        <br/>
+                                        <div class="form-group" >
+                                            <div class="col-md-3 input-icon" style="padding:0px;">
+                                                <i class="fa fa-calendar"></i>
+                                                <input type='hidden' name='id' value="{$_GET['id']}" />
+                                                <input class="form-control date-picker" type="text" name="premind" placeholder="例 : 2014-11-15" value="{$info.premind}" />
+                                            </div>
+                                        </div>
+                                    </if>
+                                    <br />
+                                    <br />
+								</div>
+								<div class="modal-footer">
+									<button type="button" data-dismiss="modal" class="btn default">取消修改</button>
+									<button type="submit" class="btn green">确认修改</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- END PAGE CONTENT-->
+		</div>
+	</div>
+	<!-- END CONTENT -->
+</div>
+<!-- END CONTAINER -->
+<include file="Common:footer" />
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="__PUBLIC__/global/plugins/respond.min.js"></script>
+<script src="__PUBLIC__/global/plugins/excanvas.min.js"></script> 
+<![endif]-->
+<script src="__PUBLIC__/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="__PUBLIC__/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="__PUBLIC__/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<script type="text/javascript">var displayFields_url = '{:U("UserDefined/displayFields")}';</script>
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="__PUBLIC__/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="__PUBLIC__/javascript/table-defined.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/pages/scripts/form-validation.js"></script>
+<script>
+	//删除提示框
+	function delcfm() {
+		if (!confirm('此操作为永久删除, 确定删除？')) {
+			window.event.returnValue = false;
+		}
+	}
+
+
+	jQuery(document).ready(function() {
+		Metronic.init();
+		// init metronic core components
+		Layout.init();
+		// init current layout
+		QuickSidebar.init();
+		// init quick sidebar
+		Demo.init();
+		// init demo features
+		FormValidation.init();
+
+		// 点击的时候
+		$('.update').click(function() {
+			$.get("{:U('updateRecord')}", {
+				id : $(this).attr('nums')
+			}, function(msg) {
+				$("#updaterecord").html(msg);
+			});
+		});
+	});
+
+	//追踪记录不能为空
+	function checkRecord() {
+		var record = document.getElementById("textrecord");
+		if (record.value == "") {
+			alert("追踪记录内容不能为空");
+			record.focus();
+			return false;
+		} else {
+			return true;
+		}
+	} 
+</script>
+</body>
+<!-- END BODY -->
+</html>

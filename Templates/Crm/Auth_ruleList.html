@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+<meta charset="utf-8"/>
+<title>认证规则列表 | CRM客户关系管理系统</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta content="" name="description"/>
+<meta content="gaorenhua" name="author"/>
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+
+<link href="__PUBLIC__/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN THEME STYLES -->
+<include file="Common:css" />
+<!-- END THEME STYLES -->
+<link rel="shortcut icon" href="favicon.ico"/>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed page-quick-sidebar-over-content ">
+<!-- 包含公共头部和公共侧边栏 -->
+<include file="Common:header" />
+	<!-- BEGIN CONTENT -->
+	<div class="page-content-wrapper">
+		<div class="page-content">
+			<!-- BEGIN PAGE CONTENT-->
+			<div class="row">
+				<div class="col-md-12">
+					<!-- BEGIN SAMPLE TABLE PORTLET-->
+					<div class="portlet box blue">
+						<div class="portlet-title">
+							<div class="caption"><i class="fa fa-cogs"></i>认证规则列表</div>
+						</div>
+						<div class="portlet-body">
+							<div class="table-responsive">
+                            <form action="{:U('Auth/sortRule')}" method="post">
+								<table class="table table-bordered">
+								<thead>
+								<tr>
+									<th style="width:50px;">#</th>
+									<th>父级ID</th>
+                                    <th>规则描述</th>
+									<th>规则名称</th>
+									<th>规则状态</th>
+									<th>操作</th>
+								</tr>
+								</thead>
+								<tbody>
+								<php>$n=1;</php>
+								<volist name="list" id="data" empty="管理员很懒,还未创建任何认证规则">
+								<tr>
+									<td></td>
+									<td>{$data.pid}</td>
+                                    <td>{$data.title}</td>
+									<td>{$data.name}</td>
+									<td><eq name="data['status']" value="1">
+											<i class="fa fa-check"></i> 启用
+										<else/>
+											<i class="fa fa-times"></i> 禁用
+										</eq>
+									</td>
+									<td>[<a href="">修改</a>] | [<a href="">禁用</a>] | [<a href="">删除</a>]</td>
+								</tr>
+									<volist name="data.child" id="vo">
+									<tr>
+										<td>
+                                            <input type="hidden" name="id[]" value="{$vo.id}" />
+                                            <input type="text" name="order[]" style="width:30px;text-align:center;height:20px;" value="{$vo.order}" />
+										</td>
+										<td>{$vo.pid}</td>
+                                        <td>　l--{$vo.title}</td>
+										<td>{$vo.name}</td>
+										<td><eq name="vo['status']" value="1">
+												<i class="fa fa-check"></i> 启用
+											<else/>
+												<i class="fa fa-times"></i> 禁用
+											</eq>
+										</td>
+										<td>[<a href="">修改</a>] | [<a href="">禁用</a>] | [<a href="">删除</a>]</td>
+									</tr>
+									</volist>
+								</volist>
+								</tbody>
+								</table>
+                                <input class="btn blue" type="submit" name="submit" value="排序"/>
+                            </form>
+							</div>
+						</div>
+					</div>
+					<!-- END SAMPLE TABLE PORTLET-->
+				</div>
+			</div>
+			<!-- END PAGE CONTENT-->
+		</div>
+	</div>
+	<!-- END CONTENT -->
+</div>
+<!-- END CONTAINER -->
+<include file="Common:footer" />
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="__PUBLIC__/global/plugins/respond.min.js"></script>
+<script src="__PUBLIC__/global/plugins/excanvas.min.js"></script> 
+<![endif]-->
+<script src="__PUBLIC__/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="__PUBLIC__/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<script src="__PUBLIC__/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script>
+jQuery(document).ready(function() {       
+   // initiate layout and plugins
+   Metronic.init(); // init metronic core components
+Layout.init(); // init current layout
+QuickSidebar.init(); // init quick sidebar
+Demo.init(); // init demo features
+});
+</script>
+</body>
+<!-- END BODY -->
+</html>

@@ -1,0 +1,27 @@
+<include file="Common:header" />
+    <div class="content" data-options="region:'center',title:'起始页',iconCls:'icon-ok'">
+        <div class="easyui-panel" title="账户信息" style="width:400px;height:150px;margin-bottom:10px;padding:10px;">
+            您好，{:realname(session('aid'))} <br/>
+            所属角色∶超级管理员 <br/>
+            ------------------------------------- <br/>
+            上次登录时间∶{$info.updatetime|date='Y-m-d H:i',###}<br/>
+            上次登录IP∶{$info.ip}
+        </div>
+        <div class="easyui-panel" title="系统信息" style="width:400px;height:150px;margin-bottom:10px;padding:10px;">
+            ThinkPHP版本∶ThinkPHP {$Think.THINK_VERSION} <br/>
+            操作系统∶{:php_uname('s')}<br/>
+            服务器软件∶{$SERVER_SOFTWARE}<br/>
+            MySQL版本∶{:mysql_get_server_info()}<br/>
+            上传文件限制∶
+        </div>
+        <div class="easyui-panel" title="开发团队" style="width:400px;height:190px;padding:10px;">
+            版权所有：奇古兄弟(青岛)网络科技有限公司 <br/>
+            团队成员：郭营、孙松、闫怀堂、高仁华 <br/>
+            UI 设计：EasyUI <br/>
+            官方网站：http://www.qigubrother.com/ <br/>
+            官方论坛：http://www.zxicrm.com/ <br/>
+            官方QQ讨论群：383152535 <br/>
+            销售咨询QQ：1425097451
+        </div>
+    </div>
+<include file="Common:footer" />

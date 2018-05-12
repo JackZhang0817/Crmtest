@@ -1,0 +1,275 @@
+<!-- BEGIN HEADER -->
+<div class="page-header navbar navbar-fixed-top">
+    <!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo">
+            <a href="{:U('Index/index')}">
+            <img src="__PUBLIC__/admin/layout/img/logo.png" alt="logo" class="logo-default"/>
+            </a>
+            <div class="menu-toggler sidebar-toggler hide">
+                <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+            </div>
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+        </a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="top-menu">
+            <!-- 切换主题样式 -->
+            <div class="theme-panel hidden-xs hidden-sm">
+                <div class="toggler"></div>
+                <div class="toggler-close"></div>
+                <div class="theme-options">
+                    <div class="theme-option theme-colors clearfix">
+                        <span>主题颜色</span>
+                        <ul id="crm_theme">
+                            <li class="color-default <eq name='a|theme' value='default'>current</eq> tooltips" data-style="default" data-container="body" data-original-title="Default">
+                            </li>
+                            <li class="color-darkblue <eq name='a|theme' value='darkblue'>current</eq> tooltips" data-style="darkblue" data-container="body" data-original-title="Dark Blue">
+                            </li>
+                            <li class="color-blue <eq name='a|theme' value='blue'>current</eq> tooltips" data-style="blue" data-container="body" data-original-title="Blue">
+                            </li>
+                            <li class="color-grey <eq name='a|theme' value='grey'>current</eq> tooltips" data-style="grey" data-container="body" data-original-title="Grey">
+                            </li>
+                            <li class="color-light <eq name='a|theme' value='light'>current</eq> tooltips" data-style="light" data-container="body" data-original-title="Light">
+                            </li>
+                            <!--<li class="color-light2 <eq name='a|theme' value='light2'>current</eq> tooltips" data-style="light2" data-container="body" data-html="true" data-original-title="Light 2" style="margin-right:0px;">-->
+                            <!--</li>-->
+                        </ul>
+                    </div>
+                    <script>var theme_url = "{:U('Index/theme')}";</script>
+                    <div class="theme-option">
+                        <span>网站布局</span>
+                        <select class="layout-option form-control input-small">
+                            <option value="fluid" selected="selected">流体布局</option>
+                            <option value="boxed">盒子布局</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                        <span>顶部状态</span>
+                        <select class="page-header-option form-control input-small">
+                            <option value="fixed" selected="selected">固定</option>
+                            <option value="default">默认</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                        <span>侧栏状态</span>
+                        <select class="sidebar-option form-control input-small">
+                            <option value="fixed">固定</option>
+                            <option value="default" selected="selected">默认</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                        <span>侧栏位置</span>
+                        <select class="sidebar-pos-option form-control input-small">
+                            <option value="left" selected="selected">左侧</option>
+                            <option value="right">右侧</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+                        <span>底部状态</span>
+                        <select class="page-footer-option form-control input-small">
+                            <option value="fixed">固定</option>
+                            <option value="default" selected="selected">默认</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- 切换主题样式 -->
+            <ul class="nav navbar-nav pull-right">
+                <!-- BEGIN NOTIFICATION DROPDOWN -->
+                <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                    <i class="icon-bell"></i>
+                    <if condition="news('count') !=0">
+                    <span class="badge badge-default">
+                    {:news('count')} </span>
+                    </if>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><p>您有 {:news('count')} 个未读提醒</p></li>
+                        <li>
+                            <ul class="dropdown-menu-list scroller" style="height: 250px;">
+                            <volist name=":news('data')" id="n" offset="0" length="4">
+                                <li>
+                                    <a class="news_status" data-href="{$n.rurl}" data-id="{$n.id}">
+                                        <i class="icon-bell"></i>
+                                        {$n.uid|realname}, {$n.operate}<span class="time">
+                                        {$n.entrytime|date='m-d H:i', ###}&nbsp;</span>
+                                    </a>
+                                </li>
+                            </volist>
+                            </ul>
+                        </li>
+                        <if condition="news('count') !=0">
+                        <li class="external">
+                            <a href="{:U('Index/viewAllNews')}">
+                            查看所有信息 <i class="m-icon-swapright"></i>
+                            </a>
+                        </li>
+                        </if>
+                    </ul>
+                </li>
+                <!-- END NOTIFICATION DROPDOWN -->
+                <!-- BEGIN USER LOGIN DROPDOWN -->
+                <li class="dropdown dropdown-user">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                    <eq name="_SESSION['uid']|photo" value="0">
+                        <img alt="" class="img-circle hide1" src="__PUBLIC__/images/80_80.png"/>
+                    <else/>
+                        <img alt="" class="img-circle hide1" src="/Uploads/Headimg/thumb_{:photo($_SESSION['uid'])}"/>
+                    </eq>
+                    <span class="username username-hide-on-mobile">{:realname($_SESSION['uid'])}</span>
+                    <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{:U('Auth/updatePass')}">
+                                <i class="icon-pencil"></i> 修改密码 </a>
+                        </li>
+                        <li>
+                            <a href="{:U('Auth/userCenter')}">
+                            <i class="icon-user"></i> 上传头像 </a>
+                        </li>
+                        <li>
+                            <a href="/index.php/Club/clubIndex.html" target="_blank">
+                            <i class="icon-rocket"></i> 进入社区 </a>
+                        </li>
+                        <li>
+                            <a href="/index.php/Index/help.html" target="_blank">
+                                <i class="icon-question"></i> 帮助中心 </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="{:U('Login/logout')}">
+                            <i class="icon-key"></i> 退出登录 </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- END USER LOGIN DROPDOWN -->
+            </ul>
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END HEADER INNER -->
+</div>
+<!-- END HEADER -->
+<div class="clearfix">
+</div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+        <div class="page-sidebar navbar-collapse collapse">
+            <!-- BEGIN SIDEBAR MENU -->
+            <ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+                <li <if condition="MODULE_NAME=='Index'">class="active" <else/>class="start"</if> style="margin-top:15px;">
+                    <a href="{:U('Index/index')}">
+                    <i class="icon-home"></i>
+                    <span class="title">基本信息</span>
+                    <span class="selected"></span>
+                    <span class="arrow"></span>
+                    </a>
+                </li>
+                <volist name=":checkAuth()" id="menu" offset="0" length='2'>
+                <li <if condition="moduleName($menu[name], 0)== MODULE_NAME">class="active open"</if>>
+                    <a href="javascript:;">
+                    <i class="{$menu.icon}"></i>
+                    <span class="title">{$menu.title}</span>
+                    <span class="selected"></span>
+                    <if condition="moduleName($menu[name], 0)== MODULE_NAME">
+                    <span class="arrow open"></span>
+                    <else/>
+                    <span class="arrow"></span>
+                    </if>
+                    </a>
+                    <ul class="sub-menu">
+                    <volist name="menu.child" id="child">
+                        <li <if condition="moduleName($child[name], 1)== ACTION_NAME">class="active"</if>>
+                            <a href="{:U($child[name])}"><i class="fa fa-file-o"></i> {$child.title}</a>
+                            <if condition="$child[id]==147">
+                                   <a style="float:right;margin-top:-32px;" href="{:U('Customer/chooseState')}"><i class="icon-settings"></i></a>
+                            </if>
+                            <if condition="$child[id]==161">
+                                <a style="float:right;margin-top:-32px;" href="{:U('Project/chooseState')}"><i class="icon-settings"></i></a>
+                            </if>
+                        </li>
+                        <!--添加客户后面循环客户状态-->
+                        <if condition="$child.id == 142">
+                            <volist name=":stateMenu()" id="stateMenu">
+                                <li <if condition="$stateMenu.id == $_GET['state']">class="active"</if>><a href="{:U('Customer/getStateCustomer', array('state' => $stateMenu['id']))}"><i class="fa fa-file-o"></i> {$stateMenu.state_id|stateName}客户</a></li>
+                            </volist>
+                        </if>
+                        <!--已开工程客户后面添加施工阶段客户和保修阶段客户-->
+                        <if condition="$child.id == 161">
+                            <li <if condition="isset($_GET['open']) && $_GET['open'] == 0">class="active"</if>><a href="{:U('Project/openPaltform', array('open' => 0))}"><i class="fa fa-file-o"></i> 已开通平台客户</a></li>
+                            <li <if condition="$_GET['open'] == 1">class="active"</if>><a href="{:U('Project/openPaltform', array('open' => 1))}"><i class="fa fa-file-o"></i> 已禁用平台客户</a></li></eq>
+                        </if>
+                    </volist>
+                    </ul>
+                </li>
+                </volist>
+                <li <if condition="MODULE_NAME == 'DataCount'">class="active open"</if>>
+                    <a href="javascript:;">
+                    <i class="icon-bar-chart"></i>
+                    <span class="title">数据统计</span>
+                    <if condition="MODULE_NAME == 'DataCount'">
+                    <span class="arrow open"></span>
+                    <else/>
+                    <span class="arrow"></span>
+                    </if>
+                    </a>
+                    <ul class="sub-menu">
+                        <li <if condition="ACTION_NAME == 'getMonthOrder'">class="active"</if>><a href="{:U('DataCount/getMonthOrder', array('state' => '6'))}"><i class="fa fa-file-o"></i> 本月已定金客户</a></li>
+                        <li <if condition="ACTION_NAME == 'getMonthHetong'">class="active"</if>><a href="{:U('DataCount/getMonthHetong', array('state' => '7'))}"><i class="fa fa-file-o"></i> 本月已合同客户</a></li>
+                    </ul>
+                </li>
+                <volist name=":checkAuth()" id="menu" offset="2" length='6'>
+                <li <if condition="moduleName($menu[name], 0)== MODULE_NAME">class="active open"</if>>
+                <a href="javascript:;">
+                    <i class="{$menu.icon}"></i>
+                    <span class="title">{$menu.title}</span>
+                    <span class="selected"></span>
+                    <if condition="moduleName($menu[name], 0)== MODULE_NAME">
+                        <span class="arrow open"></span>
+                        <else/>
+                        <span class="arrow"></span>
+                    </if>
+                </a>
+                <ul class="sub-menu">
+                    <volist name="menu.child" id="child">
+                        <li <if condition="moduleName($child[name], 1)== ACTION_NAME">class="active"</if>><a href="{:U($child[name])}"><i class="fa fa-file-o"></i> {$child.title}</a></li>
+                        <if condition="$child.id == 142">
+                            <volist name=":stateMenu()" id="stateMenu">
+                                <li <if condition="$stateMenu.id == $_GET['state']">class="active"</if>><a href="{:U('Customer/getStateCustomer', array('state' => $stateMenu['id']))}"><i class="fa fa-file-o"></i> {$stateMenu.state_id|stateName}客户</a></li>
+                            </volist>
+                        </if>
+                    </volist>
+                </ul>
+                </li>
+                </volist>
+                <li>
+                    <a href="javascript:;">
+                    <i class="fa fa-flag-o"></i>
+                    <span class="title">版本信息</span>
+                    <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li><a href="/index.php/Index/help_version.html" target="_blank"><i class="fa fa-file-o"></i> 更新日志</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->

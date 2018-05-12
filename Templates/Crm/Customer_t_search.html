@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+<meta charset="utf-8"/>
+<title>我的客户 | CRM客户管理系统</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="" name="description"/>
+<meta content="gaorenhua" name="author"/>
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<link href="__PUBLIC__/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN PAGE LEVEL STYLES -->
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/global/plugins/bootstrap-datepicker/css/datepicker.css"/>
+<!-- END PAGE LEVEL STYLES -->
+<!-- BEGIN THEME STYLES -->
+<include file="Common:css" />
+<!-- END THEME STYLES -->
+<link rel="shortcut icon" href="favicon.ico"/>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed page-quick-sidebar-over-content ">
+<!-- 包含公共头部和公共侧边栏 -->
+<include file="Common:header" />
+	<!-- BEGIN CONTENT -->
+	<div class="page-content-wrapper">
+		<div class="page-content">
+			<!-- BEGIN PAGE CONTENT-->
+			<div class="row">
+				<div class="col-md-12">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption page"><i class="fa fa-globe"></i>我的客户列表 -
+                            <span style="font-size:14px;">&nbsp;共{$page}　
+                                <neq name="sum" value=''>当前条件下的总金额 : ￥{$sum|number_format}</neq>
+                            </span>
+                        </div>
+						<div class="actions">
+							<div class="btn-group">
+                                <a class="btn btn-sm btn-default" style="margin-right:5px;" href="{:U('Customer/phpExcel')}">导出客户信息</a>
+								<a class="btn default" href="#" data-toggle="dropdown">选择列 <i class="fa fa-angle-down"></i></a>
+								<div id="sample_2_column_toggler" class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
+                                    <label><input id='c1' name="tijiao[]" type="checkbox" {:xianshi(1,display_field)} data-column="0" value="1">最新回访记录</label>
+                                    <label><input id='c2' name="tijiao[]" type="checkbox" {:xianshi(2,display_field)} data-column="1" value="2">状态</label>
+                                    <label><input id='c3' name="tijiao[]" type="checkbox" {:xianshi(3,display_field)} data-column="2" value="3">客户姓名</label>
+                                    <label><input id='c4' name="tijiao[]" type="checkbox" {:xianshi(4,display_field)} data-column="3" value="4">联系方式</label>
+                                    <label><input id='c5' name="tijiao[]" type="checkbox" {:xianshi(5,display_field)} data-column="4" value="5">所在小区</label>
+                                    <label><input id='c6' name="tijiao[]" type="checkbox" {:xianshi(6,display_field)} data-column="5" value="6">固定电话</label>
+                                    <label><input id='c7' name="tijiao[]" type="checkbox" {:xianshi(7,display_field)} data-column="6" value="7">面积</label>
+                                    <label><input id='c8' name="tijiao[]" type="checkbox" {:xianshi(8,display_field)} data-column="7" value="8">户型</label>
+                                    <label><input id='c9' name="tijiao[]" type="checkbox" {:xianshi(9,display_field)} data-column="8" value="9">交房时间</label>
+                                    <label><input id='c10' name="tijiao[]" type="checkbox" {:xianshi(10,display_field)} data-column="9" value="10">量房时间</label>
+                                    <label><input id='c11' name="tijiao[]" type="checkbox" {:xianshi(11,display_field)} data-column="10" value="11">来源渠道</label>
+                                    <label><input id='c12' name="tijiao[]" type="checkbox" {:xianshi(12,display_field)} data-column="11" value="12">装修方式</label>
+                                    <label><input id='c13' name="tijiao[]" type="checkbox" {:xianshi(13,display_field)} data-column="12" value="13">咨询时间</label>
+                                    <label><input id='c14' name="tijiao[]" type="checkbox" {:xianshi(14,display_field)} data-column="13" value="14">到店时间</label>
+                                    <label><input id='c15' name="tijiao[]" type="checkbox" {:xianshi(15,display_field)} data-column="14" value="15">定金时间</label>
+                                    <label><input id='c16' name="tijiao[]" type="checkbox" {:xianshi(16,display_field)} data-column="15" value="16">定金金额</label>
+                                    <label><input id='c17' name="tijiao[]" type="checkbox" {:xianshi(17,display_field)} data-column="16" value="17">合同时间</label>
+                                    <label><input id='c18' name="tijiao[]" type="checkbox" {:xianshi(18,display_field)} data-column="17" value="18">合同金额</label>
+                                    <label><input id='c19' name="tijiao[]" type="checkbox" {:xianshi(19,display_field)} data-column="18" value="19">设计师</label>
+                                    <label><input id='c20' name="tijiao[]" type="checkbox" {:xianshi(20,display_field)} data-column="19" value="20">业务员</label>
+                                    <label><input id='c21' name="tijiao[]" type="checkbox" {:xianshi(21,display_field)} data-column="20" value="21">材料员</label>
+                                    <label><input id='c22' name="tijiao[]" type="checkbox" {:xianshi(22,display_field)} data-column="21" value="22">CAD制图员</label>
+                                    <label><input id='c23' name="tijiao[]" type="checkbox" {:xianshi(23,display_field)} data-column="22" value="23">效果图制图员</label>
+                                    <if condition="is_admin()">
+                                        <label><input id='c38' name="tijiao[]" type="checkbox" {:xianshi(38,display_field)} data-column="37" value="38">业务员回访时间</label>
+                                        <label><input id='c39' name="tijiao[]" type="checkbox" {:xianshi(39,display_field)} data-column="38" value="39">设计师回访时间</label>
+                                        <label><input id='c40' name="tijiao[]" type="checkbox" {:xianshi(40,display_field)} data-column="39" value="40">工程监理回访时间</label>
+                                        <else/>
+                                        <label><input id='c24' name="tijiao[]" type="checkbox" {:xianshi(24,display_field)} data-column="23" value="24">回访时间</label>
+                                    </if>
+                                    <label><input id='c25' name="tijiao[]" type="checkbox" {:xianshi(25,display_field)} data-column="24" value="25">设计费</label>
+                                    <label><input id='c26' name="tijiao[]" type="checkbox" {:xianshi(26,display_field)} data-column="25" value="26">服务费</label>
+                                    <label><input id='c27' name="tijiao[]" type="checkbox" {:xianshi(27,display_field)} data-column="26" value="27">轻辅费</label>
+                                    <label><input id='c28' name="tijiao[]" type="checkbox" {:xianshi(28,display_field)} data-column="27" value="28">主材费</label>
+                                    <label><input id='c29' name="tijiao[]" type="checkbox" {:xianshi(29,display_field)} data-column="28" value="29">第一笔人工费</label>
+                                    <label><input id='c30' name="tijiao[]" type="checkbox" {:xianshi(30,display_field)} data-column="29" value="30">第二笔人工费</label>
+                                    <label><input id='c31' name="tijiao[]" type="checkbox" {:xianshi(31,display_field)} data-column="30" value="31">第三笔人工费</label>
+                                    <label><input id='c32' name="tijiao[]" type="checkbox" {:xianshi(32,display_field)} data-column="31" value="32">其他费用</label>
+                                    <label><input id='c33' name="tijiao[]" type="checkbox" {:xianshi(33,display_field)} data-column="32" value="33">合同编号</label>
+                                    <label><input id='c34' name="tijiao[]" type="checkbox" {:xianshi(34,display_field)} data-column="33" value="34">工程监理</label>
+                                    <label><input id='c35' name="tijiao[]" type="checkbox" {:xianshi(35,display_field)} data-column="34" value="35">工长</label>
+                                    <label><input id='c36' name="tijiao[]" type="checkbox" {:xianshi(36,display_field)} data-column="35" value="36">开工时间</label>
+                                    <label><input id='c37' name="tijiao[]" type="checkbox" {:xianshi(37,display_field)} data-column="36" value="37">竣工时间</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="portlet-body">
+						<!-- 搜索客户 -->
+						<form class="form-inline" method="get" action="{:U('Customer/t_search')}" >
+						<div class="col-md-11" style="padding:0px;">
+							<div class="control-group search" style="padding:0px;margin-bottom:5px;">
+                                <input type="hidden" name="sort" value="{$_GET[sort]}"/>
+                                <input type="hidden" name="status" value="{$_GET[status]?$_GET[status]:0}"/>
+								<input class="form-control input-sm" type="text" name="CName" placeholder="客户姓名" />
+								<input class="form-control input-sm" type="text" name="Tel" placeholder="联系方式" />
+								<input class="form-control input-sm" type="text" name="Address" placeholder="所在小区" />
+                                <select name="Userid" class="form-control input-sm">
+                                    <option value=''>业务员</option>
+                                    <foreach name='users' item='u'>
+                                        <neq name="u.id" value="0">
+                                            <option value='{$u.id}'>{$u.realname}</option>
+                                        </neq>
+                                    </foreach>
+                                </select>
+                                <select name="Designer" class="form-control input-sm">
+                                    <option value=''>设计师</option>
+                                    <foreach name='designer' item='de'>
+                                        <option value='{$de.id}'>{$de.realname}</option>
+                                    </foreach>
+                                </select>
+                                <select name="State" class="form-control input-sm">
+                                    <option value=''>客户状态</option>
+                                    <foreach name='state' item='s'>
+                                        <option value='{$s.id}'>{$s.state_id|stateName}</option>
+                                    </foreach>
+                                </select>
+                                <select name="Channel" class="form-control input-sm">
+                                    <option value=''>渠道</option>
+                                    <foreach name='channel' item='ch'>
+                                        <option value='{$ch.id}'>{$ch.channelname}</option>
+                                    </foreach>
+                                </select>
+								<select name="Way" class="form-control input-sm">
+									<option value=''>装修方式</option>
+									<foreach name='way' item='w'>
+										<option value='{$w.id}'>{$w.wayname}</option>
+									</foreach>
+								</select>
+                                <input class="form-control input-sm date-picker" type="text" placeholder="咨询时间-" name="ConsultDate" /><input class="form-control input-sm date-picker" type="text" placeholder="-咨询时间" name="ConsultDate1" />
+								<input class="form-control input-sm date-picker" type="text" placeholder="到店时间-" name="ComeTime" /><input class="form-control input-sm date-picker" type="text" placeholder="-到店时间" name="ComeTime1" />
+								<input class="form-control input-sm date-picker" type="text" placeholder="签单时间-" name="OrderTime" /><input class="form-control input-sm date-picker" type="text" placeholder="-签单时间" name="OrderTime1" />
+								<input class="form-control input-sm date-picker" type="text" placeholder="合同时间-" name="HetongTime" /><input class="form-control input-sm date-picker" type="text" placeholder="-合同时间" name="HetongTime1" />
+							</div>
+						</div>
+						<div class="col-md-1">
+							<button type="submit" class="btn btn-sm blue">搜索</button>
+						</div>							
+						</form> 
+						<!--客户记录列表开始---->
+						<table class="table table-bordered dataTable table-full-width table-striped">
+						<thead>
+						<tr>
+                            <th class="c1">最新回访记录</th>
+                            <th class="c2 cc {:sortCustomer(State,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>State, 'status' => $status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">状态</th>
+                            <th class="c3 cc {:sortCustomer(CName,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>CName, 'status' => $status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">客户姓名</th>
+                            <th class="c4 cc {:sortCustomer(Tel,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>Tel, 'status' => $status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">联系方式</th>
+                            <th class="c5 cc {:sortCustomer(Address,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>Address,'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">所在小区</th>
+                            <th class="c6 cc {:sortCustomer(fixed,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>fixed, 'status' => $status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">固定电话</th>
+                            <th class="c7 cc {:sortCustomer(Space,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>Space, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">面积(㎡)</th>
+                            <th class="c8 cc {:sortCustomer(huxing,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>huxing, 'status' => $status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">户型</th>
+                            <th class="c9 cc {:sortCustomer(jiaofangtime,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>jiaofangtime, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">交房时间</th>
+                            <th class="c10 cc {:sortCustomer(liangfangtime,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>liangfangtime, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">量房时间</th>
+                            <th class="c11 cc {:sortCustomer(Channel,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>Channel, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">来源渠道</th>
+                            <th class="c12 cc {:sortCustomer(Way,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>Way, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">装修方式</th>
+                            <th class="c13 cc {:sortCustomer(ConsultDate,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>ConsultDate, 'status' => $status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}" >咨询时间</th>
+                            <th class="c14 cc {:sortCustomer(ComeTime,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>ComeTime, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">到店时间</th>
+                            <th class="c15 cc {:sortCustomer(OrderTime,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>OrderTime, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">定金时间</th>
+                            <th class="c16 cc {:sortCustomer(Deposit,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>Deposit, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1],'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">定金金额</th>
+                            <th class="c17 cc {:sortCustomer(HetongTime,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>HetongTime, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">合同时间</th>
+                            <th class="c18 cc {:sortCustomer(OrdersValue,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>OrdersValue, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">合同金额</th>
+                            <th class="c19 cc {:sortCustomer(Designer,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>Designer, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">设计师</th>
+                            <th class="c20 cc {:sortCustomer(Userid,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>Userid, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">业务员</th>
+                            <th class="c21 cc {:sortCustomer(Material,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>Material, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">材料员</th>
+                            <th class="c22 cc {:sortCustomer(Drawing,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>Drawing, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">CAD制图员</th>
+                            <th class="c23 cc {:sortCustomer(xiaoguotu,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>xiaoguotu, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">效果图制图员</th>
+                            <if condition="is_admin()">
+                                <th class="c38 cc {:sortCustomer(sremind,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>sremind, 'status' => $status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}" title="业务员下次回访客户的时间">业务回访</th>
+                                <th class="c39 cc {:sortCustomer(dremind,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>dremind, 'status' => $status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}" title="设计师下次回访客户的时间">设计回访</th>
+                                <th class="c40 cc {:sortCustomer(premind,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>premind, 'status' => $status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}" title="工程监理下次回访客户的时间">监理回访</th>
+                                <elseif condition="is_salesman() || is_designer() || is_project() || is_manager()"/>
+                                <th class="c24 cc {:sortCustomer(sremind,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>sremind, 'status' => $status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}" title="下次回访客户的时间">回访时间</th>
+                            </if>
+                            <th class="c25 cc {:sortCustomer(shejifei,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>shejifei, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">设计费</th>
+                            <th class="c26 cc {:sortCustomer(guanlifei,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>guanlifei, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">服务费</th>
+                            <th class="c27 cc {:sortCustomer(qingfu,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>qingfu, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">轻辅费</th>
+                            <th class="c28 cc {:sortCustomer(zhucai,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>zhucai, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">主材费</th>
+                            <th class="c29 cc {:sortCustomer(once,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>once, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">第一笔人工费</th>
+                            <th class="c30 cc {:sortCustomer(twice,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>twice, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">第二笔人工费</th>
+                            <th class="c31 cc {:sortCustomer(tirth,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>tirth, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">第三笔人工费</th>
+                            <th class="c32 cc {:sortCustomer(others,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>others, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">其他费用</th>
+                            <th class="c33 cc {:sortCustomer(Number,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>Number, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">合同编号</th>
+                            <th class="c34 cc {:sortCustomer(Project,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>Project, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">工程监理</th>
+                            <th class="c35 cc {:sortCustomer(Captain,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>Captain, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">工长</th>
+                            <th class="c36 cc {:sortCustomer(StartTime,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>StartTime, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">开工时间</th>
+                            <th class="c37 cc {:sortCustomer(EndTime,$_GET[sort],$status)}" data-src="{:U('Customer/search', array('sort'=>EndTime, 'status'=>$status,'CName'=>$_GET[CName],'Tel'=>$_GET[Tel],'Address'=>$_GET[Address],'Way'=>$_GET[Way],'Channel'=>$_GET[Channel],'Designer'=>$_GET[Designer],'State'=>$_GET[State],'Userid'=>$_GET[Userid],'ConsultDate'=>$_GET[ConsultDate],'ConsultDate1'=>$_GET[ConsultDate1],'ComeTime'=>$_GET[ComeTime],'ComeTime1'=>$_GET[ComeTime1],'OrderTime'=>$_GET[OrderTime],'OrderTime1'=>$_GET[OrderTime1],'HetongTime'=>$_GET[HetongTime],'HetongTime1'=>$_GET[HetongTime1]))}">竣工时间</th>
+							<th>操作</th>
+						</tr>
+						</thead>
+						<tbody>
+						<volist name="customer" id="v" empty="$empty">
+						<tr>
+                            <td class="c1" style="background:{$v.markcolor|markcolor}">
+                                <if condition="lastRecord($v[id])==''">
+                                    <a href="{:U('Customer/visitRecord', array('id' => $v[id]))}">暂无追踪记录</a>
+                                    <else/>
+                                    <a class="popovers" data-container="body" data-trigger="hover" data-placement="right" data-content="{:lastRecord($v[id])}" data-original-title="Popover in right" href="{:U('Customer/visitRecord', array('id' => $v[id]))}" title="追踪记录预览">{:msubstr(lastRecord($v[id]),0,34)}...</a>
+                                </if>
+                            </td>
+                            <td class="c2" style="background:{$v.markcolor|markcolor}">{$v.State|state}</td>
+                            <td class="c3 cup" data-name="CName" data="{$v.id}" style="background:{$v.markcolor|markcolor}">{$v.CName}<a href="{:U('Customer/visitRecord', array('id' => $v[id]))}">&nbsp;&nbsp;<i class="icon-pencil"></i></a></td>
+                            <td class="c4 cup" data-name="Tel" data="{$v.id}" style="background:{$v.markcolor|markcolor}"><a href="tel:{$v.Tel}">{$v.Tel}</a></td>
+                            <td class="c5 cup" data-name="Address" data="{$v.id}" style="background:{$v.markcolor|markcolor}">{$v.Address}</td>
+                            <td class="c6 cup" data-name="fixed" data="{$v.id}" style="background:{$v.markcolor|markcolor}"><a  href="tel:{$v.fixed}">{$v.fixed}</a></td>
+                            <td class="c7 cup" data-name="Space" data="{$v.id}" style="background:{$v.markcolor|markcolor}"><empty name="v.Space">--<else/>{$v.Space}</empty></td>
+                            <td class="c8 cup" data-name="huxing" data="{$v.id}" style="background:{$v.markcolor|markcolor}"><empty name="v.huxing">--<else/>{$v.huxing}</empty></td>
+                            <td class="c9" style="background:{$v.markcolor|markcolor}"><empty name="v.jiaofangtime">--<else/>{$v.jiaofangtime}</empty></td>
+                            <td class="c10" style="background:{$v.markcolor|markcolor}"><empty name="v.liangfangtime">--<else/>{$v.liangfangtime}</empty></td>
+                            <td class="c11" style="background:{$v.markcolor|markcolor}">{$v.channelname}</td>
+                            <td class="c12" style="background:{$v.markcolor|markcolor}">{$v.wayname}</td>
+                            <td class="c13 cup1" data-name="ConsultDate" data="{$v.id}" style="background:{$v.markcolor|markcolor}">{$v.ConsultDate}</td>
+                            <td class="c14" style="background:{$v.markcolor|markcolor}"><empty name="v.ComeTime">--<else/>{$v.ComeTime}</empty></td>
+                            <td class="c15" style="background:{$v.markcolor|markcolor}"><empty name="v.OrderTime">--<else/>{$v.OrderTime}</empty></td>
+                            <td class="c16 cup" data-name="Deposit" data="{$v.id}" style="background:{$v.markcolor|markcolor}"><empty name="v.Deposit">--<else/>{$v.Deposit}</empty></td>
+                            <td class="c17" style="background:{$v.markcolor|markcolor}"><empty name="v.HetongTime">--<else/>{$v.HetongTime}</empty></td>
+                            <td class="c18 cup" data-name="OrdersValue" data="{$v.id}" style="background:{$v.markcolor|markcolor}"><empty name="v.OrdersValue">--<else/>{$v.OrdersValue}</empty></td>
+                            <td class="c19" style="background:{$v.markcolor|markcolor}">{$v.Designer|realname}</td>
+                            <td class="c20" style="background:{$v.markcolor|markcolor}">{$v.realname}</td>
+                            <td class="c21" style="background:{$v.markcolor|markcolor}">{$v.Material|realname}</td>
+                            <td class="c22" style="background:{$v.markcolor|markcolor}">{$v.Drawing|realname}</td>
+                            <td class="c23" style="background:{$v.markcolor|markcolor}">{$v.xiaoguotu|realname}</td>
+                            <if condition="is_admin()">
+                                <td class="c38" style="background:{$v.markcolor|markcolor}"><empty name="v.sremind">--<else/>{$v.sremind}</empty></td>
+                                <td class="c39" style="background:{$v.markcolor|markcolor}"><empty name="v.dremind">--<else/>{$v.dremind}</empty></td>
+                                <td class="c40" style="background:{$v.markcolor|markcolor}"><empty name="v.premind">--<else/>{$v.premind}</empty></td>
+                                <elseif condition="is_salesman()" />
+                                <td class="c24" style="background:{$v.markcolor|markcolor}"><empty name="v.sremind">--<else/>{$v.sremind}</empty></td>
+                                <elseif condition="is_designer()"/>
+                                <td class="c24" style="background:{$v.markcolor|markcolor}"><empty name="v.dremind">--<else/>{$v.dremind}</empty></td>
+                                <elseif condition="is_project()"/>
+                                <td class="c24" style="background:{$v.markcolor|markcolor}"><empty name="v.premind">--<else/>{$v.premind}</empty></td>
+                                <elseif condition="is_manager()"/>
+                                <eq name="_SESSION['job']" value="1">
+                                    <td class="c24" style="background:{$v.markcolor|markcolor}"><empty name="v.sremind">--<else/>{$v.sremind}</empty></td>
+                                </eq>
+                                <eq name="_SESSION['job']" value="3">
+                                    <td class="c24" style="background:{$v.markcolor|markcolor}"><empty name="v.sremind">--<else/>{$v.sremind}</empty></td>
+                                </eq>
+                                <eq name="_SESSION['job']" value="2">
+                                    <td class="c24" style="background:{$v.markcolor|markcolor}"><empty name="v.dremind">--<else/>{$v.dremind}</empty></td>
+                                </eq>
+                            </if>
+                            <td class="c25 cup" data-name="shejifei" data="{$v.id}" style="background:{$v.markcolor|markcolor}"><empty name="v.shejifei">--<else/>{$v.shejifei}</empty></td>
+                            <td class="c26 cup" data-name="guanlifei" data="{$v.id}" style="background:{$v.markcolor|markcolor}"><empty name="v.guanlifei">--<else/>{$v.guanlifei}</empty></td>
+                            <td class="c27 cup" data-name="qingfu" data="{$v.id}" style="background:{$v.markcolor|markcolor}"><empty name="v.qingfu">--<else/>{$v.qingfu}</empty></td>
+                            <td class="c28 cup" data-name="zhucai" data="{$v.id}" style="background:{$v.markcolor|markcolor}"><empty name="v.zhucai">--<else/>{$v.zhucai}</empty></td>
+                            <td class="c29 cup" data-name="once" data="{$v.id}" style="background:{$v.markcolor|markcolor}"><empty name="v.once">--<else/>{$v.once}</empty></td>
+                            <td class="c30 cup" data-name="twice" data="{$v.id}" style="background:{$v.markcolor|markcolor}"><empty name="v.twice">--<else/>{$v.twice}</empty></td>
+                            <td class="c31 cup" data-name="tirth" data="{$v.id}" style="background:{$v.markcolor|markcolor}"><empty name="v.tirth">--<else/>{$v.tirth}</empty></td>
+                            <td class="c32 cup" data-name="others" data="{$v.id}" style="background:{$v.markcolor|markcolor}"><empty name="v.others">--<else/>{$v.others}</empty></td>
+                            <td class="c33 cup" data-name="Number" data="{$v.id}" style="background:{$v.markcolor|markcolor}"><empty name="v.Number">--<else/>{$v.Number}</empty></td>
+                            <td class="c34" style="background:{$v.markcolor|markcolor}">{$v.Project|realname}</td>
+                            <td class="c35" style="background:{$v.markcolor|markcolor}">{$v.Captain|realname}</td>
+                            <td class="c36" style="background:{$v.markcolor|markcolor}"><empty name="v.StartTime">--<else/>{$v.StartTime}</empty></td>
+                            <td class="c37" style="background:{$v.markcolor|markcolor}"><empty name="v.EndTime">--<else/>{$v.EndTime}</empty></td>
+							<td style="background-color:{$v.markcolor|markcolor}">
+                                [<a style='font-size:12px;' href="{:U('Customer/updateCustomer',array('id' => $v['id']))}">修改</a>]
+                                [<a style='font-size:12px;' class="delcfm" src="{:U('Customer/deleteCustomer',array('id' => $v['id']))}">删除</a>]
+                            </td>
+						</tr>
+						</volist>
+						</tbody>
+						</table>
+						<!--客户记录列表结束---->
+						<div class="portlet box blue page">&nbsp;共{$page}　
+							<neq name="sum" value=''>当前条件下的合同总额 : ￥{$sum|number_format}</neq>
+						</div>
+					</div>
+				</div>
+				<!-- END EXAMPLE TABLE PORTLET-->
+				</div>
+			</div>
+			<!-- END PAGE CONTENT-->
+		</div>
+	</div>
+	<!-- END CONTENT -->
+</div>
+<!-- END CONTAINER -->
+<include file="Common:footer" />
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="__PUBLIC__/global/plugins/respond.min.js"></script>
+<script src="__PUBLIC__/global/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="__PUBLIC__/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="__PUBLIC__/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="__PUBLIC__/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<script type="text/javascript">
+	var displayFields_url = "{:U('Customer/displayFields')}";
+</script>
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="__PUBLIC__/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="__PUBLIC__/javascript/table-defined.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/pages/scripts/form-validation.js"></script>
+<script src="__PUBLIC__/layer/layer.min.js"></script>
+<script>
+jQuery(document).ready(function() {       
+	Metronic.init(); // init metronic core components
+	Layout.init(); // init current layout
+	QuickSidebar.init(); // init quick sidebar
+	Demo.init(); // init demo features
+	FormValidation.init();
+
+    // 点击排序
+    $('th.cc').click(function(){
+        var url = $(this).attr('data-src');
+        window.location.href = url;
+    });
+
+    // 点击修改
+    $(".cup").dblclick(function(){
+        var text = $(this).text();
+        var id = $(this).attr('data');
+        var name = $(this).attr('data-name');
+        if (text == '--') {
+            var input = "<input type='text' name='"+ name +"' />";
+        } else {
+            var input = "<input type='text' name='"+ name +"' value='"+ text +"' />";
+        }
+
+        $(this).html(input);
+        $(this).children().focus();
+        $(this).children().blur(function(){
+            var url = "{:U('Customer/fastUpdate')}"
+            var val = $(this).val();
+            if (val == '') {
+                $(this).parent().html('--');
+            } else {
+                $(this).parent().html(val);
+                $.post(url, {id:id,name:name,value:val},function(msg){
+                    if (msg == 'false') {
+                        alert('更新失败');
+                    }
+                });
+            }
+        });
+    });
+
+    // 点击修改
+    $(".cup1").on('dblclick', function(){
+        var text = $(this).text();
+        var id = $(this).attr('data');
+        var name = $(this).attr('data-name');
+        if (text == '--') {
+            var input = "<input type='text' class='date-picker' name='"+ name +"' />";
+        } else {
+            var input = "<input type='text' class='date-picker' name='"+ name +"' value='"+ text +"' />";
+        }
+
+        $(this).html(input);
+        $(this).children().focus();
+        $(this).children().blur(function(){
+            var url = "{:U('Customer/fastUpdate')}"
+            var val = $(this).val();
+            if (val == '') {
+                $(this).parent().html('--');
+            } else {
+                $(this).parent().html(val);
+                $.post(url, {id:id,name:name,value:val},function(msg){
+                    if (msg == 'false') {
+                        alert('更新失败');
+                    }
+                });
+            }
+        });
+    });
+
+    // 是否删除提示
+    $('.delcfm').click(function(){
+        var url = $(this).attr('src');
+        $.layer({
+            shade: [0],
+            area: ['auto','auto'],
+            dialog: {
+                msg: '您确定要删除本条信息吗? 删除后可在『回收站』恢复!',
+                btns: 2,
+                type: 4,
+                btn: ['确定','取消'],
+                yes: function(){
+                    window.location = url;
+                }, no: function(){
+                    return false;
+                }
+            }
+        });
+    });
+});
+</script>
+</body>
+<!-- END BODY -->
+</html>

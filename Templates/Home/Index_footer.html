@@ -1,0 +1,58 @@
+<footer id="footer-outer" class="hidden-xs">
+    <div class="columns">
+        <ul class="column mr_210">
+            <li><h2>产品</h2></li>
+            <li><a href="{:U('Index/tour')}">功能特性</a></li>
+            <li><a href="{:U('Index/security')}">数据安全</a></li>
+            <li><a href="{:U('Index/plan')}">付费方案</a></li>
+            <li><a href="{:U('Index/mobile')}">移动版本</a></li>
+        </ul>
+        <ul class="column mr_210">
+            <li><h2>媒体</h2></li>
+            <li><a href="{:U('Index/uservoice')}">用户怎么说</a></li>
+        </ul>
+        <ul class="column mr_210">
+            <li><h2>支持</h2></li>
+            <li><a href="{:U('Index/help')}">帮助中心</a></li>
+            <li><a href="{:U('Club/clubIndex')}">用户社区</a></li>
+            <li><a href="{:U('Club/addpost')}">在线反馈</a></li>
+        </ul>
+        <ul class="column">
+            <li><h2>更多</h2></li>
+            <li><a href="{:U('Index/about')}">关于我们</a></li>
+            <li><a href="{:U('Index/contact')}">联系我们</a></li>
+            <li><a href="{:U('Index/privacy')}">隐私声明</a></li>
+            <li><a href="{:U('Index/terms')}">服务条款</a></li>
+        </ul>
+    </div>
+    <div class="text-center">© 2014 zxicrm.com &nbsp;&nbsp; 鲁ICP备14034766号-4 &nbsp;&nbsp; <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1253965580'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/stat.php%3Fid%3D1253965580%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script> &nbsp;&nbsp; <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1425097451&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:1425097451:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a> <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=75375728befe21155e3f3bd04fb5f771f94b8a9d078c82cd5776dcd2ca11bf49"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Zxicrm官方群" title="Zxicrm官方群"></a>
+    </div>
+</footer>
+
+<if condition="!isMobile()">
+<!-- 在线客服 开始 -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".side ul li").hover(function(){
+		$(this).find(".sidebox").stop().animate({"width":"164px"},200).css({"opacity":"1","filter":"Alpha(opacity=100)","background":"#ae1c1c"})	
+	},function(){
+		$(this).find(".sidebox").stop().animate({"width":"54px"},200).css({"opacity":"0.8","filter":"Alpha(opacity=80)","background":"#000"})	
+	});
+	
+});
+//回到顶部
+function goTop(){
+	$('html,body').animate({'scrollTop':0},600); //滚回顶部的时间，越小滚的速度越快~
+}
+</script>
+<div class="side">
+	<ul>
+		<li><a href="http://wpa.qq.com/msgrd?v=3&uin=1425097451&site=qq&menu=yes" target="_blank"><div class="sidebox"><img src="/Public/qiguweb/img/side_icon01.png">QQ客服</div></a></li>
+		<li><a href="http://shang.qq.com/wpa/qunwpa?idkey=75375728befe21155e3f3bd04fb5f771f94b8a9d078c82cd5776dcd2ca11bf49" target="_blank"><div class="sidebox"><img src="/Public/qiguweb/img/side_icon02.png">加入QQ群</div></a></li>
+		<li><div class="sidebox"><img src="/Public/qiguweb/img/side_icon03.png">185-0532-5137</div></li>
+		<li><a href="http://www.zxicrm.com/index.php/Index/help.html" target="_blank"><div class="sidebox"><img src="/Public/qiguweb/img/side_icon04.png">帮助中心</div></a></li>
+		<li style="border:none;"><a href="javascript:goTop();" class="sidetop"><img src="/Public/qiguweb/img/side_icon05.png"></a></li>
+	</ul>
+</div>
+<!-- 在线客服 结束 -->
+</if>

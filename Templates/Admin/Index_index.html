@@ -1,0 +1,36 @@
+<include file="Common:header" />
+    <div data-options="region:'center',title:'基本信息',iconCls:'icon-ok'">
+        <table class="easyui-datagrid" url="{:U('Index/indexs')}" fitColumns="true" border="0" rownumbers="true" singleSelect="true">
+            <thead>
+                <tr>
+                	<th data-options="field:'CName'" width="80">客户姓名</th>
+                    <th data-options="field:'State'" width="80">客户状态</th>
+                    <th data-options="field:'Tel',sortable:'true'" width="100">联系方式</th>
+                    <th data-options="field:'Address'" width="150">所在小区</th>
+                    <th data-options="field:'salename',formatter:formUsername" width="80">业务员</th>
+                    <th data-options="field:'designame',formatter:formUsername" width="80">设计师</th>
+                    <th data-options="field:'proname',formatter:formUsername" width="80">监理</th>
+                    <th data-options="field:'Captain'" width="80">工长</th>
+                    <th data-options="field:'OrdersValue'" width="80">合同金额</th>
+                    <th data-options="field:'Space'" width="60">房屋面积</th>
+                    <th data-options="field:'OrderTime'" width="80">定金时间</th>
+                    <th data-options="field:'ComeTime'" width="80">到店时间</th>
+                    <th data-options="field:'HetongTime'" width="80">合同时间</th>
+                    <th data-options="field:'EndTime'" width="80">结束时间</th>
+                    <th data-options="field:'Way'" width="80">装修方式</th>
+                    <th data-options="field:'Channel'" width="80">来源渠道</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+<script type="text/javascript">
+    // 定义格式化数据
+    function formUsername(value, row, index){
+        if(value=='' || value == null){
+            return '--';
+        } else {
+            return value;
+        }
+    }
+</script>
+<include file="Common:footer" />

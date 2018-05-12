@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>超级管理员登陆入口</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui/themes/icon.css">
+<script type="text/javascript" src="__PUBLIC__/easyui/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/easyui/jquery.easyui.min.js"></script>
+</head>
+<body style="background:#E8EEF3;">
+<div id="win" title="登录窗口" style="padding:15px 70px;">
+    <form method="post" action="__SELF__">
+        <p>用户名：<input type="text" name="username" /></p>
+        <p>密　码：<input type="password" name="password" /></p>
+        <p><input class="easyui-linkbutton" type="submit" name="submit" value="点我登录" style="height:30px;padding:2px 5px;" /></p>
+    </form>
+</div>
+<script type="text/javascript">
+// 定义登录窗口的显示样式
+$(function(){
+    $('#win').window({
+        width : 400,
+        height : 200,
+        top : 200,
+        modal : false,
+        collapsible : false,
+        minimizable : false,
+        maximizable : false,
+        closable : false,
+        draggable : false
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<include file="Common:header" />
+    <div data-options="region:'center',title:'已审核用户',iconCls:'icon-ok'">
+        <table id="tt" class="easyui-datagrid" url="__SELF__" fitColumns="false" border="0" rownumbers="true" singleSelect="true">
+            <thead>
+            <tr>
+                <th data-options="field:'username'">用户名</th>
+                <th data-options="field:'realname'">真实姓名</th>
+                <th data-options="field:'tel',sortable:'true'">联系方式</th>
+                <th data-options="field:'email'" >邮箱</th>
+                <th data-options="field:'createtime'">注册时间</th>
+                <th data-options="field:'auth'">是否授权</th>
+                <th data-options="field:'ifpay'">是否支付</th>
+                <th data-options="field:'status'">状态</th>
+                <th data-options="field:'operate'">操作</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+<script>
+    function confirm_flag(){
+        $.messager.confirm('确认', 'Are you confirm this?', function(r){
+            if (r){
+                var row = $('#tt').datagrid('getSelected');
+                $.post("{:U('Index/set_user_flag')}", {id:row.id}, function(data){
+                    location.reload();
+                });
+            }
+        });
+    }
+    </script>
+<include file="Common:footer" />

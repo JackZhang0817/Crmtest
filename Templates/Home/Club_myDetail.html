@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="maximum-scale=1.0,width=device-width, initial-scale=1.0">
+<title>用户社区 – 家装CRM客户管理系统</title>
+<meta name="keywords" content="家装crm, 家装crm软件,家装crm系统,装修crm,免费crm系统" />
+<meta name="description" content="家装crm系统，让工作更简单。家装crm系统是一个专门为家装行业量身定制的客户管理系统，通过简单的协作、沟通、共享和记录，以及云技术和跨平台，轻松实现团队的交互与客户管理工作，从而极大地提高工作效率。" />
+<include file="Index:css" />
+</head>
+<body>
+<!-- 头部 -->
+<include file="Index:header" />
+<!-- /头部 -->
+<!-- 主体 -->
+<div id="wrap-all">
+    <div id="main" class="inner">
+        <div class="forum-panel">
+            <div class="ng-scope" data-ng-controller="forum_category_ctrl">
+                <!--顶部边栏 我要发帖-->
+                <include file="Club:navbar" />
+                <!--顶部边栏 我要发帖-->
+                <div class="forum-container">
+                    <div class="forum-content col-xs-12 col-sm-9">
+                        <div class="forum-category-wrapper">
+                            <div class="forum-heading"><h3>所有帖子</h3></div>
+                            <div class="thread-list">
+                            <volist name="list" id="list" empty="暂无帖子">
+                                <div class="wt-row thread-item">
+                                    <div class="thread-item-inner">
+                                        <div class="row">
+                                            <div class="col-sm-1 col-xs-2 avatar avatar-40">
+                                                 <span class="avatar-face">
+                                                 <eq name="list.uid|photo" value="0">
+                                                     <img alt="默认头像" class="img-circle hide1" src="__PUBLIC__/images/80_80.png"/>
+                                                 <else/>
+                                                     <img src="/Uploads/Headimg/thumb_{$list.uid|photo}" alt="用户{$list.uid|username}的头像" />
+                                                 </eq>
+                                                 </span>
+                                            </div>
+                                            <div class="col-sm-11 col-xs-10 text">
+                                                <div class="row primary">
+                                                    <div class="col-sm-9 col-xs-9 thread-title">
+                                                        <h4><a href="{:U('Club/detail', array('id' => $list['id']))}">
+                                                            <eq name="list.top" value="1">
+                                                                <span class="forum-badge">推荐</span>
+                                                            </eq>
+                                                            {$list.title}</a>
+                                                        </h4>
+                                                    </div>
+                                                    <div class="col-sm-2 thread-counts">
+                                                        <span class="thread-total-comment">{$list.id|comment_nums}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row secondary hidden-xs">
+                                                    <div class="col-sm-5 col-xs-5 thread-meta">
+                                                        <span>{$list.uid|username}</span> 发布于 <span>{$list.entrytime|date='Y-m-d H:i', ###}</span>
+                                                    </div>
+                                                    <div class="col-sm-2 col-xs-2"></div>
+                                                    <div class="col-sm-5 col-xs-5 thread-comment-meta">
+                                                        <span>{:username(last_comment($list['id'], uid))}</span> 最后回复于 <span>{:date('Y-m-d H:i',last_comment($list['id'], entrytime))}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </volist>
+                            </div>
+                            <div class="category-pager">
+                                <ul class="pagination">
+                                    {$page}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="visible-xs">&nbsp;</div>
+                    <!--右侧边栏开始-->
+                    <include file="Club:right" />
+                            <div class="sidebar-widget">
+                                <h4>版块</h4>
+                                <ul>
+                                    <li <eq name="_GET['id']" value="">class="active"</eq>><a href="{:U('clubIndex')}">所有帖子</a></li>
+                                    <php>$cate = C('DETAIL_CATE'); $count = count($cate) + 1;</php>
+                                    <for start="1" end="$count">
+                                        <li <eq name="i" value="$_GET['id']">class="active"</eq>> <a href="{:U('clubIndex', array('id' => $i))}">{$cate[$i]}</a></li>
+                                    </for>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--右侧边栏结束-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /主体 -->
+<!-- 底部 -->
+<include file="Index:footer" />
+<!-- /底部 -->
+</body>
+</html>

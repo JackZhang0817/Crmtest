@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+<meta charset="utf-8"/>
+<title>施工工序 | CRM客户关系管理系统</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta content="" name="description"/>
+<meta content="gaorenhua" name="author"/>
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+
+<link href="__PUBLIC__/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN THEME STYLES -->
+<include file="Common:css" />
+<!-- END THEME STYLES -->
+<link rel="shortcut icon" href="favicon.ico"/>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed page-quick-sidebar-over-content ">
+<!-- 包含公共头部和公共侧边栏 -->
+<include file="Common:header" />
+	<!-- BEGIN CONTENT -->
+	<div class="page-content-wrapper">
+		<div class="page-content">
+			<!-- BEGIN PAGE CONTENT-->
+			<div class="row">
+				<div class="col-md-12">
+					<!-- BEGIN SAMPLE TABLE PORTLET-->
+					<div class="portlet box blue">
+						<div class="portlet-title">
+							<div class="caption"><i class="fa fa-cogs"></i>施工工序</div>
+						</div>
+						<div class="portlet-body">
+							<div class="table-responsive">
+							<form action="__SELF__" class="form-horizontal" method="post">
+								<table class="table table-bordered">
+								<thead>
+								<tr>
+									<th>#</th>
+									<th>待选工序　(鉴于每个客户的装修流程不同, 此操作可根据不同的客户选择合适的装修工序)</th>
+								</tr>
+								</thead>
+								<tbody>
+								<php>$n=1;</php>
+								<input type="hidden" name="customer_id" value="{$_GET['id']}">
+								<volist name="list" id="data">
+								<tr>
+									<td>{$n}</td>
+									<td>
+                                        <empty name="project">
+                                            <input class="all" type="checkbox" name="project[]" checked='checked' value="{$data.id}"><b>{$data.pname}</b>
+                                            <else/>
+                                            <input class="all" type="checkbox" name="project[]" <in name="data['id']" value="$project">checked='checked'</in> value="{$data.id}">{$data.pname}　
+                                        </empty>
+										<div class="container" style="margin:8px 5px 0px;">
+											<php>$n++;</php>
+											<volist name="data.child" id="vo">
+                                            <empty name="project">
+                                                <input class="single-check" type="checkbox" name="project[]" checked='checked' value="{$vo.id}">{$vo.pname}　
+                                            <else/>
+                                                <input class="single-check" type="checkbox" name="project[]" <in name="vo['id']" value="$project">checked='checked'</in> value="{$vo.id}">{$vo.pname}　
+                                            </empty>
+											</volist>
+										</div>
+									</td>
+								</tr>
+								</volist>
+								</tbody>
+								</table>
+								<div class="form-actions">
+									<div class="row">
+										<div class="col-md-12">
+											<button type="submit" class="btn green">　确认选择　</button>
+										</div>
+									</div>
+								</div>
+							</form>
+							</div>
+						</div>
+					</div>
+					<!-- END SAMPLE TABLE PORTLET-->
+				</div>
+			</div>
+			<!-- END PAGE CONTENT-->
+		</div>
+	</div>
+	<!-- END CONTENT -->
+</div>
+<!-- END CONTAINER -->
+<include file="Common:footer" />
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="__PUBLIC__/global/plugins/respond.min.js"></script>
+<script src="__PUBLIC__/global/plugins/excanvas.min.js"></script> 
+<![endif]-->
+<script src="__PUBLIC__/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="__PUBLIC__/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<script src="__PUBLIC__/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script>
+jQuery(document).ready(function() {       
+   // initiate layout and plugins
+   Metronic.init(); // init metronic core components
+   Layout.init(); // init current layout
+   QuickSidebar.init(); // init quick sidebar
+   Demo.init(); // init demo features
+
+   // 权限勾选
+   $('.all').click(function(){
+   		var inputs = $(this).parents('td').find('input');
+   		var spans = $(this).parents('td').children('.container').find('span');
+
+		$(this).attr('checked') ? inputs.attr('checked','checked') : inputs.removeAttr('checked');
+		$(this).attr('checked') ? spans.addClass('checked') : spans.removeClass('checked');
+   });
+
+    // 当选择子类的时候 自动勾选父类
+    $(".single-check").click(function(){
+        var inputs = $(this).parents('td').find('.all');
+        $(this).attr('checked') ? inputs.attr('checked','checked').parents('span').addClass('checked') : true;
+    });
+});
+</script>
+</body>
+<!-- END BODY -->
+</html>

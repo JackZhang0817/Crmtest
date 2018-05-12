@@ -1,0 +1,71 @@
+<header id="header">
+    <!--[if lte IE 9]>
+    <div id="warning_info" class="text-warning fade in mb_0">
+        <button data-dismiss="alert" class="close" type="button" onclick="warning_info.style.display = 'none';">×</button>
+        <strong>您正在使用低版本浏览器，</strong> 在本页面的显示效果可能有差异。
+        建议您升级到
+        <a href="http://se.360.cn/" target="_blank">360安全浏览器</a>
+        或以下浏览器：
+        <a href="http://www.google.cn/intl/zh-CN/chrome/" target="_blank">Chrome</a> /
+        <a href="http://www.firefox.com.cn/‎" target="_blank">Firefox</a> /
+        <a href="http://www.apple.com/cn/safari/" target="_blank">Safari</a> /
+        <a href="http://www.opera.com/" target="_blank">Opera</a> /
+        <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" target="_blank">Internet Explorer 10</a>
+    </div>
+    <![endif]-->
+    <!--[if lte IE 8]>
+    <script>
+        document.createElement('ng-include');
+        document.createElement('ng-pluralize');
+        document.createElement('ng-view');
+        document.createElement('carousel');
+        document.createElement('slide');
+
+        // Optionally these for CSS
+        document.createElement('ng:include');
+        document.createElement('ng:pluralize');
+        document.createElement('ng:view');
+    </script>
+    <![endif]-->
+    <nav id="header_outer" class="navbar navbar-inverse navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-header-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a id="header_logo" class="navbar-brand" href="/" title="家装CRM mini">家装CRM mini</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-header-collapse">
+            <!-- 导航模块 -->
+            <ul id="header_menu" class="nav navbar-nav">
+                <li <eq name="ACTION_NAME" value="index">class="active"</eq>><a href="/" target="_self">首页</a></li>
+                <li <eq name="ACTION_NAME" value="tour">class="active"</eq>><a href="{:U('Index/tour')}" target="_self">功能</a></li>
+                <li <eq name="ACTION_NAME" value="plan">class="active"</eq>><a href="{:U('Index/plan')}" target="_self">付费</a></li>
+                <li <eq name="ACTION_NAME" value="mobile">class="active"</eq>><a href="{:U('Index/mobile')}" target="_self">移动版</a></li>
+                <li <eq name="ACTION_NAME" value="help">class="active"</eq>><a href="{:U('Index/help')}" target="_self">帮助</a></li>
+                <li <eq name="MODULE_NAME" value="Club">class="active"</eq>><a href="{:U('Club/clubIndex')}" target="_self">社区</a></li>
+            </ul>
+            <!-- 用户登录 注册模块 -->
+            <if condition="is_login()">
+                <ul class="nav navbar-nav navbar-right" ng-controller="user_ctrl" id="header_me">
+                    <li class="divider-vertical hidden-xs mr_20"></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle mr_25" data-toggle="dropdown" style="padding-left:0;padding-right:0">{$_SESSION['uid']|realname} <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/crm.php">进入CRM</a></li>
+                            <li><a href="/crm.php/Login/logout.html">退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <else/>
+                <ul class="nav navbar-nav navbar-right" ng-controller="user_ctrl" id="header_me">
+                    <li class="divider-vertical hidden-xs"></li>
+                    <li><a href="/crm.php/Login/login.html" target="_blank" <if condition="isMobile()">style="padding-left:35px;"</if> >员工登录 |</a></li>
+                    <li><a href="/customer.php/Login/login.html" target="_blank" <if condition="isMobile()">style="padding-left:35px;"</if>>业主登录 |</a></li>
+                    <li><a href="{:U('Club/register')}" target="_blank" <if condition="isMobile()">style="padding-left:35px;"</if>>申请试用</a></li>
+                </ul>
+            </if>
+        </div>
+    </nav>
+</header>

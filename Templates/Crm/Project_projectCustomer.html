@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+<meta charset="utf-8"/>
+<title>我的客户 | CRM客户管理系统</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="format-detection" content="telephone=no"/>
+<meta content="" name="description"/>
+<meta content="gaorenhua" name="author"/>
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<link href="__PUBLIC__/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN PAGE LEVEL STYLES -->
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/global/plugins/bootstrap-datepicker/css/datepicker.css"/>
+<!-- END PAGE LEVEL STYLES -->
+<!-- BEGIN THEME STYLES -->
+<include file="Common:css" />
+<!-- END THEME STYLES -->
+<link rel="shortcut icon" href="favicon.ico"/>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed page-quick-sidebar-over-content ">
+<!-- 包含公共头部和公共侧边栏 -->
+<include file="Common:header" />
+	<!-- BEGIN CONTENT -->
+	<div class="page-content-wrapper">
+		<div class="page-content">
+			<!-- BEGIN PAGE CONTENT-->
+			<div class="row">
+				<div class="col-md-12">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption"><i class="fa fa-globe"></i>我的客户列表</div>
+                        <div class="actions">
+                            <div class="btn-group">
+                                <a class="btn default" href="#" data-toggle="dropdown">选择列 <i class="fa fa-angle-down"></i></a>
+                                <div id="sample_2_column_toggler" class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
+                                    <label><input id='c1' name="tijiao[]" type="checkbox" {:xianshi(1,project_field)} data-column="0" value="1">最新回访记录</label>
+                                    <label><input id='c2' name="tijiao[]" type="checkbox" {:xianshi(2,project_field)} data-column="1" value="2">状态</label>
+                                    <label><input id='c3' name="tijiao[]" type="checkbox" {:xianshi(3,project_field)} data-column="2" value="3">客户姓名</label>
+                                    <label><input id='c4' name="tijiao[]" type="checkbox" {:xianshi(4,project_field)} data-column="3" value="4">联系方式</label>
+                                    <label><input id='c5' name="tijiao[]" type="checkbox" {:xianshi(5,project_field)} data-column="4" value="5">所在小区</label>
+                                    <label><input id='c6' name="tijiao[]" type="checkbox" {:xianshi(6,project_field)} data-column="5" value="6">固定电话</label>
+                                    <label><input id='c7' name="tijiao[]" type="checkbox" {:xianshi(7,project_field)} data-column="6" value="7">面积</label>
+                                    <label><input id='c8' name="tijiao[]" type="checkbox" {:xianshi(8,project_field)} data-column="7" value="8">户型</label>
+                                    <label><input id='c9' name="tijiao[]" type="checkbox" {:xianshi(9,project_field)} data-column="8" value="9">交房时间</label>
+                                    <label><input id='c10' name="tijiao[]" type="checkbox" {:xianshi(10,project_field)} data-column="9" value="10">量房时间</label>
+                                    <label><input id='c11' name="tijiao[]" type="checkbox" {:xianshi(11,project_field)} data-column="10" value="11">来源渠道</label>
+                                    <label><input id='c12' name="tijiao[]" type="checkbox" {:xianshi(12,project_field)} data-column="11" value="12">装修方式</label>
+                                    <label><input id='c13' name="tijiao[]" type="checkbox" {:xianshi(13,project_field)} data-column="12" value="13">咨询时间</label>
+                                    <label><input id='c14' name="tijiao[]" type="checkbox" {:xianshi(14,project_field)} data-column="13" value="14">到店时间</label>
+                                    <label><input id='c15' name="tijiao[]" type="checkbox" {:xianshi(15,project_field)} data-column="14" value="15">定金时间</label>
+                                    <label><input id='c16' name="tijiao[]" type="checkbox" {:xianshi(16,project_field)} data-column="15" value="16">定金金额</label>
+                                    <label><input id='c17' name="tijiao[]" type="checkbox" {:xianshi(17,project_field)} data-column="16" value="17">合同时间</label>
+                                    <label><input id='c18' name="tijiao[]" type="checkbox" {:xianshi(18,project_field)} data-column="17" value="18">合同金额</label>
+                                    <label><input id='c19' name="tijiao[]" type="checkbox" {:xianshi(19,project_field)} data-column="18" value="19">设计师</label>
+                                    <label><input id='c20' name="tijiao[]" type="checkbox" {:xianshi(20,project_field)} data-column="19" value="20">业务员</label>
+                                    <label><input id='c21' name="tijiao[]" type="checkbox" {:xianshi(21,project_field)} data-column="20" value="21">材料员</label>
+                                    <label><input id='c22' name="tijiao[]" type="checkbox" {:xianshi(22,project_field)} data-column="21" value="22">CAD制图员</label>
+                                    <label><input id='c23' name="tijiao[]" type="checkbox" {:xianshi(23,project_field)} data-column="22" value="23">效果图制图员</label>
+                                    <label><input id='c24' name="tijiao[]" type="checkbox" {:xianshi(24,project_field)} data-column="23" value="24">回访时间</label>
+                                    <label><input id='c25' name="tijiao[]" type="checkbox" {:xianshi(25,project_field)} data-column="24" value="25">设计费</label>
+                                    <label><input id='c26' name="tijiao[]" type="checkbox" {:xianshi(26,project_field)} data-column="25" value="26">服务费</label>
+                                    <label><input id='c27' name="tijiao[]" type="checkbox" {:xianshi(27,project_field)} data-column="26" value="27">轻辅费</label>
+                                    <label><input id='c28' name="tijiao[]" type="checkbox" {:xianshi(28,project_field)} data-column="27" value="28">主材费</label>
+                                    <label><input id='c29' name="tijiao[]" type="checkbox" {:xianshi(29,project_field)} data-column="28" value="29">第一笔人工费</label>
+                                    <label><input id='c30' name="tijiao[]" type="checkbox" {:xianshi(30,project_field)} data-column="29" value="30">第二笔人工费</label>
+                                    <label><input id='c31' name="tijiao[]" type="checkbox" {:xianshi(31,project_field)} data-column="30" value="31">第三笔人工费</label>
+                                    <label><input id='c32' name="tijiao[]" type="checkbox" {:xianshi(32,project_field)} data-column="31" value="32">其他费用</label>
+                                    <label><input id='c33' name="tijiao[]" type="checkbox" {:xianshi(33,project_field)} data-column="32" value="33">合同编号</label>
+                                    <label><input id='c34' name="tijiao[]" type="checkbox" {:xianshi(34,project_field)} data-column="33" value="34">工程监理</label>
+                                    <label><input id='c35' name="tijiao[]" type="checkbox" {:xianshi(35,project_field)} data-column="34" value="35">工长</label>
+                                    <label><input id='c36' name="tijiao[]" type="checkbox" {:xianshi(36,project_field)} data-column="35" value="36">开工时间</label>
+                                    <label><input id='c37' name="tijiao[]" type="checkbox" {:xianshi(37,project_field)} data-column="36" value="37">竣工时间</label>
+                                    <label><input id='c38' name="tijiao[]" type="checkbox" {:xianshi(38,project_field)} data-column="37" value="38">平台状态</label>
+                                    <label><input id='c40' name="tijiao[]" type="checkbox" {:xianshi(40,display_field)} data-column="40" value="40">身份证号</label>
+									<label><input id='c41' name="tijiao[]" type="checkbox" {:xianshi(41,display_field)} data-column="41" value="41">生日</label>
+									<label><input id='c42' name="tijiao[]" type="checkbox" {:xianshi(42,display_field)} data-column="42" value="42">职业</label>
+									<label><input id='c43' name="tijiao[]" type="checkbox" {:xianshi(43,display_field)} data-column="43" value="43">QQ/微信</label>
+									<label><input id='c44' name="tijiao[]" type="checkbox" {:xianshi(44,display_field)} data-column="44" value="44">房屋类型</label>
+									<label><input id='c45' name="tijiao[]" type="checkbox" {:xianshi(45,display_field)} data-column="45" value="45">风格</label>
+									<label><input id='c46' name="tijiao[]" type="checkbox" {:xianshi(46,display_field)} data-column="46" value="46">装修地址</label>
+									<label><input id='c47' name="tijiao[]" type="checkbox" {:xianshi(47,display_field)} data-column="47" value="47">退定时间</label>
+									<label><input id='c48' name="tijiao[]" type="checkbox" {:xianshi(48,display_field)} data-column="48" value="48">退定金额</label>
+									<label><input id='c49' name="tijiao[]" type="checkbox" {:xianshi(49,display_field)} data-column="49" value="49">CAD图</label>
+									<label><input id='c50' name="tijiao[]" type="checkbox" {:xianshi(50,display_field)} data-column="50" value="50">效果图</label>
+									<label><input id='c51' name="tijiao[]" type="checkbox" {:xianshi(51,display_field)} data-column="51" value="51">优惠活动编号</label>
+									<label><input id='c52' name="tijiao[]" type="checkbox" {:xianshi(52,display_field)} data-column="52" value="52">详情</label>
+									<label><input id='c53' name="tijiao[]" type="checkbox" {:xianshi(53,display_field)} data-column="53" value="53">首期款</label>
+									<label><input id='c54' name="tijiao[]" type="checkbox" {:xianshi(54,display_field)} data-column="54" value="54">首期款日期</label>
+									<label><input id='c55' name="tijiao[]" type="checkbox" {:xianshi(55,display_field)} data-column="55" value="55">中期款</label>
+									<label><input id='c56' name="tijiao[]" type="checkbox" {:xianshi(56,display_field)} data-column="56" value="56">中期款日期</label>
+									<label><input id='c57' name="tijiao[]" type="checkbox" {:xianshi(57,display_field)} data-column="57" value="57">尾款</label>
+									<label><input id='c58' name="tijiao[]" type="checkbox" {:xianshi(58,display_field)} data-column="58" value="58">尾款日期</label>
+								
+                                </div>
+                            </div>
+                        </div>
+					</div>
+					<div class="portlet-body">
+                        <!-- 搜索客户 -->
+                        <form class="form-inline" method="get" action="{:U('Project/search')}" >
+                            <div class="col-md-11" style="padding:0px;">
+                                <div class="control-group search" style="padding:0px;margin-bottom:5px;">
+                                    <input type="hidden" name="State" value="{$_GET['state']}"/>
+                                    <input class="form-control input-sm" type="text" name="Number" placeholder="合同编号" />
+                                    <input class="form-control input-sm" type="text" name="CName" placeholder="客户姓名" />
+                                    <input class="form-control input-sm" type="text" name="Tel" placeholder="联系方式" />
+                                    <input class="form-control input-sm" type="text" name="Address" placeholder="所在小区" />
+                                    <!-- <select name="Userid" class="form-control input-sm">
+                                        <option value=''>业务员</option>
+                                        <foreach name='users' item='u'>
+                                            <neq name="u.id" value="0">
+                                                <option value='{$u.id}'>{$u.realname}</option>
+                                            </neq>
+                                        </foreach>
+                                    </select> -->
+                                    <select name="Designer" class="form-control input-sm">
+                                        <option value=''>设计师</option>
+                                        <foreach name='designer' item='de'>
+                                            <option value='{$de.id}'>{$de.realname}</option>
+                                        </foreach>
+                                    </select>
+                                    <select name="Project" class="form-control input-sm">
+                                        <option value=''>工程监理</option>
+                                        <foreach name='project' item='p'>
+                                            <option value='{$p.id}'>{$p.realname}</option>
+                                        </foreach>
+                                    </select>
+                                    <select name="Captain" class="form-control input-sm">
+                                        <option value=''>工长</option>
+                                        <foreach name='caption' item='c'>
+                                            <option value='{$c.id}'>{$c.realname}</option>
+                                        </foreach>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="submit" class="btn btn-sm blue">搜索</button>
+                            </div>
+                        </form>
+						<!--客户记录列表开始---->
+						<table class="table table-bordered table-full-width table-striped">
+						<thead>
+						<tr>
+                            <th class="c1">最新回访记录</th>
+                            <th class="c2">状态</th>
+							<th class="c3">客户姓名</th>
+							<th class="c4">联系方式</th>
+							<th class="c5">所在小区</th>
+							<th class="c6">固定电话</th>
+                            <th class="c7">面积</th>
+                            <th class="c8">户型</th>
+                            <th class="c9">交房时间</th>
+                            <th class="c10">量房时间</th>
+                            <th class="c11">来源渠道</th>
+                            <th class="c12">装修方式</th>
+							<th class="c13">咨询时间</th>
+                            <th class="c14">到店时间</th>
+                            <th class="c15">定金时间</th>
+                            <th class="c16">定金金额</th>
+                            <th class="c17">合同时间</th>
+                            <th class="c18">合同金额</th>
+                            <th class="c19">设计师</th>
+                            <th class="c20">业务员</th>
+                            <th class="c21">材料员</th>
+                            <th class="c22">CAD制图员</th>
+                            <th class="c23">效果图制图员</th>
+							<th class="c24">回访时间</th>
+							<th class="c25">设计费</th>
+							<th class="c26">服务费</th>
+							<th class="c27">轻辅费</th>
+							<th class="c28">主材费</th>
+							<th class="c29">第一笔人工费</th>
+							<th class="c30">第二笔人工费</th>
+							<th class="c31">第三笔人工费</th>
+							<th class="c32">其他费用</th>
+							<th class="c33">合同编号</th>
+                            <th class="c34">工程监理</th>
+                            <th class="c35">工长</th>
+							<th class="c36">开工时间</th>
+							<th class="c37">竣工时间</th>
+							<th class="c38">平台状态</th>
+							<th class="c40">身份证号</th>
+							<th class="c41">生日</th>
+							<th class="c42">职业</th>
+							<th class="c43">QQ/微信</th>
+							<th class="c44">房屋类型</th>
+							<th class="c45">风格</th>
+							<th class="c46">装修地址</th>
+							<th class="c47">退定时间</th>
+							<th class="c48">退定金额</th>
+							<th class="c49">CAD图</th>
+							<th class="c50">效果图</th>
+							<th class="c51">优惠活动编号</th>
+							<th class="c52">详情</th>
+							<th class="c53">首期款</th>
+							<th class="c54">首期款日期</th>
+							<th class="c55">中期款</th>
+							<th class="c56">中期款日期</th>
+							<th class="c57">尾款</th>
+							<th class="c58">尾款日期</th>																		
+							<th>操作</th>
+						</tr>
+						</thead>
+						<tbody>
+						<volist name="customer" id="v" empty="$empty">
+						<tr>
+                            <td class="c1">
+                                <if condition="lastRecord($v[id])==''">
+                                    <a href="{:U('Customer/visitRecord', array('id' => $v[id]))}">暂无追踪记录</a>
+                                    <else/>
+                                    <a href="{:U('Customer/visitRecord', array('id' => $v[id]))}" title="{$v.id|lastRecord}">{:msubstr(lastRecord($v[id]),0,34)}...</a>
+                                </if>
+                            </td>
+							<td class="c2">{$v.State|state}</td>
+							<td class="c3">{$v.CName}<a href="{:U('Customer/visitRecord', array('id' => $v[id]))}">&nbsp;&nbsp;<i class="icon-pencil"></i></a></td>
+							<td class="c4">{$v.Tel}</td>
+							<td class="c5">{$v.Address}</td>
+							<td class="c6"><empty name="v.fixed">--<else/>{$v.fixed}</empty></td>
+                            <td class="c7"><if condition="empty($v['Space'])">--<else/>{$v.Space}㎡</if></td>
+                            <td class="c8"><if condition="empty($v['huxing'])">--<else/>{$v.huxing}</if></td>
+                            <td class="c9"><empty name="v.jiaofangtime">--<else/>{$v.jiaofangtime}</empty></td>
+                            <td class="c10"><empty name="v.liangfangtime">--<else/>{$v.liangfangtime}</empty></td>
+                            <td class="c11"><empty name="v.channelname">--<else/>{$v.channelname}</empty></td>
+                            <td class="c12"><empty name="v.wayname">--<else/>{$v.wayname}</empty></td>
+                            <td class="c13"><empty name="v.ConsultDate">--<else/>{$v.ConsultDate}</empty></td>
+                            <td class="c14"><empty name="v.ComeTime">--<else/>{$v.ComeTime}</empty></td>
+                            <td class="c15"><empty name="v.OrderTime">--<else/>{$v.OrderTime}</empty></td>
+                            <td class="c16"><empty name="v.Deposit">--<else/>{$v.Deposit}</empty></td>
+                            <td class="c17"><empty name="v.HetongTime">--<else/>{$v.HetongTime}</empty></td>
+                            <td class="c18"><empty name="v.OrdersValue">--<else/>{$v.OrdersValue}</empty></td>
+                            <td class="c19">{$v.Designer|realname}</td>
+                            <td class="c20">{$v.realname}</td>
+                            <td class="c21">{$v.Material|realname}</td>
+                            <td class="c22">{$v.Drawing|realname}</td>
+                            <td class="c23">{$v.xiaoguotu|realname}</td>
+							<td class="c24"><empty name="v.premind">--<else/>{$v.premind}</empty></td>
+							<td class="c25"><empty name="v.shejifei">--<else/>{$v.shejifei}</empty></td>
+							<td class="c26"><empty name="v.guanlifei">--<else/>{$v.guanlifei}</empty></td>
+							<td class="c27"><empty name="v.qingfu">--<else/>{$v.qingfu}</empty></td>
+							<td class="c28"><empty name="v.zhucai">--<else/>{$v.zhucai}</empty></td>
+							<td class="c29"><empty name="v.once">--<else/>{$v.once}</empty></td>
+							<td class="c30"><empty name="v.twice">--<else/>{$v.twice}</empty></td>
+							<td class="c31"><empty name="v.tirth">--<else/>{$v.tirth}</empty></td>
+							<td class="c32"><empty name="v.others">--<else/>{$v.others}</empty></td>
+							<td class="c33"><empty name="v.Number">--<else/>{$v.Number}</empty></td>
+                            <td class="c34">{$v.Project|realname}</td>
+                            <td class="c35">{$v.Captain|realname}</td>
+							<td class="c36"><empty name="v.StartTime">--<else/>{$v.StartTime}</empty></td>
+							<td class="c37"><empty name="v.EndTime">--<else/>{$v.EndTime}</empty></td>
+							<td class="c38">                            <if condition="isopen($v['id']) == 0">
+                                <i class="fa fa-check"></i> 已开通
+                            <elseif condition="isopen($v['id']) == 1"/>
+                                <i class="fa fa-times"></i> 已禁用
+                            <elseif condition="isopen($v['id']) == 2"/>
+                                <i class="fa fa-exclamation-triangle"></i> 未开通
+                            </if>
+                            </td>
+							
+							<td class="c40" style="background:{$v.markcolor|markcolor}"><empty name="v.IDNo">--<else/>{$v.IDNo}</empty></td>
+							<td class="c41" style="background:{$v.markcolor|markcolor}"><empty name="v.Birthday">--<else/>{$v.Birthday}</empty></td>
+							<td class="c42" style="background:{$v.markcolor|markcolor}"><empty name="v.Profession">--<else/>{$v.Profession}</empty></td>
+							<td class="c43" style="background:{$v.markcolor|markcolor}"><empty name="v.IM">--<else/>{$v.IM}</empty></td>
+							<td class="c44" style="background:{$v.markcolor|markcolor}"><empty name="v.RoomType">--<else/>{$v.RoomType}</empty></td>
+							<td class="c45" style="background:{$v.markcolor|markcolor}"><empty name="v.Style">--<else/>{$v.Style}</empty></td>
+							<td class="c46" style="background:{$v.markcolor|markcolor}"><empty name="v.Address2">--<else/>{$v.Address2}</empty></td>
+							<td class="c47" style="background:{$v.markcolor|markcolor}"><empty name="v.CancelDate">--<else/>{$v.CancelDate}</empty></td>
+							<td class="c48" style="background:{$v.markcolor|markcolor}"><empty name="v.CancelAmount">--<else/>{$v.CancelAmount}</empty></td>
+							<td class="c49" style="background:{$v.markcolor|markcolor}"><empty name="v.CAD">--<else/>{$v.CAD}</empty></td>
+							<td class="c50" style="background:{$v.markcolor|markcolor}"><empty name="v.Pic">--<else/>{$v.Pic}</empty></td>
+							<td class="c51" style="background:{$v.markcolor|markcolor}"><empty name="v.DiscountCode">--<else/>{$v.DiscountCode}</empty></td>
+							<td class="c52" style="background:{$v.markcolor|markcolor}"><empty name="v.Detail">--<else/>{$v.Detail}</empty></td>
+							<td class="c53" style="background:{$v.markcolor|markcolor}"><empty name="v.FirstPay">--<else/>{$v.FirstPay}</empty></td>
+							<td class="c54" style="background:{$v.markcolor|markcolor}"><empty name="v.FirstPayDate">--<else/>{$v.FirstPayDate}</empty></td>
+							<td class="c55" style="background:{$v.markcolor|markcolor}"><empty name="v.MidPay">--<else/>{$v.MidPay}</empty></td>
+							<td class="c56" style="background:{$v.markcolor|markcolor}"><empty name="v.MidPayDate">--<else/>{$v.MidPayDate}</empty></td>
+							<td class="c57" style="background:{$v.markcolor|markcolor}"><empty name="v.EndPay">--<else/>{$v.EndPay}</empty></td>
+							<td class="c58" style="background:{$v.markcolor|markcolor}"><empty name="v.EndPayDate">--<else/>{$v.EndPayDate}</empty></td>								
+
+							<td>
+                                <eq name="v.id|isopen" value="0">
+                                    [<a style='font-size:12px;' href="{:U('selectPlatform', array('id' => $v['id']))}">选择工序</a>]
+                                    [<a style='font-size:12px;' href="{:U('addPlatform', array('id' => $v['id']))}">查看进度</a>]
+                                    [<a style='font-size:12px; color:red;' href="{:U('closePlatform', array('id' => $v['id']))}">关闭平台</a>]
+                                </eq>
+                                <eq name="v.id|isopen" value="1">
+                                    [<a style='font-size:12px; color:green;' href="{:U('openPlatform', array('id' => $v['id']))}">启用平台</a>]
+                                </eq>
+                                <eq name="v.id|isopen" value="2">
+                                    [<a style='font-size:12px;' href="{:U('addPlatform', array('id' => $v['id']))}">开通平台</a>]
+                                </eq>
+							</td>	
+						</tr>
+						</volist>
+                        <tr>
+                            <td colspan="40" style="font-weight:bold;">合计：</td>
+                        </tr>
+                        <tr>
+                            <td class="c1">--</td>
+                            <td class="c2">--</td>
+                            <td class="c3">--</td>
+                            <td class="c4">--</td>
+                            <td class="c5">--</td>
+                            <td class="c6">--</td>
+                            <td class="c7">{$space} ㎡</td>
+                            <td class="c8">--</td>
+                            <td class="c9">--</td>
+                            <td class="c10">--</td>
+                            <td class="c11">--</td>
+                            <td class="c12">--</td>
+                            <td class="c13">--</td>
+                            <td class="c14">--</td>
+                            <td class="c15">--</td>
+                            <td class="c16">￥{$dingjin|number_format}</td>
+                            <td class="c17">--</td>
+                            <td class="c18">￥{$sum1|number_format}</td>
+                            <td class="c19">--</td>
+                            <td class="c20">--</td>
+                            <td class="c21">--</td>
+                            <td class="c22">--</td>
+                            <td class="c23">--</td>
+                            <td class="c24">--</td>
+                            <td class="c25">￥{$shejifei}</td>
+                            <td class="c26">￥{$guanlifei}</td>
+                            <td class="c27">￥{$qingfu}</td>
+                            <td class="c28">￥{$zhucai}</td>
+                            <td class="c29">￥{$once}</td>
+                            <td class="c30">￥{$twice}</td>
+                            <td class="c31">￥{$tirth}</td>
+                            <td class="c32">￥{$others}</td>
+                            <td class="c33">--</td>
+                            <td class="c34">--</td>
+                            <td class="c35">--</td>
+                            <td class="c36">--</td>
+                            <td class="c37">--</td>
+                            <td class="c38">--</td>
+                            <td class="c40">--</td>
+							<td class="c41">--</td>
+							<td class="c42">--</td>
+							<td class="c43">--</td>
+							<td class="c44">--</td>
+							<td class="c45">--</td>
+							<td class="c46">--</td>
+							<td class="c47">--</td>
+							<td class="c48">--</td>
+							<td class="c49">--</td>
+							<td class="c50">--</td>
+							<td class="c51">--</td>
+							<td class="c52">--</td>
+							<td class="c53">--</td>
+							<td class="c54">--</td>
+							<td class="c55">--</td>
+							<td class="c56">--</td>
+							<td class="c57">--</td>
+							<td class="c58">--</td>
+                            <td>--</td>
+                        </tr>
+						</tbody>
+						</table>
+						<!--客户记录列表结束---->
+						<div class="portlet box blue page">&nbsp;共{$page}</div>
+					</div>
+				</div>
+				<!-- END EXAMPLE TABLE PORTLET-->
+				</div>
+			</div>
+			<!-- END PAGE CONTENT-->
+		</div>
+	</div>
+	<!-- END CONTENT -->
+</div>
+<!-- END CONTAINER -->
+<include file="Common:footer" />
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="__PUBLIC__/global/plugins/respond.min.js"></script>
+<script src="__PUBLIC__/global/plugins/excanvas.min.js"></script> 
+<![endif]-->
+<script src="__PUBLIC__/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="__PUBLIC__/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="__PUBLIC__/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<script type="text/javascript">
+    var displayFields_url = "{:U('Customer/projectFields')}";
+</script>
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="__PUBLIC__/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="__PUBLIC__/javascript/table-defined.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/pages/scripts/form-validation.js"></script>
+<script>
+jQuery(document).ready(function() {       
+	Metronic.init(); // init metronic core components
+	Layout.init(); // init current layout
+	QuickSidebar.init(); // init quick sidebar
+	Demo.init(); // init demo features
+	FormValidation.init();
+});
+</script>
+</body>
+<!-- END BODY -->
+</html>

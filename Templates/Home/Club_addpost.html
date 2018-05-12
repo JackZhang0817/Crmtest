@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="maximum-scale=1.0,width=device-width, initial-scale=1.0">
+<title>发布帖子 – 家装CRM客户管理系统</title>
+<meta name="keywords" content="家装crm, 家装crm软件,家装crm系统,装修crm,免费crm系统" />
+<meta name="description" content="家装crm系统，让工作更简单。家装crm系统是一个专门为家装行业量身定制的客户管理系统，通过简单的协作、沟通、共享和记录，以及云技术和跨平台，轻松实现团队的交互与客户管理工作，从而极大地提高工作效率。" />
+<link href="__PUBLIC__/kindeditor/default/default.css" rel="stylesheet" />
+<include file="Index:css" />
+</head>
+<body>
+<!-- 头部 -->
+<!-- 导航条 -->
+<include file="Index:header" />
+<!-- /头部 -->
+<!-- 主体 -->
+<div id="wrap-all">
+    <div id="main" class="inner">
+        <!--顶部边栏 我要发帖-->
+        <include file="Club:navbar" />
+        <!--顶部边栏 我要发帖-->
+        <div class="forum-panel ng-scope" ng-controller="forum_single_ctrl">
+            <div class="forum-container">
+                <div class="forum-content forum-left-panel col-xs-12 col-sm-9">
+                    <div class="forum-editor-wrapper">
+                        <h3 class="forum-editor-heading"> 发布新帖</h3>
+                        <div class="thread-edit-container">
+                            <form class="wt-form" action="__SELF__" method="post">
+                                <div class="editor-wrap">
+                                    <div class="form-group">
+                                        <input type="text" name="title" class="form-control" placeholder="标题不能为空且只能输入3-50个汉字和字母" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea id="editor" type="text" name="content"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="cid" class="form-control" required>
+                                            <option value="">请选择板块</option>
+                                            <php>$cate = C('DETAIL_CATE'); $count = count($cate) + 1;</php>
+                                            <for start="1" end="$count">
+                                                <option value="{$i}">{$cate[$i]}</option>
+                                            </for>
+                                        </select>
+                                    </div>
+                                    <div class="form-group"><input class="btn btn-success mr_15" type="submit" value="确认发布" /></div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="visible-xs">&nbsp;</div>
+                <!--右侧边栏开始-->
+                <include file="Club:right" />
+                <!--右侧边栏结束-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /主体 -->
+<!-- 底部 -->
+<include file="Index:footer" />
+<!-- /底部 -->
+<script charset="utf-8" src="__PUBLIC__/kindeditor/kindeditor-min.js"></script>
+<script charset="utf-8" src="__PUBLIC__/kindeditor/zh_CN.js"></script>
+<script type="text/javascript">
+var editor;
+KindEditor.ready(function(K) {
+    editor = K.create('#editor', {
+        resizeType : 1,
+        urlType : 'absolute',
+        width: '100%',
+        height: '350px',
+        allowPreviewEmoticons : false,
+        allowImageUpload : true,
+        items: [
+            'source', 'preview', '|', 'justifyleft', 'justifycenter', 'justifyright','justifyfull',
+            'insertorderedlist', '|', 'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'bold',
+            'italic', 'underline', '|', 'image', 'link', 'unlink', '|', 'fullscreen']
+    });
+});
+</script>
+</body>
+</html>

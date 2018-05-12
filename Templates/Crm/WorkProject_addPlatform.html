@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+<meta charset="utf-8"/>
+<title>查看客户详情 | CRM客户管理系统</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="" name="description"/>
+<meta content="gaorenhua" name="author"/>
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<link href="__PUBLIC__/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN THEME STYLES -->
+<include file="Common:css" />
+<link href="__PUBLIC__/timeline/css/history_ui.css" rel="stylesheet" />
+<!-- END THEME STYLES -->
+<link rel="shortcut icon" href="favicon.ico"/>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed page-quick-sidebar-over-content ">
+<!-- 包含公共头部和公共侧边栏 -->
+<include file="Common:header" />
+	<!-- BEGIN CONTENT -->
+	<div class="page-content-wrapper">
+		<div class="page-content">
+			<!-- BEGIN PAGE CONTENT-->
+			<div class="row">
+				<div class="col-md-6 col-sm-6">
+				<!-- BEGIN EXAMPLE TABLE PORTLET-->
+				<div class="portlet box green">
+					<div class="portlet-title">
+						<div class="caption"><i class="fa fa-file-text"></i>客户信息</div>
+                        <a style="float:right; color:#fff; height:26px; line-height:18px;padding:3px 5px;margin:8px 0px 0 0;border:#fff solid 1px;" href="{:U('Work/updateCustomer',array('id' => $info['id']))}">修改</a>
+                        <a style="float:right; color:#fff; height:26px; line-height:18px;padding:3px 5px;margin:8px 10px 0 0;border:#fff solid 1px;" href="{:U('projectCustomer')}">返回列表页</a>
+					</div>
+					<div class="portlet-body">
+						<table class="table table-bordered table-striped">
+						<tbody>
+						<tr>
+						  <td style="width:120px;" align="right"><strong>跟单负责人：</strong></td>
+						  <td>{$info.realname}</td>
+                          <td style="width:120px;" align="right"><strong>跟单设计师：</strong></td>
+                          <td>{$info.Team}</td>
+						</tr>
+						<tr>
+						  <td align="right"><strong>项目名称：</strong></td>
+						  <td>{$info.Company}</td>
+                          <td align="right"><strong>联系人：</strong></td>
+                          <td>{$info.Contact}</td>
+						</tr>
+						<tr>
+						  <td align="right"><strong>职务：</strong></td>
+						  <td>{$info.Position}</td>
+                          <td align="right"><strong>联系电话：</strong></td>
+                          <td>{$info.Tel}</td>
+						</tr>
+						<tr>
+                          <td align="right"><strong>来源渠道：</strong></td>
+                          <td>{$info.channelname}</td>
+                            <td align="right"><strong>第三方业务：</strong></td>
+                            <td><empty name="info.ThirdBiz">--<else/>{$info.ThirdBiz}</empty></td>
+						</tr>						
+                        <tr>
+                            <td align="right"><strong>项目地址：</strong></td>
+                            <td><empty name="info.Address">--<else/>{$info.Address}</empty></td>                        	
+                          <td align="right"><strong>面积：</strong></td>
+                          <td><empty name="info.Space">--<else/>{$info.Space}㎡</empty></td>
+
+						</tr>
+                        <tr>
+                          <td align="right"><strong>项目类型：</strong></td>
+                          <td><empty name="info.Type">--<else/>{$info.Type}</empty></td>                        	
+                            <td align="right"><strong>项目总价：</strong></td>
+                            <td><empty name="info.Amount">--<else/>{$info.Amount}</empty></td>
+                        </tr>
+						<tr>
+                          <td align="right"><strong>状　　态：</strong></td>
+                          <td>{$info.State}</td>
+                           <td align="right"><strong>咨询时间：</strong></td>
+                          <td>{$info.ConsultDate}</td>                        
+						</tr>						
+						<tr>
+                          <td align="right"><strong>项目祥情：</strong></td>
+                          <td colspan="3">{$info.Content}</td>
+						</tr>
+						<tr>
+                          <td align="right"><strong>备注：</strong></td>
+                          <td colspan="3">{$info.Remark}</td>
+						</tr>						
+						</tbody>
+						</table>
+                        <!--上一页  下一页-->
+                        <empty name="pre">
+                            <a class="btn btn-circle" style="padding:0px 15px;height:27px;line-height:27px; width:80px; float:left;" >没有了</a>
+                        <else/>
+                            <a class="btn btn-circle" style="background:#f2dede;padding:0px 15px;color:#a94442;height:27px;line-height:27px; width:80px; float:left;" href="{:U('Work/visitRecord',array('id' => $pre))}">上一条</a>
+                        </empty>
+                        <empty name="next">
+                            <a class="btn btn-circle" style="padding:0px 15px;height:27px;line-height:27px; width:80px; float:right;" >没有了</a>
+                        <else/>
+                            <a class="btn btn-circle" style="background:#f2dede;padding:0px 15px;color:#a94442;height:27px;line-height:27px; width:80px; float:right;" href="{:U('Work/visitRecord',array('id' => $next))}">下一条</a>
+                        </empty>
+                        <br/>
+                        <br/>
+					</div>
+				</div>
+				<!-- END EXAMPLE TABLE PORTLET-->
+                    <!-- BEGIN PORTLET-->
+                    <div class="portlet box red">
+                        <div class="portlet-title">
+                            <div class="caption"><i class="fa fa-comments"></i>问题反馈</div>
+                        </div>
+                        <div class="portlet-body" style="padding-top: 20px;">
+                            <ul class="chats" id="comments" style="min-height: 260px; max-height: 560px; overflow: auto;">
+                                <volist name="comments" id="vo">
+                                    <li class="<if condition='$_SESSION[uid] eq $vo[post_id]'>out<else />in</if>" style="margin-top: 20px;">
+                                        <if condition='$_SESSION[uid] eq $vo[post_id]'>
+                                            <img style="margin: 0; " <eq name="_SESSION[uid]|photo" value="0">src="__PUBLIC__/images/80_80.png"<else/>src="/Uploads/Headimg/thumb_{$_SESSION[uid]|photo}"</eq> class="avatar img-responsive" />
+                                            <else />
+                                            <img src="__PUBLIC__/images/80_80.png" class="avatar img-responsive" style="margin: 0; ">
+                                        </if>
+                                        <div class="message">
+                                            <span class="arrow"></span>
+                                            <if condition='$_SESSION[uid] eq $vo[post_id]'>
+                                                <a class="name">{:realname($_SESSION[uid])}</a>
+                                                <else />
+                                                <a class="name">{$info.CName}</a>
+                                            </if>
+                                            <span class="datetime">{$vo.createtime|date="Y-m-d H:i:s",###}</span>
+                                            <span class="body">{$vo.content}</span>
+                                        </div>
+                                    </li>
+                                </volist>
+                            </ul>
+                            <div class="chat-form">
+                                <div class="input-cont">
+                                    <input id="customer_id" type="hidden" value="{:I('get.id')}">
+                                    <input class="form-control" id="comment_content" name="record" type="text" placeholder="点击这里回答问题...">
+                                </div>
+                                <div class="btn-cont">
+                                    <input type="submit" name="submit" onclick="comment()" class="btn blue" value="√">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END PORTLET-->
+				</div>
+				<div class="col-md-6 col-sm-6">
+
+				    <!-- BEGIN PORTLET-->
+                    <eq name="status" value="2">
+                        <div class="portlet box blue">
+                            <div class="portlet-title">
+                                <div class="caption"><i class="fa fa-comments"></i>开通客户平台</div>
+                            </div>
+                            <div class="portlet-body" id="chats">
+                                <div class="alert alert-success">
+                                    <strong><i class="fa fa-hand-o-right"></i>　什么是客户管理平台呢?</strong>
+                                    <br>　　客户管理平台是为了方便装修公司和客户之间的沟通而开发的增值服务。装修公司将施工环节以图片、文字的形式发布在平台，客户可随时登陆平台查看施工细节，提高两方的沟通效率。<br><br>
+                                    <strong><i class="fa fa-hand-o-right"></i>　收费规则</strong>
+                                    <br>　　客户管理平台为装修公司免费提供<font style="color:red;">3个试用名额</font>，之后每个用户每年收取50元的费用，即<font style="color:red;">50元/人/年</font>。（费用当月核对结算）<br><br>
+                                    <strong><i class="fa fa-hand-o-right"></i>　注意事项</strong>
+                                    <br>　　1、申请开通后，系统要求分配此客户的<font style="color:red;">登陆账号和密码</font>，客户凭账号和密码登陆平台查看施工进度、细节等内容。<br>
+                                    　　2、试用结束后，当您开通第4个客户平台时，系统会出现“<font style="color:red;">是否要继续开通以及是否需要进行购买</font>”提示，届时工作人员会电话与你沟通确认。<br>
+                                    　　3、试用期间，您可将系统出现的问题或您的意见建议，致电<font style="color:red;"> 18505325137 </font>或QQ：1425097451 反馈给我们！
+                                </div>
+                                <div class="chat-form">
+                                    <a href="#responsive" data-toggle="modal" class="btn btn-primary btn-lg">开通客户平台</a>
+                                </div>
+                            </div>
+                        </div>
+                    <else/>
+                        <div class="portlet box blue">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-cogs"></i>此客户已开通平台.
+                                    <font style="font-size: 14px;">(帐号: {$cname}　密码: {$pass})</font></div>
+                                <div class="actions">
+                                    <a href="{:U('addProjectInfo', array('id' => $_GET['id']))}" class="btn btn-primary btn-lg" >添加施工详情</a></div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="pname_list">
+                                            <volist name="list" id="data">
+                                                <neq name="key" value="0">→</neq>
+                                                <div class="btn btn-circle btn-sm grey-cascade pname" data="{$data.id}">{$data.pname}</div>
+                                                <volist name="data.child" id="ch">
+                                                    →
+                                                    <div class="btn btn-circle btn-sm grey-cascade pname" data="{$ch.id}">{$ch.pname}</div>
+                                                </volist>
+                                            </volist>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="history">
+                                    <volist name="infos" id="inf">
+                                        <div class="history-date">
+                                            <ul>
+                                                <h2 class="date02" style="font-size:18px;"><a>{$key|pname}</a></h2>
+                                            <volist name="inf" id="data">
+                                                <li><h3>{$data.entrytime|date='m.d H:i', ###}<span>{$data.entrytime|date='Y', ###}</span></h3>
+                                                    <dl data="{$data.pid}"><dt>【{$data.pname}】<a href="{:U('viewProjectInfo', array('id' => $data['id']))}">{$data.title}</a>
+                                                        <eq name="data.uid" value="$_SESSION['uid']">
+                                                            <a class="editor" href="{:U('editorProjectInfo', array('id' => $data['id'],'cid' => $data['customer_id']))}">[编辑]</a>
+                                                            <a class='delcfm delete' src="{:U('deleteProjectInfo', array('id' => $data['id'], 'url' => $data['customer_id']))}">[删除]</a>
+                                                        </eq>
+                                                        <a href="{:U('viewProjectInfo', array('id' => $data['id']))}"><span>{$data.thumb|mythumb}</span></a>
+                                                        <div class="realname">发布人：{$data.realname}　发布时间：{$data.entrytime|date='Y-m-d H:i', ###}</div>
+                                                        </dt>
+                                                    </dl>
+                                                </li>
+                                            </volist>
+                                            </ul>
+                                        </div>
+                                    </volist>
+                                </div>
+                            </div>
+                        </div>
+                    </eq>
+					<!-- END PORTLET-->
+				</div>
+				<div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+								<h4 class="modal-title">创建业主登陆账户：业主可凭登陆名和密码登陆客户管理平台查看施工进度。</h4>
+							</div>
+							<form action="{:U('WorkProject/addPlatform')}" method="post">
+								<div class="modal-body form-body">
+									<div class="row">
+										<input type="hidden" name="customer_id" value="{$info.id}">
+										<p class="col-md-12" style="margin-bottom:5px;"><input type="text" name="cusname" class="form-control" placeholder="用户名需以字母开头，5-17个字符 字母、数字、下划线_"/></p>
+										<p class="col-md-12"><input type="password" name="password" class="form-control" placeholder="密码需以字母开头，5-17个字符 字母、数字、下划线_"/></p>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" data-dismiss="modal" class="btn default">取消添加</button>
+									<button type="submit" class="btn green">确认添加</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- END PAGE CONTENT-->
+		</div>
+	</div>
+	<!-- END CONTENT -->
+</div>
+<!-- END CONTAINER -->
+<include file="Common:footer" />
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="__PUBLIC__/global/plugins/respond.min.js"></script>
+<script src="__PUBLIC__/global/plugins/excanvas.min.js"></script> 
+<![endif]-->
+<script src="__PUBLIC__/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="__PUBLIC__/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="__PUBLIC__/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<script type="text/javascript">
+	var displayFields_url = '{:U("UserDefined/displayFields")}';
+</script>
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="__PUBLIC__/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="__PUBLIC__/javascript/table-defined.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/pages/scripts/form-validation.js"></script>
+<script src="__PUBLIC__/layer/layer.min.js"></script>
+<script>
+jQuery(document).ready(function() {       
+	Metronic.init(); // init metronic core components
+	Layout.init(); // init current layout
+	QuickSidebar.init(); // init quick sidebar
+	Demo.init(); // init demo features
+	FormValidation.init();
+
+    //施工进度条加亮
+    $(".history-date dl").each(function(){
+        var data=$(this).attr("data");
+        $("div.btn[data='"+data+"']").removeClass("grey-cascade").addClass("green");
+    });
+
+    //滚动条滑至最底部
+    $('#comments').scrollTop(100000);
+
+    // 是否删除提示
+    $('.delcfm').click(function(){
+        var url = $(this).attr('src');
+        $.layer({
+            shade: [0],
+            area: ['auto','auto'],
+            dialog: {
+                msg: '您确定要删除该信息吗？删除后无法恢复! ',
+                btns: 2,
+                type: 4,
+                btn: ['确定','取消'],
+                yes: function(){
+                    window.location = url;
+                }, no: function(){
+                    return false;
+                }
+            }
+        });
+    });
+});
+/**
+ * 回答客户提出的问题
+ * @returns {boolean}
+ */
+function comment(){
+    var comment_content = $('#comment_content').val();
+    var customer_id = $('#customer_id').val();
+    if($.trim(comment_content) == ''){
+        alert('请输入提问内容?');
+        return false;
+    }
+    $.ajax({
+        url: "{:U('WorkProject/comment')}",
+        type: 'post',
+        data: {content: comment_content, customer_id: customer_id},
+        success: function(data){
+            if(data){
+                data = JSON.parse(data);
+                var html = '<li class="out">' +
+                        '   <img style="margin: 0; " <eq name="_SESSION[uid]|photo" value="0">src="__PUBLIC__/images/80_80.png"<else/>src="/Uploads/Headimg/thumb_{$_SESSION[uid]|photo}"</eq> class="avatar img-responsive" />' +
+                        '   <div class="message">' +
+                        '       <span class="arrow"></span>' +
+                        '       <a class="name">{:realname($_SESSION[uid])}</a>' +
+                        '       <span class="datetime">at ' + data.create_time + ' </span>' +
+                        '       <span class="body">' + data.content + '</span>' +
+                        '   </div>' +
+                        '</li>';
+                $('#comments').append(html);
+                $('#comment_content').val('');
+                $('#comments').scrollTop(100000);
+            }
+        }
+    });
+}
+</script>
+</body>
+<!-- END BODY -->
+</html>

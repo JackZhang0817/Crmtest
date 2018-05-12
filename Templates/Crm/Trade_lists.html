@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>交易记录 | CRM客户管理系统</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="gaorenhua" name="author"/>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="__PUBLIC__/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="__PUBLIC__/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="__PUBLIC__/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="__PUBLIC__/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link href="__PUBLIC__/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+    <link href="__PUBLIC__/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/global/plugins/bootstrap-datepicker/css/datepicker.css"/>
+    <!-- END PAGE LEVEL STYLES -->
+    <!-- BEGIN THEME STYLES -->
+    <include file="Common:css" />
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico"/>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed page-quick-sidebar-over-content ">
+<!-- 包含公共头部和公共侧边栏 -->
+<include file="Common:header" />
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+<div class="page-content">
+<!-- BEGIN PAGE CONTENT-->
+<div class="row">
+<div class="col-md-12">
+<!-- BEGIN EXAMPLE TABLE PORTLET-->
+<div class="portlet box blue">
+<div class="portlet-title">
+    <div class="caption page"><i class="fa fa-globe"></i>交易记录 - 账户余额: {$sum}元
+        <span style="font-size:14px;">&nbsp;共{$page}</span>
+    </div>
+</div>
+<div class="portlet-body">
+    <!-- 搜索客户 -->
+    <!--<form class="form-inline" method="get" action="{:U('Customer/search')}" >
+        <div class="col-md-5" style="padding:0px;">
+            <div class="control-group search" style="padding:0px;margin-bottom:5px;">
+                <select name="Userid" class="form-control input-sm">
+                    <option value=''>资金流向</option>
+                    <option value='1'>收入</option>
+                    <option value='2'>支出</option>
+                </select>
+                <input class="form-control input-sm" type="text" name="CName" placeholder="订单号" />
+                <input class="form-control input-sm" type="text" name="Tel" placeholder="商户订单号" />
+                <input class="form-control input-sm date-picker" type="text" placeholder="交易时间-" name="ConsultDate" />
+            </div>
+        </div>
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-sm blue">搜索</button>
+        </div>
+    </form>-->
+    <!--客户记录列表开始---->
+    <table class="table table-bordered dataTable table-full-width table-striped">
+        <thead>
+        <tr>
+            <th>订单号</th>
+            <th>订单时间</th>
+            <th>订单名称</th>
+            <th>订单总额</th>
+            <th>支付宝交易号</th>
+            <!--<th class="c7 cc {:sortCustomer(payment_trade_status,$_GET[sort],$status)}" data-src="{:U('Trade/lists', array('sort'=>payment_trade_status, 'status'=>$status))}">支付状态</th>-->
+            <th>支付宝账号</th>
+            <th>交易状态</th>
+            <th>备注</th>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="lists" id="v" empty="$empty">
+            <tr>
+                <td class="c1" >{$v.ordid}</td>
+                <td class="c2 cup" data-name="CName" data="{$v.id}" >{$v.ordtime|date='Y-m-d H:i:s',###}</td>
+                <td class="c3 cup" data-name="Tel" data="{$v.id}" >{$v.ordtitle}</td>
+                <td class="c4 cup" data-name="Address" data="{$v.id}" >{$v.ordfee}</td>
+                <td class="c6">{$v.payment_trade_no}</td>
+                <!--<td class="c7"><eq name="v.payment_trade_status" value="TRADE_SUCCESS"><font color="green">充值成功</font><else/><font color="red">充值失败</font></eq></td>-->
+                <td class="c9">{$v.payment_buyer_email}</td>
+                <td class="c8" style="font-family: '宋体'">
+                    <if condition="($v.ordstatus eq 1)">
+                        <a style="color: green; font-family: '微软雅黑'">已支付</a>
+                    <elseif condition="$v.ordstatus eq 2"/>
+                        <a style="color: green;font-family: '微软雅黑'" >未支付</a> |
+                        <a style="color: red; font-family: '微软雅黑'" href="{:U('Trade/goOnAlipay', array('ordid'=>$v[ordid]))}" >去支付</a> |
+                        <a style="color: red; font-family: '微软雅黑'" onclick="unsetOrder('{:U(\'Trade/unsetOrder\', array(\'ordid\'=>$v[ordid]))}')">作废</a>
+                    <elseif condition="$v.ordstatus eq 0"/>
+                        <a style="font-family: '微软雅黑'">支付失败</a>
+                    <elseif condition="$v.ordstatus eq 9"/>
+                        <a style="font-family: '微软雅黑'; color: green;">已作废</a>
+                    </if>
+                </td>
+                <td class="c10">{$v.ordbody}</td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+    <!--客户记录列表结束---->
+    <div class="portlet box blue page">&nbsp;共{$page}</div>
+</div>
+</div>
+<!--END EXAMPLE TABLE PORTLET-->
+</div>
+</div>
+<!-- END PAGE CONTENT-->
+</div>
+</div>
+<!-- END CONTENT -->
+</div>
+<!-- END CONTAINER -->
+<include file="Common:footer" />
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]-->
+<script src="__PUBLIC__/global/plugins/respond.min.js"></script>
+<script src="__PUBLIC__/global/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="__PUBLIC__/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="__PUBLIC__/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="__PUBLIC__/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<script type="text/javascript">
+    var displayFields_url = "{:U('Customer/displayFields')}";
+</script>
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="__PUBLIC__/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="__PUBLIC__/javascript/table-defined.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/pages/scripts/form-validation.js"></script>
+<script src="__PUBLIC__/layer/layer.min.js"></script>
+<script>
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        QuickSidebar.init(); // init quick sidebar
+        Demo.init(); // init demo features
+        FormValidation.init();
+
+        // 点击排序
+        $('th.cc').click(function(){
+            var url = $(this).attr('data-src');
+            window.location.href = url;
+        });
+
+    });
+
+    //作废订单
+    function unsetOrder(href){
+        if(confirm('确定要作废该订单吗?')){
+            window.location.href = href;
+        }
+    }
+</script>
+</body>
+<!-- END BODY -->
+</html>

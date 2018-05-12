@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>超级后台首页-CRM客户关系管理系统</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/easyui/themes/icon.css">
+<script type="text/javascript" src="__PUBLIC__/easyui/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/easyui/jquery.easyui.min.js"></script>
+<style type="text/css">
+    *{font-family:"Microsoft Yahei"; font-size:14px;}
+    a{color:#000000;text-decoration:none;font-size:12px;}
+    span{font-size:14px;}
+    .easyui-tree li{margin:3px 0px;}
+    .content{padding: 5px}
+</style>
+</head>
+
+<body style="margin:1px;padding:0px;">
+<div id="layout">
+    <div data-options="region:'north'" style="height:50px">欢迎登录客户关系管理系统(CRM)超级后台</div>
+    <!--<div data-options="region:'south',split:true" style="height:50px;"></div>-->
+    <!--<div data-options="region:'east',split:true" title="East" style="width:100px;"></div>-->
+    <div data-options="region:'west',split:true" title="导航栏" style="width:180px; padding:5px 10px;">
+        <ul class="easyui-tree">
+            <li><a href="{:U('Index/sysinfo')}">基本信息</a></li>
+            <li><span>用户管理</span>
+                <ul>
+                    <li><a href="{:U('Index/checked_users')}">已审核用户</a></li>
+                    <li><a href="">待审核用户</a></li>
+                </ul>
+            </li>
+            <li>
+                <span>权限管理</span>
+                <ul>
+                    <li><a href="">分配权限</a></li>
+                    <li><a href="">权限列表</a></li>
+                    <li><a href="">添加权限</a></li>
+                </ul>
+            </li>
+            <li><span>交易管理</span>
+                <ul>
+                    <li><a href="{:U('Trade/index')}">交易记录</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>

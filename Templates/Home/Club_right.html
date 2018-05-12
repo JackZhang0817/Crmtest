@@ -1,0 +1,23 @@
+<div class="sidebar col-xs-12 col-sm-3">
+    <div class="sidebar-inner">
+        <if condition="is_login()">
+            <div class="sidebar-widget" ng-init="message_count = 0">
+                <h4><a href="#">我的社区</a></h4>
+                <ul>
+                    <li>
+                        <a href="{:U('myDetail')}">我的帖子</a>
+                    </li>
+                </ul>
+            </div>
+        </if>
+        <div class="sidebar-widget">
+            <h4>搜索</h4>
+            <form action="{:U('search')}" method="post">
+                <div class="input-group">
+                    <input name="q" type="text" class="form-control" placeholder="搜索您的问题...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-success plr_10" type="submit">搜 索</button>
+                    </span>
+                </div>
+            </form>
+        </div>
