@@ -985,7 +985,9 @@ class CustomerAction extends CommonAction {
     protected function where(){
         // 判断是否是超级管理员
         if (in_array(session('uid'), C('ADMINISTRATOR'))) {
-            return $where = array();
+            $user = array_column(M('users')->field('id')->select(), 'id');
+            return $where = array('Userid' => array('IN', $user));
+//            return $where = array();
         } else {
             // 获取职务
             $job = M('users')->where(array('id' => session('uid')))->getField('job');
