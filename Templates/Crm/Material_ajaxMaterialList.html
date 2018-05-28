@@ -1,0 +1,25 @@
+<volist name="list" id="vo" key="k">
+    <tr>
+        <td>
+            {$k}
+        </td>
+        <td>
+            {$vo.marterial_type|getMaterialTypeName}
+        </td>
+        <td>
+            {$vo.marterial_name}
+        </td>
+        <td class="text-center">
+            <span class="label label-sm {$vo['marterial_status'] == 1 ? 'label-success' : 'label-warning'}"> {$vo['marterial_status'] == 1 ? '正常' : '禁用'}</span>
+        </td>
+        <td>
+            {$vo.use_times}
+        </td>
+        <td>
+            {$vo.create_time|date='Y-m-d H:i:s', ###}
+        </td>
+        <td>
+
+        </td>
+    </tr>
+</volist>

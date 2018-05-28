@@ -1055,3 +1055,11 @@ function isMobile()
     }
     return false;
 }
+
+/**
+ * @param $type_id
+ */
+function getMaterialTypeName($type_id){
+    $info = M('material_type')->where(array('type_id' => $type_id))->getField('type_name');
+    return $info;
+}

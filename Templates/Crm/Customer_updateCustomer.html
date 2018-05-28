@@ -497,7 +497,19 @@
 	                                        </div>
                                         </div>
                                     </div> 
-<div style="font-size:18px;border-bottom:darkseagreen solid 2px;margin:0px 20px 20px;padding:10px 0px;color:#333;">材料信息：</div>   
+<div style="font-size:18px;border-bottom:darkseagreen solid 2px;margin:0px 20px 20px;padding:10px 0px;color:#333;">材料信息：</div>
+                                    <div class="form-group">
+                                    <volist name="materialTypeList" id="vo">
+                                        <div class="form-group col-md-6 ">
+                                            <label class="control-label col-md-4">{$vo.type_name}</label>
+                                            <div class="col-md-6">
+                                                <select class="form-control input-medium material-select" name="material_info[{$vo.type_id}]" id="material-select-{$vo.type_id}" data-val="{$vo.type_id}">
+                                                    <option value="0">无</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </volist>
+                                </div>
                                  <div class="form-group">
                                  	<label class="control-label col-md-2">门</label>
                                         <div class="col-md-3">
@@ -705,6 +717,44 @@
 		FormValidation.init();
 		//颜色板
 		$("#color").bigColorpicker("color", "L", 6);
+		materialTypeList()
+        $('#material_reload').on('click', function () {
+            console.log('111')
+            materialTypeList()
+        })
+		//颜色板
+		$("#color").bigColorpicker("color", "L", 6);
+		function materialTypeList() {
+		    console.log('zhixing')
+            var type_list = '{$info.material_info}';
+
+            console.log(type_list)
+
+            console.log(typeof (type_list))
+            console.log($.parseJSON(type_list))
+            var new_type = $.parseJSON(type_list)
+            console.log(new_type[1])
+
+
+            $('.material-select').each(function () {
+                var ajax_url = "{:U('Material/getMaterialList')}"
+                var mtype_id = $(this).attr('data-val')
+                $.post(ajax_url, {type_id: mtype_id}, function (res) {
+                    var _html = '<option value="0">无</option>';
+                    if(res.length > 0) {
+                        $.each(res, function (index, value) {
+                            if(value.marterial_id == new_type[mtype_id]){
+                                console.log('value:' + new_type[mtype_id])
+                                _html += '<option value="' + value.marterial_id + '" selected>' + value.marterial_name + '</option>'
+                            }else{
+                                _html += '<option value=' + value.marterial_id + '>' + value.marterial_name + '</option>'
+                            }
+                        })
+                    }
+                    $('#material-select-' + mtype_id).html(_html)
+                })
+            })
+        }
 	}); 
 </script>
 <!-- END JAVASCRIPTS -->

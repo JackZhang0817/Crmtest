@@ -9,14 +9,73 @@
 class MaterialAction extends CommonAction
 {
     /**
-     *
+     *添加材料
      */
     public function addMaterial()
     {
-        $material_type = D('MaterialType');
-        $list = $material_type->select();
-        $this->assign('list', $list);
-        $this->display();
+        if($this->isPost()){
+            //new model
+            $Material = D('Material');
+
+            if(!$Material->create()){  //check the data
+                $res['info'] = $Material->getError();
+                $this->ajaxReturn($res, '', 0);
+            }else{  //add the data
+                $res = $Material->add();
+                if(false == $res){
+                    $res['info'] = $Material->getError();
+                    $this->ajaxReturn($res, '添加失败', 0);
+                }else{
+                    $this->ajaxReturn($res, '添加成功', 1);
+                }
+            }
+        }else{
+            $material_type = D('MaterialType');
+            $list = $material_type->select();
+            $this->assign('list', $list);
+            $this->display();
+        }
+    }
+
+    /**
+     * 材料列表
+     */
+    public function materialList()
+    {
+        $material = D('Material');
+        if($this->isPost()){
+            $type_id = $this->_param('type_id');
+            $where['marterial_type'] = $type_id;
+            if($type_id == 0) {
+                $list = $material->select();
+            }else{
+                $list = $material->where($where)->select();
+            }
+            $this->assign('list', $list);
+            $this->display('ajaxMaterialList');
+        }else{
+            $list = $material->select();
+            $material_type = D('MaterialType');
+            $type = $material_type->select();
+            $this->assign('type', $type);
+            $this->assign('list', $list);
+            $this->display();
+        }
+    }
+
+    /**
+     *根据type获取材料名称列表
+     */
+    public function getMaterialList()
+    {
+        if($this->isPost()) {
+            $material = D('Material');
+            $type_id = $this->_param('type_id');
+            $where['marterial_type'] = $type_id;
+            $list = $material->where($where)->select();
+            $new_arr = $list == null ? [] : $list;
+            $this->ajaxReturn($new_arr);
+        }
     }
 
     /**
@@ -24,6 +83,43 @@ class MaterialAction extends CommonAction
      */
     public function addMaterialType()
     {
+        if($this->isPost()){
+            $materialType = D('MaterialType');
+            if(!$materialType->create()){  //check the data
+                $res['info'] = $materialType->getError();
+                $this->ajaxReturn($res, '', 0);
+            }else{  //add the data
+                $res = $materialType->add();
+                if(false == $res){
+                    $res['info'] = $materialType->getError();
+                    $this->ajaxReturn($res, '添加失败', 0);
+                }else{
+                    $this->ajaxReturn($res, '添加成功', 1);
+                }
+            }
+        }
         $this->display();
+    }
+
+    /**
+     * 材料报表
+     */
+    public function materialChart()
+    {
+        if($this->isPost()){
+            $info = $this->_param();
+            $where = array(
+                array('marterial_type' => $info['type_id'])
+            );
+            $material = D('Material');
+            $list = $material->where($where)->field('marterial_type, marterial_name, use_times')->select();
+            $new_arr = $list == null ? [] : $list;
+            $this->ajaxReturn($new_arr);
+        }else{
+            $materialType = D('MaterialType');
+            $list = $materialType->select();
+            $this->assign('typeList', $list);
+            $this->display();
+        }
     }
 }

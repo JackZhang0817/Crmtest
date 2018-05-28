@@ -397,46 +397,6 @@
 
                             <div style="font-size:18px;border-bottom:darkseagreen solid 2px;margin:0px 20px 20px;padding:10px 0px;color:#333;">工程费用：</div>
                                     <div class="form-group">
-                                        <!--<label class="control-label col-md-2">设计费</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="shejifei" allownull="true" class="form-control" />
-                                        </div>
-                                        <label class="control-label col-md-2">服务费</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="guanlifei" allownull="true" class="form-control"  />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">轻辅费</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="qingfu" allownull="true" class="form-control" />
-                                        </div>
-                                        <label class="control-label col-md-2">主材费</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="zhucai" allownull="true" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">第一笔人工费</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="once" allownull="true" class="form-control" />
-                                        </div>
-                                        <label class="control-label col-md-2">第二笔人工费</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="twice" allownull="true" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">第三笔人工费</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="tirth" allownull="true" class="form-control" />
-                                        </div>
-                                        <label class="control-label col-md-2">其他费用</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="others" allownull="true" class="form-control" />
-                                        </div>
-                                    </div>-->
-                                    <div class="form-group">
                                     	<div class="col-md-7">
                                         <label class="control-label col-md-3">首期款应付</label>
 	                                        <div class="col-md-3">
@@ -493,71 +453,22 @@
 	                                        </div>
                                         </div>
                                     </div>                                                                                                                      
-                                 <div style="font-size:18px;border-bottom:darkseagreen solid 2px;margin:0px 20px 20px;padding:10px 0px;color:#333;">材料信息：</div>   
-                                 <div class="form-group">
-                                 	<label class="control-label col-md-2">门</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="men" allownull="true" class="form-control" />
-                                        </div>
-                                        <label class="control-label col-md-2">厨具</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="chuju" allownull="true" class="form-control"  />
-                                        </div>
+                                 <div style="font-size:18px;border-bottom:darkseagreen solid 2px;margin:0px 20px 20px;padding:10px 0px;color:#333;">材料信息：<a
+                                         href="javascript:;" id="material_reload" style="font-size:12px">重新加载</a>
                                  </div>
-                                 <div class="form-group">
-                                 	<label class="control-label col-md-2">地板</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="diban" allownull="true" class="form-control" />
+                                    <div class="form-group">
+                                    <volist name="materialTypeList" id="vo">
+                                        <div class="form-group col-md-6 ">
+                                            <label class="control-label col-md-4">{$vo.type_name}</label>
+                                            <div class="col-md-6">
+                                                <select class="form-control input-medium material-select" name="material_info[{$vo.type_id}]" id="material-select-{$vo.type_id}" data-val="{$vo.type_id}">
+                                                    <option value="0">无</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <label class="control-label col-md-2">座便</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="zuobian" allownull="true" class="form-control"  />
-                                        </div>
-                                 </div>
-                                                                  
-                                 <div class="form-group">
-                                 	<label class="control-label col-md-2">吊顶</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="diaoding" allownull="true" class="form-control" />
-                                        </div>
-                                        <label class="control-label col-md-2">水电</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="shuidian" allownull="true" class="form-control"  />
-                                        </div>
-                                 </div>
-                                                                                                                                                                    <div class="form-group">
-                                 	<label class="control-label col-md-2">小件</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="xiaojian" allownull="true" class="form-control" />
-                                        </div>
-                                        <label class="control-label col-md-2">壁纸</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="bizhi" allownull="true" class="form-control"  />
-                                        </div>
-                                 </div>
-                                 
-                                 <div class="form-group">
-                                 	<label class="control-label col-md-2">龙头</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="longtou" allownull="true" class="form-control" />
-                                        </div>
-                                        <label class="control-label col-md-2">柱盆/小柜</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="xiaogui" allownull="true" class="form-control"  />
-                                        </div>
-                                 </div>
-                                 
-                                 <div class="form-group">
-                                 	<label class="control-label col-md-2">卫生间瓷砖</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="weishengjian" allownull="true" class="form-control" />
-                                        </div>
-                                        <label class="control-label col-md-2">厨房瓷砖</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="chufang" allownull="true" class="form-control"  />
-                                        </div>
-                                 </div>
-     	                                                                                                                                                   
+                                    </volist>
+                                </div>
+
                             <div style="font-size:18px;border-bottom:darkseagreen solid 2px;margin:0px 20px 20px;padding:10px 0px;color:#333;">施工信息：</div>
                                     <div class="form-group">
                                         <if condition="is_admin() || is_project()">
@@ -706,9 +617,30 @@
 			});
 		});
 
+		materialTypeList()
+        $('#material_reload').on('click', function () {
+            console.log('111')
+            materialTypeList()
+        })
 		//颜色板
 		$("#color").bigColorpicker("color", "L", 6);
-	}); 
+		function materialTypeList() {
+		    console.log('zhixing')
+            $('.material-select').each(function () {
+                var ajax_url = "{:U('Material/getMaterialList')}"
+                var mtype_id = $(this).attr('data-val')
+                $.post(ajax_url, {type_id: mtype_id}, function (res) {
+                    var _html = '<option value="0">无</option>';
+                    if(res.length > 0) {
+                        $.each(res, function (index, value) {
+                            _html += '<option value=' + value.marterial_id + '>' + value.marterial_name + '</option>'
+                        })
+                    }
+                    $('#material-select-' + mtype_id).html(_html)
+                })
+            })
+        }
+	});
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

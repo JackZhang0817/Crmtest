@@ -65,11 +65,13 @@ class CustomerAction extends CommonAction {
                 $data['record'] = array('entrytime' => $_SERVER['REQUEST_TIME'], 'content' => $content, 'uid' => session('uid'));
             }
 
+            $data['material_info'] = json_encode($data['material_info']);
             // 添加客户 成功 返回记录ID 失败返回false
             $id = D('Customer')->relation(true)->add($data);
             if ($id) {
                 // 添加操作记录 以便及时提醒相关人员
                 $this->addnews($data['Designer'], $data['Userid'], $data['Project'], $id, 'Customer/visitRecord', '添加了一条客户信息');
+                $this->_handleMaterialHistory($id, $data['material_info']);
 
                 $this->success('添加成功', U('customerList'), 1);
             } else {
@@ -81,8 +83,11 @@ class CustomerAction extends CommonAction {
                 'admin_id' => fid(),
                 'class' => 5
             );
+            $materialType = D('MaterialType');
+            $materialTypeList = $materialType->select();
             $group = M('group')->where($where)->field('id,title')->select();
 
+            $this->assign('materialTypeList', $materialTypeList);
             $this->group = $group;
             $this->attachedInfo();
             $this->display();
@@ -160,6 +165,7 @@ class CustomerAction extends CommonAction {
                         $data['attached'] = array('markcolor' => $oldcolor);
                     }
                 }
+                $data['material_info'] = json_encode($data['material_info']);
 
             } else {
                 // 判断该用户ID是否标记颜色 如果标记了则更新 没标记 则插入原有数组
@@ -174,6 +180,7 @@ class CustomerAction extends CommonAction {
             if (D('Customer')->relation(true)->save($data) !== false) {
                 // 添加操作记录 以便及时提醒相关人员
                 $this->addnews($data['Designer'], $data['Userid'], $data['Project'], $data['id'], 'Customer/visitRecord', '更新了一条客户信息');
+                $this->_handleMaterialHistory($data['id'], $data['material_info']);
 
                 $this->success('更新成功', U('customerList'), 1);
             } else {
@@ -182,6 +189,7 @@ class CustomerAction extends CommonAction {
         } else {
             // 查询当前客户信息
             $info = D('CustomerView')->where(array('id' => $this->_get('id')))->find();
+//            $info['material_info'] = json_decode($info['material_info'], true);
 
             // 查询工程组属性的部门
             $where = array(
@@ -190,7 +198,11 @@ class CustomerAction extends CommonAction {
             );
             $group = M('group')->where($where)->field('id,title')->select();
 
+            $materialType = D('MaterialType');
+            $materialTypeList = $materialType->select();
+
             $this->group = $group;
+            $this->assign('materialTypeList', $materialTypeList);
             $this->attachedInfo();
             $this->assign('info', $info);
             $this->display();
@@ -1626,5 +1638,24 @@ class CustomerAction extends CommonAction {
             @readfile($file);
         }else
             $this->error('该文件不存在');
+    }
+
+    /**
+     * 处理材料历史数据
+     * @param $customer_id
+     * @param $type_info
+     * @return bool
+     */
+    public function _handleMaterialHistory($customer_id, $type_info)
+    {
+        $material_history = new MaterialHistoryModel();
+        $material_history->startTrans();
+        $info = $material_history->handleHistory($customer_id, $type_info);
+        if(!$info){
+            $material_history->rollback();
+            return false;
+        }
+        $material_history->commit();
+        return true;
     }
 }
