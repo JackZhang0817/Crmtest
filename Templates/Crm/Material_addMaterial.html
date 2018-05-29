@@ -89,10 +89,7 @@
 									<label class="control-label col-md-3">材料类型</label>
 									<div class="col-md-3">
 										<select name="pid" id="material_type" class="form-control">
-											<option value="0" selected>无</option>
-											<volist name="list" id="data">
-												<option value="{$data.type_id}">{$data.type_name}</option>
-											</volist>
+
 										</select>
 									</div>
 									<div class="col-md-2">
@@ -133,7 +130,57 @@
 			</div>
 		</div>
 		<!-- END PAGE CONTENT-->
+        <div class="row">
+		<div class="col-md-6">
+			<!-- BEGIN SAMPLE TABLE PORTLET-->
+			<div class="portlet box blue">
+				<div class="portlet-title">
+					<div class="caption">
+						<i class="fa fa-cogs"></i>材料类型列表
+					</div>
+					<div class="tools">
+						<a href="javascript:;" class="collapse" data-original-title="" title="">
+						</a>
+						<a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
+						</a>
+						<a href="javascript:;" class="reload" data-original-title="" title="">
+						</a>
+						<a href="" class="fullscreen" data-original-title="" title="">
+						</a>
+						<a href="javascript:;" class="remove" data-original-title="" title="">
+						</a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<table class="table table-hover">
+						<thead>
+						<tr>
+							<th>
+								序号
+							</th>
+							<th>
+								类型名称
+							</th>
+							<th>
+								类型产品数
+							</th>
+							<th class="hidden-480">
+								操作
+							</th>
+						</tr>
+						</thead>
+						<tbody id="material_type_list">
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- END SAMPLE TABLE PORTLET-->
+		</div>
 	</div>
+
+	</div>
+
 </div>
 <!-- END CONTENT -->
 </div>
@@ -220,14 +267,11 @@
 				marterial_status: material_status,
 			};
             postTheData(info, 1);
-            // $.post(url, material_data, function (res) {
-            //     console.log(res)
-            // })
         })
         $('#add-type').on('click', function () {
             bootbox.prompt("添加材料类型", function(result) {
                 if (result === null || result == '') {
-                    alert("输入错误");
+
                 } else {
                     console.log(result)
                     var addTypeUrl = "{:U('Material/addMaterialType')}";
@@ -238,11 +282,8 @@
                             toastr.error(res.data.info, '添加错误')
                         } else if (res.status == 1) {
                             toastr.success('添加成功');
-                            if (status == 1) {
-                                location.href = url
-                            } else {
-                                location.href = addUrl
-                            }
+                            getOptionType()
+                            getMaterialList()
                         }
                     })
                 }
@@ -265,6 +306,81 @@
 				}
             })
         }
+        getOptionType()
+        //option 类型的处理
+		function getOptionType() {
+            var url = "{:U('Material/materialTypeList')}"
+            $.post(url,{info: ''},function (res) {
+                var _html = '<option value="0" selected>无</option>';
+                $.each(res, function (index, item) {
+                    _html += '<option value="'+item.type_id+'">'+item.type_name+'</option>'
+                })
+                $('#material_type').html(_html)
+			})
+		}
+        // 底部的列表处理
+        getMaterialList()
+        function getMaterialList() {
+            var url = "{:U('Material/materialTypeList')}"
+            $.post(url,{info: ''},function (res) {
+                var _html = '';
+                $.each(res, function (index, item) {
+                    index = Number(index) + 1
+                    _html += '<tr><td>' + index + '</td><td>' + item.type_name + '</td><td>' + item.material_num + '</td><td>' +
+						'<a class="btn btn-xs red alertMaType" data-val="' + item.type_id + '" data-item="'+ item.type_name + '"> 修改 <i class="fa fa-edit"></i></a>' +
+						'<a  class="btn btn-xs purple delMaType" data-val="' + item.type_id + '"><i class="fa fa-times"></i> 删除 </a></td></tr>'
+                })
+                $('#material_type_list').html(_html)
+            })
+        }
+
+        window.onload = function() {
+            $('body').delegate('.alertMaType', "click", function () {
+                var alertTypeUrl = "{:U('Material/alertMaterialType')}"
+                var type_id = $(this).attr('data-val')
+                var type_name = $(this).attr('data-item')
+                bootbox.prompt({
+                    title: "修改材料类型",
+                    size: 'small',
+                    inputType: 'text',
+                    value: type_name,
+                    callback: function (result) {
+                        if (result != type_name && result != null) {
+                            $.post(alertTypeUrl, {type_id: type_id, type_name: result}, function (res) {
+                                console.log(res)
+                                if (res.code == 1) {
+                                    getOptionType()
+                                    getMaterialList()
+                                }
+                            })
+                        }
+                    }
+                })
+            })
+            $('body').delegate('.delMaType', "click", function () {
+                var delTypeUrl = "{:U('Material/deleteMaterialType')}"
+                var type_id = $(this).attr('data-val')
+                console.log(111)
+                bootbox.confirm({
+					title: "确定删除吗?",
+					message: '删除之后不可恢复,请谨慎操作',
+					size: "small",
+					callback: function (result) {
+					    if(result === true) {
+                            $.post(delTypeUrl, {type_id: type_id}, function (res) {
+                                if (res.code == 1) {
+                                    getOptionType()
+                                    getMaterialList()
+                                }else{
+                                    toastr.error(res.msg, "删除失败")
+								}
+                            })
+                        }
+                    }
+				})
+            })
+        }
+
     });
 </script>
 <!-- END JAVASCRIPTS -->

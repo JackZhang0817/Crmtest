@@ -122,4 +122,64 @@ class MaterialAction extends CommonAction
             $this->display();
         }
     }
+
+    /**
+     * 获取材料类型列表
+     */
+    public function materialTypeList()
+    {
+        if($this->isPost()){
+            $material_type = D('MaterialType');
+            $list = $material_type->select();
+            $new_arr = $list == null ? [] : $list;
+            if($new_arr != null){
+                foreach ($new_arr as $key => $value){
+                    $new_arr[$key]['material_num'] = getMaterialTypeNum($value['type_id']);
+                }
+            }
+            $this->ajaxReturn($new_arr);
+
+        }
+    }
+
+    /**
+     *修改材料类型
+     */
+    public function alertMaterialType()
+    {
+        if ($this->isPost()){
+            $type_id = $this->_param('type_id');
+            $type_name = $this->_param('type_name');
+
+            $material_type = D('MaterialType');
+            $res = $material_type->where(array('type_id' => $type_id))->save(array('type_name' => $type_name));
+            if($res){
+                $this->ajaxReturn(array('code' => 1, 'msg' => '成功'));
+            }
+        }
+    }
+
+    /**
+     * 删除材料类型
+     */
+    public function deleteMaterialType()
+    {
+        if($this->isPost())
+        {
+            $type_id = $this->_param('type_id');
+            if($type_id !== ''){
+                $material = D('Material');
+                $info = $material->where(array('marterial_type' => $type_id))->select();
+                if($info){
+                    $this->ajaxReturn(array('code' => 0, 'msg' => '存在数据，无法删除'));
+                }
+                $material_type = D('MaterialType');
+                $res = $material_type->where(array('type_id' => $type_id))->delete();
+            }
+            if($res){
+                $this->ajaxReturn(array('code' => 1, 'msg' => '成功'));
+            }
+        }
+    }
+
 }

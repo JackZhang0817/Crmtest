@@ -1057,9 +1057,23 @@ function isMobile()
 }
 
 /**
+ * 获取材料类型名称
  * @param $type_id
+ * @return mixed
  */
 function getMaterialTypeName($type_id){
     $info = M('material_type')->where(array('type_id' => $type_id))->getField('type_name');
+    return $info;
+}
+
+/**
+ * 获取材料类型下面的材料数量
+ * @param $type_id
+ * @return mixed
+ */
+function getMaterialTypeNum($type_id){
+    $material = M('material');
+    $info = $material->where(array('marterial_type' => $type_id))->count(marterial_id);
+//    return $material->getLastSql();
     return $info;
 }
