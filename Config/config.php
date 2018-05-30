@@ -3,8 +3,8 @@ return array(
     // 数据库配置
     'DB_HOST'     => '127.0.0.1',
     'DB_NAME'     => 'crm_meibao1999',
-    'DB_USER'     => 'meibao',
-    'DB_PWD'       => 'meibao1999',
+    'DB_USER'     => 'meibao1999',
+    'DB_PWD'       => 'meibao1999@#%',
     'DB_PREFIX'   => 'think_',
     'DB_LIKE_FIELDS' => 'CName|Tel|Address|title|Number|Company|Contact|Tel|hetongbianhao',   //开启模糊查询的字段
 
@@ -20,7 +20,7 @@ return array(
 
     // 无需权限验证
     'ADMINISTRATOR'     => array('1'),   // 超级管理员  用户的ID
-    'APPLYACTION'         => array('index','userCenter','groupUsers','header','updatenews','viewAllNews','delReadNews','checktel','viewNums','remindCustomer','displayFields','projectFields','phpExcel','fastUpdate','getStateCustomer','search','getAllCome','upremind','getMonthCome','chooseState','comment', 'downloadCustomerDemo','remindvisitRecord','returnurl','notifyurl','goOnAlipay','unsetOrder','openPaltform','t_search'),    // 无需验证的操作名
+    'APPLYACTION'         => array('index','userCenter','groupUsers','header','updatenews','viewAllNews','delReadNews','checktel','viewNums','remindCustomer','displayFields','projectFields','phpExcel','fastUpdate','getStateCustomer','search','getAllCome','upremind','getMonthCome','chooseState','comment', 'downloadCustomerDemo','remindvisitRecord','returnurl','notifyurl','goOnAlipay','unsetOrder','openPaltform','t_search','materialTypeList','alertMaterialType','deleteMaterialType', 'materialChart', 'getMaterialList'),    // 无需验证的操作名
 
     // 配置邮件发送基本参数
     'MAIL_HOST'         => 'smtp.ym.163.com',           //SMTP服务器
