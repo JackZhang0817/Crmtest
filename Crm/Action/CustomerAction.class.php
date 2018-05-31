@@ -1658,4 +1658,31 @@ class CustomerAction extends CommonAction {
         $material_history->commit();
         return true;
     }
+
+    /**
+     *
+     */
+    public function addCustomerArea()
+    {
+        if($this->isPost()){
+            $info = M('CustomerArea')->create();
+            $info['create_time'] = time();
+            $res = M('CustomerArea')->add();
+            if($res){
+                $this->success();
+            }
+        }else{
+            $this->display();
+        }
+    }
+
+    /**
+     *
+     */
+    public function customerAreaList()
+    {
+        $list = M('CustomerArea')->select();
+        $this->assign('list', $list);
+        $this->display();
+    }
 }
