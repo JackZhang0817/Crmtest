@@ -19,7 +19,8 @@
             {$vo.create_time|date='Y-m-d H:i:s', ###}
         </td>
         <td>
-
+            <a class="btn btn-xs red alertMaType" data-val="{$vo.marterial_id}" data-item="{$vo.marterial_name}"><i class="fa fa-edit"></i>修改 </a>
+            <a class="btn btn-xs red delMaType" data-val="{$vo.marterial_id}"><i class="fa fa-times"></i>删除</a>
         </td>
     </tr>
 </volist>

@@ -1660,6 +1660,68 @@ class CustomerAction extends CommonAction {
     }
 
     /**
+     * 扩展字段
+     */
+    public function customerNewClass()
+    {
+        $list = M('NewClass')->where(array('pid' => 0))->select();
+        foreach ($list as $k => $item){
+            $child = M('NewClass')->where(array('pid' => $item['class_id']))->field('class_name')->select();
+            $string = [];
+            foreach ($child as $c){
+                $string[] = $c['class_name'];
+            }
+            $list[$k]['child'] = implode(',', $string);
+        }
+        $this->assign('list', $list);
+        $this->display();
+    }
+
+    /**
+     * 添加分类
+     */
+    public function addNewClass()
+    {
+        if($this->isPost()){
+            $class_name = $this->_param('class_name');
+            $pid = $this->_param('pid');
+            $data['class_name'] = $class_name;
+            $data['pid'] = $pid;
+            $data['create_time'] = time();
+            $where['class_name'] = $class_name;
+            $where['pid'] = $pid;
+            $info = M('NewClass')->where($where)->select();
+            if(!$info){
+                $res = M('NewClass')->add($data);
+            }else{
+                $this->ajaxReturn(array('code' => 2, 'msg' => '存在数据'));
+            }
+            if($res){
+                $this->ajaxReturn(array('code' => 1, 'msg' => '添加成功'));
+            }
+        }
+    }
+
+    /**
+     * 删除分类
+     */
+    public function delNewClass()
+    {
+        if($this->isPost()){
+            $class_name = $this->_param('class_name');
+            $pid = $this->_param('pid');
+            $where['class_name'] = $class_name;
+            $where['pid'] = $pid;
+            $res = M('NewClass')->where($where)->delete();
+            if($res){
+                $this->ajaxReturn(array('code' => 1, 'msg' => '删除成功'));
+            }else{
+                $this->ajaxReturn(array('code' => 0, 'msg' => '删除失败'));
+            }
+        }
+    }
+
+    /**
      *
      */
     public function addCustomerArea()

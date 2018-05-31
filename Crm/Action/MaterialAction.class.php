@@ -38,6 +38,49 @@ class MaterialAction extends CommonAction
     }
 
     /**
+     * 修改材料
+     */
+    public function alertMaterial()
+    {
+        if ($this->isPost()){
+            $type_id = $this->_param('marterial_id');
+            $type_name = $this->_param('marterial_name');
+
+            $material = D('Material');
+            $info = $material->where(array('marterial_name' => $type_name))->find();
+            if($info){
+                $this->ajaxReturn(array('code' => 0, 'msg' => '材料名称重复'));
+            }
+            $res = $material->where(array('marterial_id' => $type_id))->save(array('marterial_name' => $type_name));
+            if($res){
+                $this->ajaxReturn(array('code' => 1, 'msg' => '成功'));
+            }
+        }
+    }
+
+    /**
+     * 删除材料
+     */
+    public function delMaterial()
+    {
+        if($this->isPost()){
+            $material_id = $this->_param('marterial_id');
+
+            $where = array('material_id' => $material_id);
+            $material = D('Material');
+            $material_history = D('MaterialHistory');
+            $info = $material_history->where($where)->select();
+            if($info){
+                $this->ajaxReturn(array('code' => 0, 'msg' => '已经有客户使用此材料，无法删除'));
+            }
+            $res = $material->where(array('marterial_id' => $material_id))->delete();
+            if($res) {
+                $this->ajaxReturn(array('code' => 1, 'msg' => '成功'));
+            }
+        }
+    }
+
+    /**
      * 材料列表
      */
     public function materialList()

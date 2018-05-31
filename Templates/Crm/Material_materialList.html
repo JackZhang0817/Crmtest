@@ -161,6 +161,7 @@
 <script type="text/javascript" src="__PUBLIC__/global/plugins/bootstrap-markdown/js/bootstrap-markdown.js"></script>
 <script type="text/javascript" src="__PUBLIC__/global/plugins/bootstrap-markdown/lib/markdown.js"></script>
 <script src="__PUBLIC__/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+<script src="__PUBLIC__/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
 <!-- end page level plugins -->
 <!-- begin page level styles -->
 <script src="__PUBLIC__/admin/pages/scripts/ui-toastr.js"></script>
@@ -178,6 +179,21 @@
         QuickSidebar.init(); // init quick sidebar
         Demo.init(); // init demo features
         FormValidation.init();
+        UIToastr.init();
+        toastr.options = {
+			"closeButton": true,
+			"debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "showDuration": "1000",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
         $('#alert_type').change(function () {
             var type_id = $(this).find("option:selected").val()
 			console.log(type_id)
@@ -186,6 +202,57 @@
 			    $('#mlist-body').html(res)
             })
         })
+		function getAjaxList(){
+            var type_id = $('#alert_type').find("option:selected").val()
+            var ajax_url = "{:U('Material/materialList')}"
+            $.post(ajax_url, {type_id: type_id}, function (res) {
+                $('#mlist-body').html(res)
+            })
+		}
+        window.onload = function() {
+            $('body').delegate('.alertMaType', "click", function () {
+                var alertMaUrl = "{:U('Material/alertMaterial')}"
+                var type_id = $(this).attr('data-val')
+                var type_name = $(this).attr('data-item')
+                bootbox.prompt({
+                    title: "修改材料名称",
+                    size: 'small',
+                    inputType: 'text',
+                    value: type_name,
+                    callback: function (result) {
+                        if (result != type_name && result != null) {
+                            $.post(alertMaUrl, {marterial_id: type_id, marterial_name: result}, function (res) {
+                                if (res.code == 1) {
+                                    getAjaxList()
+                                }else{
+                                    toastr.error(res.msg, '修改失败');
+								}
+                            })
+                        }
+                    }
+                })
+            })
+            $('body').delegate('.delMaType', "click", function () {
+                var delTypeUrl = "{:U('Material/delMaterial')}"
+                var type_id = $(this).attr('data-val')
+                bootbox.confirm({
+                    title: "确定删除吗?",
+                    message: '删除之后不可恢复,请谨慎操作',
+                    size: "small",
+                    callback: function (result) {
+                        if(result === true) {
+                            $.post(delTypeUrl, {marterial_id: type_id}, function (res) {
+                                if (res.code == 1) {
+                                    getAjaxList()
+                                }else{
+                                    toastr.error(res.msg, "删除失败")
+                                }
+                            })
+                        }
+                    }
+                })
+            })
+        }
     });
 </script>
 <!-- END JAVASCRIPTS -->
