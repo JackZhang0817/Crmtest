@@ -1077,3 +1077,9 @@ function getMaterialTypeNum($type_id){
 //    return $material->getLastSql();
     return $info;
 }
+function getMaterialName($material_id)
+{
+    $info = M('material')->where(array('marterial_id' => $material_id))->getField('marterial_name');
+    return $info;
+
+}

@@ -14,7 +14,15 @@ class AfterSalesAction extends CommonAction
     public function addAfterSale()
     {
         if($this->isPost()){
-
+            $data = M('AfterService')->create();
+            $data['state'] = 0;
+            $data['service_date'] = strtotime($data['service_date']);
+            $data['mobile'] = intval($data['mobile']);
+            $data['create_time'] = time();
+            $res = M('AfterService')->add($data);
+            if($res) {
+                $this->success('添加成功', U('AfterSales/afterSaleList'));
+            }
         }else{
             $material_type = D('MaterialType');
             $type_list = $material_type->select();
@@ -26,14 +34,22 @@ class AfterSalesAction extends CommonAction
         }
 
     }
+
+    /**
+     * 售后服务列表
+     */
     public function afterSaleList()
     {
+        $list = M('AfterService')->select();
 
+        $this->assign('list', $list);
+        $this->display();
     }
     public function alertAfterSale()
     {
 
     }
+
     public function delAfterSale()
     {
 

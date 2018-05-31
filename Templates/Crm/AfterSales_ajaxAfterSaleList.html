@@ -1,0 +1,37 @@
+<volist name="list" id="vo" key="k">
+    <tr>
+        <td>
+            {$k}
+        </td>
+        <td>
+            {$vo.customer_name}
+        </td>
+        <td>
+            {$vo.mobile}
+        </td>
+        <td>
+            {$vo.address_info}
+        </td>
+        <td>
+            {$vo.material_id|getMaterialName}
+        </td>
+        <td>
+            {$vo.user_id|realname}
+        </td>
+        <td>
+            {$vo.service_date|date='Y-m-d H:i:s', ###}
+        </td>
+        <td>
+            {$vo.service_content}
+        </td>
+        <td>
+            {$vo.remark}
+        </td>
+        <!--<td class="text-center">-->
+            <!--<span class="label label-sm {$vo['marterial_status'] == 1 ? 'label-success' : 'label-warning'}"> {$vo['marterial_status'] == 1 ? '正常' : '禁用'}</span>-->
+        <!--</td>-->
+        <td>
+
+        </td>
+    </tr>
+</volist>

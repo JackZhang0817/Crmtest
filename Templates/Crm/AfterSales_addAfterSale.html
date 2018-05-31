@@ -75,8 +75,7 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="title">联系方式：</label>
                                 <div class="col-md-3">
-                                    <input name="mobile" type="text" class="form-control"
-                                           value="" placeholder="请输入客户联系方式">
+                                    <input name="mobile" type="text" class="form-control" value="" placeholder="请输入客户联系方式">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -119,11 +118,19 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="title">维修日期:</label>
                                 <div class="col-md-3">
-                                    <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
-                                        <input type="text" class="form-control" readonly="">
-                                        <span class="input-group-btn"> <button class="btn default" type="button"><i class="fa fa-calendar"></i></button> </span>
-                                    </div>
-                                    <!-- /input-group -->
+                                    <input name="service_date" class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" for="title">维修内容:</label>
+                                <div class="col-md-3">
+                                    <textarea name="service_content" class="form-control maxlength_textarea" maxlength="225" rows="2" placeholder="请输入维修内容"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" for="title">备注:</label>
+                                <div class="col-md-3">
+                                    <textarea name="remark"  class="form-control maxlength_textarea" maxlength="225" rows="2" placeholder="请输入备注"></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -177,6 +184,8 @@
     <script type="text/javascript" src="__PUBLIC__/global/plugins/bootstrap-markdown/lib/markdown.js"></script>
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN PAGE LEVEL STYLES -->
+
+    <script src="__PUBLIC__/global/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js" type="text/javascript"></script>
     <script src="__PUBLIC__/global/scripts/metronic.js" type="text/javascript"></script>
     <script src="__PUBLIC__/admin/layout/scripts/layout.js" type="text/javascript"></script>
     <script src="__PUBLIC__/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
@@ -207,27 +216,27 @@
                     }
                 });
             });
-
-            $('#material_reload').on('click', function () {
-                console.log('111')
-                materialTypeList()
-            })
             //颜色板
             $("#color").bigColorpicker("color", "L", 6);
 
-                $('#material_type_info').change(function () {
-                    var mtype_id = $(this).find('option:selected').val()
-                    var ajax_url = "{:U('Material/getMaterialList')}"
-                    $.post(ajax_url, {type_id: mtype_id}, function (res) {
-                        var _html = '<option value="0">无</option>';
-                        if (res.length > 0) {
-                            $.each(res, function (index, value) {
-                                _html += '<option value=' + value.marterial_id + '>' + value.marterial_name + '</option>'
-                            })
-                        }
-                        $('#material_info').html(_html)
-                    })
+            $('.maxlength_textarea').maxlength({
+                limitReachedClass: "label label-danger",
+                alwaysShow: true
+            });
+
+            $('#material_type_info').change(function () {
+                var mtype_id = $(this).find('option:selected').val()
+                var ajax_url = "{:U('Material/getMaterialList')}"
+                $.post(ajax_url, {type_id: mtype_id}, function (res) {
+                    var _html = '<option value="0">无</option>';
+                    if (res.length > 0) {
+                        $.each(res, function (index, value) {
+                            _html += '<option value=' + value.marterial_id + '>' + value.marterial_name + '</option>'
+                        })
+                    }
+                    $('#material_info').html(_html)
                 })
+            })
         });
     </script>
     <!-- END JAVASCRIPTS -->
