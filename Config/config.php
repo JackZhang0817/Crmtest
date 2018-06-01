@@ -20,7 +20,7 @@ return array(
 
     // 无需权限验证
     'ADMINISTRATOR'     => array('1'),   // 超级管理员  用户的ID
-    'APPLYACTION'         => array('index','userCenter','groupUsers','header','updatenews','viewAllNews','delReadNews','checktel','viewNums','remindCustomer','displayFields','projectFields','phpExcel','fastUpdate','getStateCustomer','search','getAllCome','upremind','getMonthCome','chooseState','comment', 'downloadCustomerDemo','remindvisitRecord','returnurl','notifyurl','goOnAlipay','unsetOrder','openPaltform','t_search','materialTypeList','alertMaterialType','deleteMaterialType', 'materialChart', 'getMaterialList', 'alertMaterial', 'delMaterial'),    // 无需验证的操作名
+    'APPLYACTION'         => array('index','userCenter','groupUsers','header','updatenews','viewAllNews','delReadNews','checktel','viewNums','remindCustomer','displayFields','projectFields','phpExcel','fastUpdate','getStateCustomer','search','getAllCome','upremind','getMonthCome','chooseState','comment', 'downloadCustomerDemo','remindvisitRecord','returnurl','notifyurl','goOnAlipay','unsetOrder','openPaltform','t_search','materialTypeList','alertMaterialType','deleteMaterialType', 'materialChart', 'getMaterialList', 'alertMaterial', 'delMaterial','addMaterialType'),    // 无需验证的操作名
 
     // 配置邮件发送基本参数
     'MAIL_HOST'         => 'smtp.ym.163.com',           //SMTP服务器

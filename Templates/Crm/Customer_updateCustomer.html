@@ -662,16 +662,10 @@
 		//颜色板
 		$("#color").bigColorpicker("color", "L", 6);
 		function materialTypeList() {
-		    console.log('zhixing')
             var type_list = '{$info.material_info}';
 
-            console.log(type_list)
 
-            console.log(typeof (type_list))
-            console.log($.parseJSON(type_list))
             var new_type = $.parseJSON(type_list)
-            console.log(new_type[1])
-
 
             $('.material-select').each(function () {
                 var ajax_url = "{:U('Material/getMaterialList')}"
@@ -680,7 +674,7 @@
                     var _html = '<option value="0">无</option>';
                     if(res.length > 0) {
                         $.each(res, function (index, value) {
-                            if(value.marterial_id == new_type[mtype_id]){
+                            if(new_type != null && value.marterial_id == new_type[mtype_id]){
                                 console.log('value:' + new_type[mtype_id])
                                 _html += '<option value="' + value.marterial_id + '" selected>' + value.marterial_name + '</option>'
                             }else{
