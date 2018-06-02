@@ -1,0 +1,21 @@
+<php>$n=1;</php>
+<volist name="list" id="data">
+	<tr>
+		<td>{$n}</td>
+		<td>{$data.class_name}</td>
+		<td>[<a class="update" data-toggle="modal" data-val="{$data.class_id}" data-item="{$data.class_name}">修改</a>] |
+			[<a class="delcfm"  data-val="{$data.class_id}">删除</a>]
+		</td>
+	</tr>
+	<php>$n++;</php>
+	<volist name="data.child" id="vo">
+		<tr>
+            <td>{$n}</td>
+			<td>　l--{$vo.class_name}</td>
+			<td>[<a class="update" data-toggle="modal" data-val="{$vo.class_id}" data-item="{$vo.class_name}" >修改</a>] |
+				[<a class="delcfm" data-val="{$vo.class_id}">删除</a>]
+			</td>
+		</tr>
+		<php>$n++;</php>
+	</volist>
+</volist>

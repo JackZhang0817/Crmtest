@@ -87,6 +87,12 @@ class CustomerAction extends CommonAction {
             $materialTypeList = $materialType->select();
             $group = M('group')->where($where)->field('id,title')->select();
 
+            $list = D("NewClass")->where(array('pid' => 0))->select();
+            foreach ($list as $k => $v){
+                $list[$k]['child'] = D('NewClass')->where(array('pid' => $v['class_id']))->select();
+            }
+
+            $this->assign('list', $list);
             $this->assign('materialTypeList', $materialTypeList);
             $this->group = $group;
             $this->attachedInfo();

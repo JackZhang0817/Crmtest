@@ -234,7 +234,7 @@
                         <li <if condition="ACTION_NAME == 'getMonthHetong'">class="active"</if>><a href="{:U('DataCount/getMonthHetong', array('state' => '7'))}"><i class="fa fa-file-o"></i> 本月已合同客户</a></li>
                     </ul>
                 </li>
-                <volist name=":checkAuth()" id="menu" offset="2" length='6'>
+                <volist name=":checkAuth()" id="menu" offset="2" length='10'>
                 <li <if condition="moduleName($menu[name], 0)== MODULE_NAME">class="active open"</if>>
                 <a href="javascript:;">
                     <i class="{$menu.icon}"></i>

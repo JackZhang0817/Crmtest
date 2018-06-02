@@ -92,12 +92,12 @@ class MaterialAction extends CommonAction
             if($type_id == 0) {
                 $list = $material->select();
             }else{
-                $list = $material->where($where)->select();
+                $list = $material->where($where)->order('use_times desc')->select();
             }
             $this->assign('list', $list);
             $this->display('ajaxMaterialList');
         }else{
-            $list = $material->select();
+            $list = $material->order('marterial_type asc,use_times desc')->select();
             $material_type = D('MaterialType');
             $type = $material_type->select();
             $this->assign('type', $type);

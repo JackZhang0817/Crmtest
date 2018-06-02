@@ -405,4 +405,79 @@ class ConfigAction extends CommonAction {
 
         $this->success('排序成功', U(''.$url.''), 1);
     }
+
+    /**
+     * 小区管理
+     */
+    public function newClass()
+    {
+        if(IS_POST)
+        {
+            $info = D('NewClass')->create();
+            if(!$info)
+                $this->ajaxReturn(array('code' => 0, 'msg' => D('NewClass')->getError()));
+            $res = D('NewClass')->add();
+            if($res)
+                $this->ajaxReturn(array('code' => 1, 'msg' => '添加成功'));
+        }else{
+            $list = D("NewClass")->where(array('pid' => 0))->select();
+            $pname = D("NewClass")->where(array('pid' => 0))->select();
+            foreach ($list as $k => $v){
+                $list[$k]['child'] = D('NewClass')->where(array('pid' => $v['class_id']))->select();
+            }
+            $this->assign('list', $list);
+            $this->assign('pname', $pname);
+            $this->display();
+        }
+    }
+
+    /**
+     * 动态获取列表
+     */
+    public function ajaxNewClass()
+    {
+        $list = D("NewClass")->where(array('pid' => 0))->select();
+        foreach ($list as $k => $v){
+            $list[$k]['child'] = D('NewClass')->where(array('pid' => $v['class_id']))->select();
+        }
+        $this->assign('list', $list);
+        $this->display('ajaxClassList');
+    }
+
+    /**
+     * 修改小区
+     */
+    public function alertNewClass()
+    {
+        if(IS_POST){
+            $info = D('NewClass')->create();
+            if(!$info) {
+                $this->ajaxReturn(array('code'=> 0, 'msg' => '没有任何修改'));
+            }
+            $res = D('NewClass')->where(array('class_id' => $info['class_id']))->save($info);
+            if($res){
+                $this->ajaxReturn(array('code'=> 1, 'msg' => '修改成功'));
+            }else{
+                $this->ajaxReturn(array('code'=> 0, 'msg' => '修改失败'));
+            }
+        }
+    }
+
+    /**
+     * 删除一个小区
+     */
+    public function delNewClass()
+    {
+        if(IS_POST){
+            $class_id = $this->_param('class_id');
+            $info = D('NewClass')->where(array('pid' => $class_id))->select();
+            if($info){
+                $this->ajaxReturn(array('code' => 0, 'msg' => '存在二级数据，无法删除'));
+            }
+            $res = D('NewClass')->where(array('class_id' => $class_id))->delete();
+            if($res){
+                $this->ajaxReturn(array('code' => 1, 'msg' => '删除成功'));
+            }
+        }
+    }
 }

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title> | CRM客户管理系统</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="gaorenhua" name="author"/>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+
+    <link href="__PUBLIC__/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="__PUBLIC__/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet"
+          type="text/css"/>
+    <link href="__PUBLIC__/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="__PUBLIC__/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link href="__PUBLIC__/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet"
+          type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/global/plugins/select2/select2.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="__PUBLIC__/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="__PUBLIC__/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/global/plugins/bootstrap-datepicker/css/datepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/global/plugins/bootstrap-toastr/toastr.min.css">
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <!-- BEGIN THEME STYLES -->
+    <include file="Common:css"/>
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico"/>
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body class="page-header-fixed page-quick-sidebar-over-content ">
+<!-- 包含公共头部和公共侧边栏 -->
+<include file="Common:header"/>
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row">
+            <div class="col-md-6">
+                <!-- BEGIN SAMPLE TABLE PORTLET-->
+                <div class="portlet box green">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="fa fa-cogs"></i>小区名称列表</div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-responsive">
+                            <form action="{:U('Config/sort')}" method="post">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:75px;">序号</th>
+                                        <th>小区名称</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="ajaxList">
+                                    <include file="ajaxClassList"/>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                        <!--弹出修改框开始-->
+                        <div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true"></button>
+                                        <h4 class="modal-title">修改施工工序</h4>
+                                    </div>
+                                    <form action="{:U('updateProject')}" method="post">
+                                        <div class="modal-body form-body">
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <div id="updaterecord" class="col-md-12"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" data-dismiss="modal" class="btn default">取消修改</button>
+                                            <button type="submit" class="btn green">确认修改</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!--弹出修改框结束-->
+                    </div>
+                </div>
+                <!-- END SAMPLE TABLE PORTLET-->
+            </div>
+            <div class="col-md-6">
+                <!-- BEGIN VALIDATION STATES-->
+                <div class="portlet box blue">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-gift"></i>添加小区
+                        </div>
+                    </div>
+                    <div class="portlet-body form">
+                        <!-- BEGIN FORM-->
+                        <form class="form-horizontal">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">小区区域</label>
+                                    <div class="col-md-7">
+                                        <select name="pid" class="form-control" id="class_select">
+                                            <option value="0" selected>请选择区域, 添加区域不用选择</option>
+                                            <volist name="pname" id="p">
+                                                <option value="{$p.class_id}">{$p.class_name}</option>
+                                            </volist>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3"><span class="red">*</span> 小区名称</label>
+                                    <div class="col-md-7">
+                                        <input type="text" name="pname" class="form-control" placeholder="小区名称不能为空"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <a id="addClassBt" class="btn green">　确认添加　</a>
+                                        <button type="button" class="btn default">重新填写</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+                <!-- END VALIDATION STATES-->
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </div>
+</div>
+<!-- END CONTENT -->
+</div>
+<!-- END CONTAINER -->
+<include file="Common:footer"/>
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="__PUBLIC__/global/plugins/respond.min.js"></script>
+<script src="__PUBLIC__/global/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="__PUBLIC__/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="__PUBLIC__/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
+        type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script type="text/javascript" src="__PUBLIC__/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/global/plugins/select2/select2.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="__PUBLIC__/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
+<script type="text/javascript" src="__PUBLIC__/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+<script type="text/javascript" src="__PUBLIC__/global/plugins/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="__PUBLIC__/global/plugins/bootstrap-markdown/js/bootstrap-markdown.js"></script>
+<script type="text/javascript" src="__PUBLIC__/global/plugins/bootstrap-markdown/lib/markdown.js"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-toastr/toastr.min.js"></script>
+<script src="__PUBLIC__/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL STYLES -->
+<script src="__PUBLIC__/admin/pages/scripts/ui-toastr.js"></script>
+<script src="__PUBLIC__/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="__PUBLIC__/admin/pages/scripts/form-validation.js"></script>
+<script src="__PUBLIC__/layer/layer.min.js"></script>
+<!-- END PAGE LEVEL STYLES -->
+<script>
+    jQuery(document).ready(function () {
+        // initiate layout and plugins
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+        QuickSidebar.init(); // init quick sidebar
+        Demo.init(); // init demo features
+        FormValidation.init();
+        UIToastr.init();
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "showDuration": "1000",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+
+        //post 公用方法
+        function postFormMethod(url, info) {
+            $.post(url, info, function (res) {
+                console.log(res)
+                if (res.code == 1) {
+                    getList();
+                    toastr.success(res.msg, '成功');
+                } else {
+                    toastr.error(res.msg, '失败');
+                }
+            })
+        }
+
+        $('#addClassBt').on('click', function () {
+            var addUrl = "__SELF__";
+            pid = $('#class_select').find('option:selected').val()
+            class_name = $('input[name="pname"]').val()
+            console.log(pid + class_name)
+            data = {pid: pid, class_name: class_name}
+            postFormMethod(addUrl, data)
+        })
+
+        //获取列表
+        function getList() {
+            var list_url = "{:U('Config/ajaxNewClass')}"
+            $.post(list_url, {}, function (res) {
+                if (res) {
+                    console.log(res)
+                    $('#ajaxList').html(res)
+                }
+            })
+        }
+
+        $('body').delegate('.update', "click", function () {
+            var alertMaUrl = "{:U('Config/alertNewClass')}"
+            var type_id = $(this).attr('data-val')
+            var type_name = $(this).attr('data-item')
+            bootbox.prompt({
+                title: "修改材料名称",
+                size: 'small',
+                inputType: 'text',
+                value: type_name,
+                callback: function (result) {
+                    if (result != type_name && result != null) {
+                        $.post(alertMaUrl, {class_id: type_id, class_name: result}, function (res) {
+                            if (res.code == 1) {
+                                getList()
+                            } else {
+                                toastr.error(res.msg, '修改失败');
+                            }
+                        })
+                    }
+                }
+            })
+        })
+        $('body').delegate('.delcfm', "click", function () {
+            var delTypeUrl = "{:U('Config/delNewClass')}"
+            var type_id = $(this).attr('data-val')
+            bootbox.confirm({
+                title: "确定删除吗?",
+                message: '删除之后不可恢复,请谨慎操作',
+                size: "small",
+                callback: function (result) {
+                    if (result === true) {
+                        $.post(delTypeUrl, {class_id: type_id}, function (res) {
+                            if (res.code == 1) {
+                                getList()
+                                toastr.success(res.msg, "删除成功")
+                            } else {
+                                toastr.error(res.msg, "删除失败")
+                            }
+                        })
+                    }
+                }
+            })
+        })
+        // // 点击修改的时候
+        // $('.update').click(function(){
+        //     $.get("{:U('updateProject')}",{id:$(this).attr('nums')},function(msg){
+        //         $("#updaterecord").html(msg);
+        //     });
+        // });
+
+        // 是否删除提示
+        // $('.delcfm').click(function () {
+        //     var url = $(this).attr('src');
+        //     $.layer({
+        //         shade: [0],
+        //         area: ['auto', 'auto'],
+        //         dialog: {
+        //             msg: '您确定要删除该信息吗？删除后无法恢复! ',
+        //             btns: 2,
+        //             type: 4,
+        //             btn: ['确定', '取消'],
+        //             yes: function () {
+        //                 window.location = url;
+        //             }, no: function () {
+        //                 return false;
+        //             }
+        //         }
+        //     });
+        // });
+    });
+</script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>
