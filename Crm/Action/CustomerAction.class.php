@@ -1,15 +1,18 @@
 <?php
+
 /**
  * Author: gaorenhua
  * Date: 2014-11-18
  * Email: 597170962@qq.com
  * 客户管理控制器
  */
-class CustomerAction extends CommonAction {
+class CustomerAction extends CommonAction
+{
     /**
      * 我的客户
      */
-    public function customerList(){
+    public function customerList()
+    {
         // 点击排序
         $sort = I('get.sort');
         $status = I('get.status') ? 0 : 1;
@@ -22,16 +25,18 @@ class CustomerAction extends CommonAction {
     /**
      * 添加客户
      */
-    public function addCustomer(){
+    public function addCustomer()
+    {
         // 判断是否POST提交
         if (IS_POST) {
             // 创建数据集
             $data = D('Customer')->create();
 
+            $data['address_pid'] = D('NewClass')->where(array('class_id' => $data['address_id']))->getField('pid');
             // 判断手机号是否重复
             $map['pid'] = fid();
             $user = array_column(M('users')->where($map)->field('id')->select(), 'id');
-            if (M('customer')->where(array('Userid' => array('IN', $user)))->where("Tel =".I('post.Tel'))->select()) {
+            if (M('customer')->where(array('Userid' => array('IN', $user)))->where("Tel =" . I('post.Tel'))->select()) {
                 $this->error('该客户已存在', __SELF__, 1);
             }
 
@@ -81,16 +86,18 @@ class CustomerAction extends CommonAction {
             // 查询工程组属性的部门
             $where = array(
                 'admin_id' => fid(),
-                'class' => 5
+                'class'    => 5
             );
             $materialType = D('MaterialType');
             $materialTypeList = $materialType->select();
             $group = M('group')->where($where)->field('id,title')->select();
 
             $list = D("NewClass")->where(array('pid' => 0))->select();
-            foreach ($list as $k => $v){
+            foreach ($list as $k => $v) {
                 $list[$k]['child'] = D('NewClass')->where(array('pid' => $v['class_id']))->select();
             }
+            $style_list = D('RoomStyle')->select();
+            $this->assign('style_list', $style_list);
 
             $this->assign('list', $list);
             $this->assign('materialTypeList', $materialTypeList);
@@ -103,11 +110,12 @@ class CustomerAction extends CommonAction {
     /**
      * 检查是否有重复客户
      */
-    public function checktel(){
+    public function checktel()
+    {
         $tel = I('post.Tel');
-        if(empty($tel)){
+        if (empty($tel)) {
             echo '';
-        }else{
+        } else {
             // 获取当前公司的所有员工
             $user = M('users')->where(array('pid' => fid()))->getField('id', true);
 
@@ -115,9 +123,9 @@ class CustomerAction extends CommonAction {
             $where['Userid'] = array('IN', $user);
             $where['Tel'] = $tel;
             $re = M('customer')->where($where)->find();
-            if(!empty($re)){
-                echo "<a style='font-size:12px; color:red;' target='_balnk' href=".U('Customer/visitRecord',array('id' => $re['id'])).">已存在，点击查看</a>";
-            }else{
+            if (!empty($re)) {
+                echo "<a style='font-size:12px; color:red;' target='_balnk' href=" . U('Customer/visitRecord', array('id' => $re['id'])) . ">已存在，点击查看</a>";
+            } else {
                 echo '';
             }
         }
@@ -126,7 +134,8 @@ class CustomerAction extends CommonAction {
     /**
      * 修改客户信息
      */
-    public function updateCustomer(){
+    public function updateCustomer()
+    {
         // 判断是否POST提交
         if (IS_POST) {
             // 创建数据集
@@ -139,7 +148,7 @@ class CustomerAction extends CommonAction {
 
             // 业务员不能为空
             if (!$data['Userid']) {
-               $this->error('业务员不能为空', __SELF__, 1);
+                $this->error('业务员不能为空', __SELF__, 1);
             }
 
             // 处理状态
@@ -195,18 +204,26 @@ class CustomerAction extends CommonAction {
         } else {
             // 查询当前客户信息
             $info = D('CustomerView')->where(array('id' => $this->_get('id')))->find();
-//            $info['material_info'] = json_decode($info['material_info'], true);
 
             // 查询工程组属性的部门
             $where = array(
                 'admin_id' => fid(),
-                'class' => 5
+                'class'    => 5
             );
             $group = M('group')->where($where)->field('id,title')->select();
 
             $materialType = D('MaterialType');
             $materialTypeList = $materialType->select();
 
+            $list = D("NewClass")->where(array('pid' => 0))->select();
+            foreach ($list as $k => $v) {
+                $list[$k]['child'] = D('NewClass')->where(array('pid' => $v['class_id']))->select();
+            }
+
+            $style_list = D('RoomStyle')->select();
+
+            $this->assign('style_list', $style_list);
+            $this->assign('list', $list);
             $this->group = $group;
             $this->assign('materialTypeList', $materialTypeList);
             $this->attachedInfo();
@@ -218,7 +235,8 @@ class CustomerAction extends CommonAction {
     /**
      * 快捷操作
      */
-    public function fastUpdate(){
+    public function fastUpdate()
+    {
         //判断提交方式
         if (!IS_POST) {
             $this->error('您请求的页面不存在');
@@ -228,7 +246,7 @@ class CustomerAction extends CommonAction {
         $data['id'] = I('post.id', 0, 'intval');    // 客户ID
         $field = I('post.name');    // 需要修改的字段
         $value = I('post.value');   // 新数据
-        $data[''.$field.''] = trim($value);
+        $data['' . $field . ''] = trim($value);
 
         // 更新数据
         if (M('customer')->save($data) !== false) {
@@ -241,7 +259,8 @@ class CustomerAction extends CommonAction {
     /**
      * 删除客户
      */
-    public function deleteCustomer(){
+    public function deleteCustomer()
+    {
         // 判断是否GET传值
         if (!IS_GET) {
             $this->error('请求错误');
@@ -268,7 +287,8 @@ class CustomerAction extends CommonAction {
     /**
      * 回收站
      */
-    public function trash(){
+    public function trash()
+    {
         // 调用公共分页
         $this->pageCommon($map);
         $this->display();
@@ -277,7 +297,8 @@ class CustomerAction extends CommonAction {
     /**
      * 恢复已删除的客户
      */
-    public function recovery(){
+    public function recovery()
+    {
         // 判断get提交
         if (!IS_GET) {
             $this->error('您请求的页面不存在');
@@ -298,7 +319,8 @@ class CustomerAction extends CommonAction {
     /**
      * 彻底删除客户
      */
-    public function deleteForever(){
+    public function deleteForever()
+    {
         // 判断get提交
         if (!IS_GET) {
             $this->error('您请求的页面不存在');
@@ -324,7 +346,8 @@ class CustomerAction extends CommonAction {
     /**
      * 追踪记录
      */
-    public function visitRecord(){
+    public function visitRecord()
+    {
         // 判断POST提交
         if (IS_POST) {
             // 提取POST数据
@@ -359,13 +382,13 @@ class CustomerAction extends CommonAction {
 
             // 上一个客户  下一个客户
             $data = array(
-                'id' => array('LT',I('get.id', 0, 'intval')),
-                'status' => 0,
+                'id'       => array('LT', I('get.id', 0, 'intval')),
+                'status'   => 0,
                 '_complex' => $this->where()
             );
             $data2 = array(
-                'id' => array('GT',I('get.id', 0, 'intval')),
-                'status' => 0,
+                'id'       => array('GT', I('get.id', 0, 'intval')),
+                'status'   => 0,
                 '_complex' => $this->where()
             );
 
@@ -386,7 +409,8 @@ class CustomerAction extends CommonAction {
     /**
      * 回访追踪记录
      */
-    public function remindvisitRecord(){
+    public function remindvisitRecord()
+    {
         // 判断POST提交
         if (IS_POST) {
             // 提取POST数据
@@ -421,8 +445,8 @@ class CustomerAction extends CommonAction {
 
             //当前时间 和 本周最后一天  周日为每周的开始
             $thisdaytime = date('Y-m-d');
-            $yesterday = date("Y-m-d",strtotime("-1 day")); // 昨天
-            $this_week_last_day = date('Y-m-d',time() + 24 * 60 * 60 * 6);
+            $yesterday = date("Y-m-d", strtotime("-1 day")); // 昨天
+            $this_week_last_day = date('Y-m-d', time() + 24 * 60 * 60 * 6);
 
             // 判断属于哪个部门
             if (is_salesman()) {
@@ -444,7 +468,7 @@ class CustomerAction extends CommonAction {
             } elseif (is_project()) {
                 if ($times == 1) {
                     $map['premind'] = $thisdaytime;
-                } elseif ($times ==2) {
+                } elseif ($times == 2) {
                     $map['premind'] = array('BETWEEN', array("$thisdaytime", "$this_week_last_day"));
                 } else {
                     $map['premind'] = array('BETWEEN', array("2010-01-01", "$yesterday"));
@@ -460,7 +484,7 @@ class CustomerAction extends CommonAction {
             } elseif (is_manager()) {
                 // 获取职务
                 $job = M('users')->where(array('id' => session('uid')))->getField('job');
-                if ($job == 1){
+                if ($job == 1) {
                     if ($times == 1) {
                         $map['sremind'] = $thisdaytime;
                     } elseif ($times == 2) {
@@ -484,13 +508,13 @@ class CustomerAction extends CommonAction {
 
             // 上一个客户  下一个客户
             $data = array(
-                'id' => array('lt',I('get.id', 0, 'intval')),
-                'status' => 0,
+                'id'       => array('lt', I('get.id', 0, 'intval')),
+                'status'   => 0,
                 '_complex' => $this->where()
             );
             $data2 = array(
-                'id' => array('gt',I('get.id', 0, 'intval')),
-                'status' => 0,
+                'id'       => array('gt', I('get.id', 0, 'intval')),
+                'status'   => 0,
                 '_complex' => $this->where()
             );
 
@@ -511,9 +535,10 @@ class CustomerAction extends CommonAction {
     /**
      * 更新回访时间
      */
-    public function upremind(){
+    public function upremind()
+    {
         // 判断提交方式
-        if(!IS_POST){
+        if (!IS_POST) {
             $this->error('您请求的页面不存在');
         }
 
@@ -521,20 +546,20 @@ class CustomerAction extends CommonAction {
         $data['id'] = I('post.id', 0, 'intval');
 
         // 获取回访时间
-        if(is_salesman()){
+        if (is_salesman()) {
             $data['sremind'] = I('post.sremind');
-        }elseif(is_designer()){
+        } elseif (is_designer()) {
             $data['dremind'] = I('post.dremind');
-        }elseif(is_project()){
+        } elseif (is_project()) {
             $data['premind'] = I('post.premind');
-        }else{
+        } else {
             $this->error('参数不正确');
         }
 
         //更新
-        if(M('customer')->save($data)){
+        if (M('customer')->save($data)) {
             $this->success('更新成功');
-        } else{
+        } else {
             $this->error('更细失败');
         }
     }
@@ -542,7 +567,8 @@ class CustomerAction extends CommonAction {
     /**
      * 更新追踪记录
      */
-    public function updateRecord(){
+    public function updateRecord()
+    {
         // POST提交
         if (IS_POST) {
             // 提取POST数据
@@ -553,13 +579,13 @@ class CustomerAction extends CommonAction {
             // 更新客户的回访记录
             // 获取回访时间
             $map['id'] = I('post.customer_id', 0, 'intval');
-            if(is_salesman()){
+            if (is_salesman()) {
                 $map['sremind'] = I('post.sremind');
-            }elseif(is_designer()){
+            } elseif (is_designer()) {
                 $map['dremind'] = I('post.dremind');
-            }elseif(is_project()){
+            } elseif (is_project()) {
                 $map['premind'] = I('post.premind');
-            }else{
+            } else {
                 $this->error('参数不正确');
             }
 
@@ -583,17 +609,18 @@ class CustomerAction extends CommonAction {
             // ajax传值 被点击修改的追踪记录ID
             $uprecord = M('record')->where(array('id' => $this->_get('id')))->find();
 
-            $hidden = "<input type='hidden' name='record_id' value='".$uprecord['id']."'>";  //标记需要修改的记录ID
-            $cid = "<input type='hidden' name='customer_id' value='".$uprecord['customer_id']."'>";  //标记客户ID-跳回修改前的页面
-            $content = "<textarea class='form-control' name='record' style='height:100px;'>".$uprecord['content']."</textarea>";
-            echo $hidden.$cid.$content;
+            $hidden = "<input type='hidden' name='record_id' value='" . $uprecord['id'] . "'>";  //标记需要修改的记录ID
+            $cid = "<input type='hidden' name='customer_id' value='" . $uprecord['customer_id'] . "'>";  //标记客户ID-跳回修改前的页面
+            $content = "<textarea class='form-control' name='record' style='height:100px;'>" . $uprecord['content'] . "</textarea>";
+            echo $hidden . $cid . $content;
         }
     }
 
     /**
      * 删除追踪记录
      */
-    public function deleteRecord(){
+    public function deleteRecord()
+    {
         // 判断是否GET提交
         if (!IS_GET) {
             $this->error('您的请求不存在', __SELF__, 1);
@@ -619,14 +646,15 @@ class CustomerAction extends CommonAction {
     /**
      * 获取被点击状态下的所有客户信息
      */
-    public function getStateCustomer(){
+    public function getStateCustomer()
+    {
         // 判断是否GET提交
         if (!IS_GET) {
             $this->error('请求的页面不存在', U('customerList'), 1);
         }
 
         // 获取当前状态下的状态ID
-        $state = '\','.$this->_get('state').',\'';
+        $state = '\',' . $this->_get('state') . ',\'';
         $map['_string'] = "POSITION($state IN CONCAT(',',State,','))";
 
         // 调用公共分页
@@ -637,7 +665,8 @@ class CustomerAction extends CommonAction {
     /**
      * 搜索模块
      */
-    public function search(){
+    public function search()
+    {
         // 判断是否GET提交
         if (!IS_GET) {
             $this->error('您的请求不存在', U('customerList'), 1);
@@ -662,56 +691,56 @@ class CustomerAction extends CommonAction {
         $hetongtime1 = I('get.HetongTime1');
 
         // 客户姓名
-        if(isset($customername) && !empty($customername)){
+        if (isset($customername) && !empty($customername)) {
             $map['CName'] = $customername;
         }
-        if(isset($tel) && !empty($tel)){
+        if (isset($tel) && !empty($tel)) {
             $map['Tel'] = $tel;
         }
-        if(isset($address) && !empty($address)){
+        if (isset($address) && !empty($address)) {
             $map['Address'] = $address;
         }
-        if(isset($way) && !empty($way)){
+        if (isset($way) && !empty($way)) {
             $map['Way'] = $way;
         }
-        if(isset($channel) && !empty($channel)){
+        if (isset($channel) && !empty($channel)) {
             $map['Channel'] = $channel;
         }
-        if(isset($designer) && !empty($designer)){
+        if (isset($designer) && !empty($designer)) {
             $map['Designer'] = $designer;
         }
-        if(isset($state) && !empty($state)){
+        if (isset($state) && !empty($state)) {
             // $state = implode(',', $state);
             $map['_string'] = "POSITION($state IN CONCAT(',',State,','))";
         }
-        if(isset($userid) && !empty($userid)){
+        if (isset($userid) && !empty($userid)) {
             $map['Userid'] = $userid;
         }
-        if(isset($consultdate) && !empty($consultdate)){
-            if(isset($consultdate1) && !empty($consultdate1)){
-                $map['ConsultDate'] = array('between',array("$consultdate","$consultdate1"));
-            }else{
+        if (isset($consultdate) && !empty($consultdate)) {
+            if (isset($consultdate1) && !empty($consultdate1)) {
+                $map['ConsultDate'] = array('between', array("$consultdate", "$consultdate1"));
+            } else {
                 $map['ConsultDate'] = $consultdate;
             }
         }
-        if(isset($cometime) && !empty($cometime)){
-            if(isset($cometime) && !empty($cometime)){
-                $map['ComeTime'] = array('between',array("$cometime","$cometime1"));
-            }else{
+        if (isset($cometime) && !empty($cometime)) {
+            if (isset($cometime) && !empty($cometime)) {
+                $map['ComeTime'] = array('between', array("$cometime", "$cometime1"));
+            } else {
                 $map['ComeTime'] = $cometime;
             }
         }
-        if(isset($ordertime) && !empty($ordertime)){
-            if(isset($ordertime1) && !empty($ordertime1)){
-                $map['OrderTime'] = array('between',array("$ordertime","$ordertime1"));
-            }else{
+        if (isset($ordertime) && !empty($ordertime)) {
+            if (isset($ordertime1) && !empty($ordertime1)) {
+                $map['OrderTime'] = array('between', array("$ordertime", "$ordertime1"));
+            } else {
                 $map['OrderTime'] = $ordertime;
             }
         }
-        if(isset($hetongtime) && !empty($hetongtime)){
-            if(isset($hetongtime1) && !empty($hetongtime1)){
-                $map['HetongTime'] = array('between',array("$hetongtime","$hetongtime1"));
-            }else{
+        if (isset($hetongtime) && !empty($hetongtime)) {
+            if (isset($hetongtime1) && !empty($hetongtime1)) {
+                $map['HetongTime'] = array('between', array("$hetongtime", "$hetongtime1"));
+            } else {
                 $map['HetongTime'] = $hetongtime;
             }
         }
@@ -722,7 +751,7 @@ class CustomerAction extends CommonAction {
 
         // 调用公共分页
         $this->pageCommon($map, $sort, $status);
-        $sum  = D('CustomerView')->where($map)->Sum('OrdersValue');  // 符合查询条件的总单值
+        $sum = D('CustomerView')->where($map)->Sum('OrdersValue');  // 符合查询条件的总单值
         $this->assign('sum', $sum);
         $this->display();
     }
@@ -730,7 +759,8 @@ class CustomerAction extends CommonAction {
     /**
      * 搜索模块
      */
-    public function t_search(){
+    public function t_search()
+    {
         // 判断是否GET提交
         if (!IS_GET) {
             $this->error('您的请求不存在', U('customerList'), 1);
@@ -755,56 +785,56 @@ class CustomerAction extends CommonAction {
         $hetongtime1 = I('get.HetongTime1');
 
         // 客户姓名
-        if(isset($customername) && !empty($customername)){
+        if (isset($customername) && !empty($customername)) {
             $map['CName'] = $customername;
         }
-        if(isset($tel) && !empty($tel)){
+        if (isset($tel) && !empty($tel)) {
             $map['Tel'] = $tel;
         }
-        if(isset($address) && !empty($address)){
+        if (isset($address) && !empty($address)) {
             $map['Address'] = $address;
         }
-        if(isset($way) && !empty($way)){
+        if (isset($way) && !empty($way)) {
             $map['Way'] = $way;
         }
-        if(isset($channel) && !empty($channel)){
+        if (isset($channel) && !empty($channel)) {
             $map['Channel'] = $channel;
         }
-        if(isset($designer) && !empty($designer)){
+        if (isset($designer) && !empty($designer)) {
             $map['Designer'] = $designer;
         }
-        if(isset($state) && !empty($state)){
+        if (isset($state) && !empty($state)) {
             // $state = implode(',', $state);
             $map['_string'] = "POSITION($state IN CONCAT(',',State,','))";
         }
-        if(isset($userid) && !empty($userid)){
+        if (isset($userid) && !empty($userid)) {
             $map['Userid'] = $userid;
         }
-        if(isset($consultdate) && !empty($consultdate)){
-            if(isset($consultdate1) && !empty($consultdate1)){
-                $map['ConsultDate'] = array('between',array("$consultdate","$consultdate1"));
-            }else{
+        if (isset($consultdate) && !empty($consultdate)) {
+            if (isset($consultdate1) && !empty($consultdate1)) {
+                $map['ConsultDate'] = array('between', array("$consultdate", "$consultdate1"));
+            } else {
                 $map['ConsultDate'] = $consultdate;
             }
         }
-        if(isset($cometime) && !empty($cometime)){
-            if(isset($cometime) && !empty($cometime)){
-                $map['ComeTime'] = array('between',array("$cometime","$cometime1"));
-            }else{
+        if (isset($cometime) && !empty($cometime)) {
+            if (isset($cometime) && !empty($cometime)) {
+                $map['ComeTime'] = array('between', array("$cometime", "$cometime1"));
+            } else {
                 $map['ComeTime'] = $cometime;
             }
         }
-        if(isset($ordertime) && !empty($ordertime)){
-            if(isset($ordertime1) && !empty($ordertime1)){
-                $map['OrderTime'] = array('between',array("$ordertime","$ordertime1"));
-            }else{
+        if (isset($ordertime) && !empty($ordertime)) {
+            if (isset($ordertime1) && !empty($ordertime1)) {
+                $map['OrderTime'] = array('between', array("$ordertime", "$ordertime1"));
+            } else {
                 $map['OrderTime'] = $ordertime;
             }
         }
-        if(isset($hetongtime) && !empty($hetongtime)){
-            if(isset($hetongtime1) && !empty($hetongtime1)){
-                $map['HetongTime'] = array('between',array("$hetongtime","$hetongtime1"));
-            }else{
+        if (isset($hetongtime) && !empty($hetongtime)) {
+            if (isset($hetongtime1) && !empty($hetongtime1)) {
+                $map['HetongTime'] = array('between', array("$hetongtime", "$hetongtime1"));
+            } else {
                 $map['HetongTime'] = $hetongtime;
             }
         }
@@ -817,7 +847,7 @@ class CustomerAction extends CommonAction {
 
         // 调用公共分页
         $this->pageCommon($map, $sort, $status);
-        $sum  = D('CustomerView')->where($map)->Sum('OrdersValue');  // 符合查询条件的总单值
+        $sum = D('CustomerView')->where($map)->Sum('OrdersValue');  // 符合查询条件的总单值
 
         $this->assign('sum', $sum);
         $this->display();
@@ -827,14 +857,16 @@ class CustomerAction extends CommonAction {
      * 获取当前登录用户的用户id, realname信息
      * return array
      */
-    protected function thisUser(){
+    protected function thisUser()
+    {
         return M('users')->field('id,realname')->where(array('id' => session('uid')))->select();
     }
 
     /**
      * 根本不同用户的个性化选择  定义不同的客户列表  以显示不同的字段 主要用于客户管理模块
      */
-    public function displayFields(){
+    public function displayFields()
+    {
         //判断是否POST提交
         if (!IS_POST) {
             $this->error('您请求的页面不存在');
@@ -850,7 +882,8 @@ class CustomerAction extends CommonAction {
     /**
      * 根本不同用户的个性化选择  定义不同的客户列表  以显示不同的字段 主要用于工程管理模块
      */
-    public function projectFields(){
+    public function projectFields()
+    {
         //判断是否POST提交
         if (!IS_POST) {
             $this->error('您请求的页面不存在');
@@ -866,22 +899,23 @@ class CustomerAction extends CommonAction {
     /**
      * 选择需要显示的状态客户
      */
-    public function chooseState(){
-        if(IS_POST){
+    public function chooseState()
+    {
+        if (IS_POST) {
             // 提取POST数据
             $state = implode(',', I('post.state'));
 
             $data = array(
-                'uid' => session('uid'),
+                'uid'   => session('uid'),
                 'state' => $state
             );
             // 写入数据库
-            if(M('user_defined')->save($data)){
+            if (M('user_defined')->save($data)) {
                 $this->success('保存成功');
-            }else{
+            } else {
                 $this->error('保存失败');
             }
-        }else{
+        } else {
             // 获取当前公司的所有客户状态
             $state = M('com_state')->field('id,state_id')->where(array('admin_id' => fid()))->order('sort asc')->select();
 
@@ -890,7 +924,7 @@ class CustomerAction extends CommonAction {
             $stated = explode(',', $stated);
 
             // 循环替换状态名
-            foreach($state as $k => $v){
+            foreach ($state as $k => $v) {
                 $state[$k]['state_id'] = stateName($v['state_id']);
             }
 
@@ -903,7 +937,8 @@ class CustomerAction extends CommonAction {
     /**
      * 获取业务员 设计师 装修方式 客户状态等等
      */
-    protected function attachedInfo(){
+    protected function attachedInfo()
+    {
         // 判断是否存在父级ID 如果存在直接调用父级ID(pid)  若不存在直接调用session('uid')
         $fid = M('users')->where(array('id' => session('uid')))->getField('pid');
 
@@ -915,7 +950,7 @@ class CustomerAction extends CommonAction {
             // 判断总监  此处的1-2和组属性的1-2对应
             if ($job == '1') {   //业务总监
                 $user = array_merge(each_group_users($job), $this->thisUser());
-            } elseif ($job == '2'){  //设计总监
+            } elseif ($job == '2') {  //设计总监
                 $user = array_merge(each_group_users(1), each_group_users($job), $this->thisUser());
             } else {
                 $map['pid'] = fid();
@@ -923,7 +958,7 @@ class CustomerAction extends CommonAction {
                 $user = M('users')->where($map)->field('id,realname')->select();
 
                 // 此处判断一下公司管理员是否添加了员工
-                $user = empty($user) ? array('0' => array('id' => '0', 'realname'=> '请先添加公司员工')) : $user;
+                $user = empty($user) ? array('0' => array('id' => '0', 'realname' => '请先添加公司员工')) : $user;
             }
         }
 
@@ -935,7 +970,7 @@ class CustomerAction extends CommonAction {
                 $map1['username'] = array('NEQ', '');
                 $user = M('users')->field('id,realname')->where($map1)->select();
                 $user = array_merge($user, each_group_users('1'));
-            } else{
+            } else {
                 $user = array_merge(each_group_users('1'), $this->thisUser());  //合并当前用户
             }
         }
@@ -955,10 +990,10 @@ class CustomerAction extends CommonAction {
 
         // 客户来源
         $channel = M('channel')->field('id,channelname')->where($where)->order('sort')->select();
-		
-		//房屋类型
-		$room_type = M('room_type')->field('id,room_type_name')->where($where)->order('sort')->select();
-		
+
+        //房屋类型
+        $room_type = M('room_type')->field('id,room_type_name')->where($where)->order('sort')->select();
+
         // 装修方式
         $way = M('way')->field('id,wayname')->where($where)->order('sort')->select();
 
@@ -987,7 +1022,7 @@ class CustomerAction extends CommonAction {
         $this->assign('users', $user);
         $this->assign('state', $state);
         $this->assign('channel', $channel);
-		$this->assign('room_type', $room_type);
+        $this->assign('room_type', $room_type);
         $this->assign('way', $way);
         $this->assign('designer', $designer);
         $this->assign('project', $projecter);
@@ -1000,7 +1035,8 @@ class CustomerAction extends CommonAction {
     /**
      * 综合查询条件
      */
-    protected function where(){
+    protected function where()
+    {
         // 判断是否是超级管理员
         if (in_array(session('uid'), C('ADMINISTRATOR'))) {
             $user = array_column(M('users')->field('id')->select(), 'id');
@@ -1089,10 +1125,11 @@ class CustomerAction extends CommonAction {
     /**
      * 公共分页
      * @param $map           查询条件
-     * @param string $sort   需要排序的字段
-     * @param int $status    排序规则 升序 or 降序
+     * @param string $sort 需要排序的字段
+     * @param int $status 排序规则 升序 or 降序
      */
-    public function pageCommon($map, $sort='null', $status=0){
+    public function pageCommon($map, $sort = 'null', $status = 0)
+    {
         // 判断是否是回收站
         if (ACTION_NAME == 'trash') {
             $map['status'] = '1';   // 回收站客户
@@ -1104,58 +1141,58 @@ class CustomerAction extends CommonAction {
         $state = M('user_defined')->where(array('uid' => session('uid')))->getField('state');
         $state = explode(',', $state);
         $state = implode('|', $state);
-        if(!empty($state)){
-            if(isset($map['_string'])) {
+        if (!empty($state)) {
+            if (isset($map['_string'])) {
                 $map['_string'] = $map['_string'];
             } else {
                 $map['_string'] = "`State` REGEXP '$state'";
             }
         }
 
-	
+
         $map['_complex'] = $this->where(); //并入查询, 否则会按照 OR 的方式查询
- 
+
         // 导入分页类
         import('ORG.Util.Page');
-        $count  = D('CustomerView')->where($map)->count();  // 查询记录总数
-        $Page   = new Page($count,30);          // 实例化分页类 传入总记录数
-        $Page->setConfig('header','个客户');       // 定制分页样式
-		//dump(D('CustomerView')->getLastSql());
-		//dump($count);
+        $count = D('CustomerView')->where($map)->count();  // 查询记录总数
+        $Page = new Page($count, 30);          // 实例化分页类 传入总记录数
+        $Page->setConfig('header', '个客户');       // 定制分页样式
+        //dump(D('CustomerView')->getLastSql());
+        //dump($count);
         // 分页跳转的时候保证查询条件
         $get = array_filter($_GET);
-        foreach($get as $key=>$val) {
-            $Page->parameter .= "$key=".urlencode($val)."&";
+        foreach ($get as $key => $val) {
+            $Page->parameter .= "$key=" . urlencode($val) . "&";
         }
 
         // 分页显示输出
-        $show   = $Page->show();
+        $show = $Page->show();
 
         if (!empty($sort)) {
             if ($status) {
-                $list = D('CustomerView')->where($map)->limit($Page->firstRow.','.$Page->listRows)->order("$sort desc,id desc")->select();
+                $list = D('CustomerView')->where($map)->limit($Page->firstRow . ',' . $Page->listRows)->order("$sort desc,id desc")->select();
             } else {
-                $list = D('CustomerView')->where($map)->limit($Page->firstRow.','.$Page->listRows)->order("$sort asc,id desc")->select();
+                $list = D('CustomerView')->where($map)->limit($Page->firstRow . ',' . $Page->listRows)->order("$sort asc,id desc")->select();
             }
             $this->assign('status', $status);
         } else {
-            $list = D('CustomerView')->where($map)->limit($Page->firstRow.','.$Page->listRows)->order('id desc')->select();
+            $list = D('CustomerView')->where($map)->limit($Page->firstRow . ',' . $Page->listRows)->order('id desc')->select();
         }
         // 没有客户信息的时候提示
         $empty = '<tr><td colspan="12" style="font-size:14px;height:60px;line-height:60px;color:#D64635;">暂无此状态客户.</td></tr>';
 
         // 符合查询条件的总单值
-        $sum1  = D('CustomerView')->where($map)->Sum('OrdersValue');
-        $dingjin  = D('CustomerView')->where($map)->Sum('Deposit');
-        $space  = D('CustomerView')->where($map)->Sum('Space');
-        $shejifei  = D('CustomerView')->where($map)->Sum('shejifei');
-        $guanlifei  = D('CustomerView')->where($map)->Sum('guanlifei');
-        $qingfu  = D('CustomerView')->where($map)->Sum('qingfu');
-        $zhucai  = D('CustomerView')->where($map)->Sum('zhucai');
-        $once  = D('CustomerView')->where($map)->Sum('once');
-        $twice  = D('CustomerView')->where($map)->Sum('twice');
-        $tirth  = D('CustomerView')->where($map)->Sum('tirth');
-        $others  = D('CustomerView')->where($map)->Sum('others');
+        $sum1 = D('CustomerView')->where($map)->Sum('OrdersValue');
+        $dingjin = D('CustomerView')->where($map)->Sum('Deposit');
+        $space = D('CustomerView')->where($map)->Sum('Space');
+        $shejifei = D('CustomerView')->where($map)->Sum('shejifei');
+        $guanlifei = D('CustomerView')->where($map)->Sum('guanlifei');
+        $qingfu = D('CustomerView')->where($map)->Sum('qingfu');
+        $zhucai = D('CustomerView')->where($map)->Sum('zhucai');
+        $once = D('CustomerView')->where($map)->Sum('once');
+        $twice = D('CustomerView')->where($map)->Sum('twice');
+        $tirth = D('CustomerView')->where($map)->Sum('tirth');
+        $others = D('CustomerView')->where($map)->Sum('others');
 
         $this->assign('sum1', $sum1);
         $this->assign('dingjin', $dingjin);
@@ -1169,9 +1206,9 @@ class CustomerAction extends CommonAction {
         $this->assign('tirth', $tirth);
         $this->assign('others', $others);
         $this->assign('count', $count);
-        $this->assign('customer',$list);        // 赋值数据集
-        $this->assign('page',$show);            // 赋值分页输出
-        $this->assign('empty',$empty);          // 赋值分页输出
+        $this->assign('customer', $list);        // 赋值数据集
+        $this->assign('page', $show);            // 赋值分页输出
+        $this->assign('empty', $empty);          // 赋值分页输出
         $this->attachedInfo();
     }
 
@@ -1185,7 +1222,8 @@ class CustomerAction extends CommonAction {
      * @param $operate 进行了什么操作
      * @return mixed　需要推送消息的人员ID组合
      */
-    protected function addnews($designer, $salesman, $projecter, $cid, $url, $operate){
+    protected function addnews($designer, $salesman, $projecter, $cid, $url, $operate)
+    {
         // 获取需要提示的人员ID
         $viewid[] = fid();   // 管理员ID
         // 如果是业务员
@@ -1206,17 +1244,19 @@ class CustomerAction extends CommonAction {
         $viewid = array_filter($viewid);
 
         // 去除数组中当前用户的ID
-        function isHave($viewid){
-            if($viewid!= session('uid')) return true;
+        function isHave($viewid)
+        {
+            if ($viewid != session('uid')) return true;
         }
-        $viewid = array_filter($viewid,"isHave");
+
+        $viewid = array_filter($viewid, "isHave");
 
         // 循环插入消息
         foreach ($viewid as $vid) {
             $notice['fid'] = fid();  // 公司ID 防止信息错乱
             $notice['cid'] = $cid;    // 客户ID
             $notice['uid'] = session('uid');            // Who 操作人
-            $notice['rurl'] = U(''.$url.'', array('id' => $cid));  // 添加的客户信息连接 以便相关人员查看
+            $notice['rurl'] = U('' . $url . '', array('id' => $cid));  // 添加的客户信息连接 以便相关人员查看
             $notice['operate'] = $operate;      // How 什么操作
             $notice['entrytime'] = $_SERVER['REQUEST_TIME']; // Time 什么时间
             $notice['viewid'] = $vid;
@@ -1229,7 +1269,8 @@ class CustomerAction extends CommonAction {
     /**
      * 设置已查看信息的状态
      */
-    public function updatenews(){
+    public function updatenews()
+    {
         // 判断POST提交
         if (!IS_POST) {
             $this->error('您请求的页面不存在');
@@ -1246,7 +1287,8 @@ class CustomerAction extends CommonAction {
     /**
      * 待回访客户
      */
-    public function remindCustomer(){
+    public function remindCustomer()
+    {
         // 判断提交方式
         if (!IS_GET) {
             $this->error('您请求的页面不存在');
@@ -1257,8 +1299,8 @@ class CustomerAction extends CommonAction {
 
         //当前时间 和 本周最后一天  周日为每周的开始
         $thisdaytime = date('Y-m-d');
-        $yesterday = date("Y-m-d",strtotime("-1 day")); // 昨天
-        $this_week_last_day = date('Y-m-d',time() + 24 * 60 * 60 * 6);
+        $yesterday = date("Y-m-d", strtotime("-1 day")); // 昨天
+        $this_week_last_day = date('Y-m-d', time() + 24 * 60 * 60 * 6);
 
         // 判断属于哪个部门
         if (is_salesman()) {
@@ -1280,7 +1322,7 @@ class CustomerAction extends CommonAction {
         } elseif (is_project()) {
             if ($times == 1) {
                 $map['premind'] = $thisdaytime;
-            } elseif ($times ==2) {
+            } elseif ($times == 2) {
                 $map['premind'] = array('BETWEEN', array("$thisdaytime", "$this_week_last_day"));
             } else {
                 $map['premind'] = array('BETWEEN', array("2010-01-01", "$yesterday"));
@@ -1296,7 +1338,7 @@ class CustomerAction extends CommonAction {
         } elseif (is_manager()) {
             // 获取职务
             $job = M('users')->where(array('id' => session('uid')))->getField('job');
-            if ($job == 1){
+            if ($job == 1) {
                 if ($times == 1) {
                     $map['sremind'] = $thisdaytime;
                 } elseif ($times == 2) {
@@ -1323,9 +1365,10 @@ class CustomerAction extends CommonAction {
     /**
      * 导出客户信息EXCEL表
      */
-    public function phpExcel(){
+    public function phpExcel()
+    {
         // 导入thinkphp第三方类库
-        Vendor ('PhpExcel.PHPExcel');
+        Vendor('PhpExcel.PHPExcel');
 
         // 创建一个读Excel模版的对象
         $objReader = PHPExcel_IOFactory::createReader('Excel5');
@@ -1333,7 +1376,7 @@ class CustomerAction extends CommonAction {
         // 获取当前活动的表
         $objActSheet = $objPHPExcel->getActiveSheet();
         $objActSheet->setTitle('客户信息表');//设置excel标题
-        $objActSheet->getDefaultStyle()->getFont()->setName( 'Microsoft YaHei');    //设置字体
+        $objActSheet->getDefaultStyle()->getFont()->setName('Microsoft YaHei');    //设置字体
         $objActSheet->getDefaultStyle()->getFont()->setSize(10);    //设置字体大小
         $objActSheet->getRowDimension('1')->setRowHeight(39.75);    //设置第一行行高
         $objActSheet->getDefaultRowDimension()->setRowHeight(20);   // 默认行高
@@ -1386,7 +1429,7 @@ class CustomerAction extends CommonAction {
 
         $list = D('CustomerView')->where($this->where())->order('id desc')->select();
 
-        foreach ($list as $r => $dataRow){
+        foreach ($list as $r => $dataRow) {
             $row = $baseRow + $r;
             //将数据填充到相对应的位置，对应上面输出的列头
             $objPHPExcel->getActiveSheet()->setCellValue('A' . $row, $dataRow['CName']);
@@ -1430,14 +1473,14 @@ class CustomerAction extends CommonAction {
         }
 
         //导出
-        $filename ='客户信息表-'.date('Ymd');//excel文件名称
+        $filename = '客户信息表-' . date('Ymd');//excel文件名称
         $filename = iconv('utf-8', 'gb2312', $filename);//转换名称编码，防止乱码
         header('Content-Type: application/vnd.ms-excel;charset=utf-8');
-        header('Content-Disposition: attachment;filename="'.$filename.'.xls"'); //”‘.$filename.’.xls”
+        header('Content-Disposition: attachment;filename="' . $filename . '.xls"'); //”‘.$filename.’.xls”
         header('Cache-Control: max-age=0');
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5'); //在内存中准备一个excel2003文件
-        $objWriter->save ('php://output');
+        $objWriter->save('php://output');
     }
 
     /**
@@ -1445,58 +1488,57 @@ class CustomerAction extends CommonAction {
      */
     public function importExcel()
     {
-        if(!IS_POST) $this->error('您请求的页面不存在');
+        if (!IS_POST) $this->error('您请求的页面不存在');
 
         import('ORG.Net.UploadFile');
         $upload = new UploadFile();// 实例化上传类
-        $upload->maxSize = 20*1024*1024 ;// 设置附件上传大小
+        $upload->maxSize = 20 * 1024 * 1024;// 设置附件上传大小
         $upload->allowExts = array('xlsx', 'xlx');// 设置附件上传类型
         $upload->savePath = './Uploads/';// 设置附件上传目录
 
-        if($upload->upload()) {// 上传错误提示错误信息
+        if ($upload->upload()) {// 上传错误提示错误信息
             // 上传成功
             $file = $upload->getUploadFileInfo();
             //$filename = $file[0]['savename'];
 
             // 导入thinkphp第三方类库
-            Vendor ('PhpExcel.PHPExcel');
+            Vendor('PhpExcel.PHPExcel');
 
             $c = C('IMPORT_CUSTOMER_EXCEL_FIELDS');//读取客户表excel配置
             $aid = fid();//管理员id
 
             // 查询所在公司所有客户电话, 逗号分隔
-            $allUser = M('Customer')->query('SELECT  GROUP_CONCAT(c.Tel) as tel FROM '.C('DB_PREFIX').'customer c
-                                          INNER JOIN '.C('DB_PREFIX').'users u ON c.Userid = u.id
-                                          WHERE u.pid='.$aid);
+            $allUser = M('Customer')->query('SELECT  GROUP_CONCAT(c.Tel) as tel FROM ' . C('DB_PREFIX') . 'customer c
+                                          INNER JOIN ' . C('DB_PREFIX') . 'users u ON c.Userid = u.id
+                                          WHERE u.pid=' . $aid);
 
             // 用户姓名, 得到 姓名=>id 键值对
-            $result = M('Users')->where(array('pid'=>$aid))->select();
+            $result = M('Users')->where(array('pid' => $aid))->select();
             $employee = array();//数组格式 array('姓名'=>id)
-            foreach($result as $value){
+            foreach ($result as $value) {
                 $employee[trim($value['realname'])] = $value['id'];
             }
 
 
-
             //装修方式, 得到 装修方式=>id 键值对
-            $result = M('Way')->where(array('admin_id'=>$aid))->select();
+            $result = M('Way')->where(array('admin_id' => $aid))->select();
             $way = array();
-            foreach($result as $value){
+            foreach ($result as $value) {
                 $way[trim($value['wayname'])] = $value['id'];
             }
 
             // 渠道, 得到 渠道名称=>id 键值对
-            $result = M('Channel')->where(array('admin_id'=>$aid))->select();
+            $result = M('Channel')->where(array('admin_id' => $aid))->select();
             $channel = array();
-            foreach($result as $value){
+            foreach ($result as $value) {
                 $channel[trim($value['wayname'])] = $value['id'];
             }
 
             // 客户状态
-            $sql = 'SELECT cs.id, s.statename FROM '.C('DB_PREFIX').'state as s INNER JOIN '.C('DB_PREFIX').'com_state as cs ON cs.state_id = s.id WHERE cs.admin_id='.$aid;
+            $sql = 'SELECT cs.id, s.statename FROM ' . C('DB_PREFIX') . 'state as s INNER JOIN ' . C('DB_PREFIX') . 'com_state as cs ON cs.state_id = s.id WHERE cs.admin_id=' . $aid;
             $result = M('State')->query($sql);
             $state = array();
-            foreach($result as $value){
+            foreach ($result as $value) {
                 $state[trim($value['statename'])] = $value['id'];
             }
 
@@ -1505,17 +1547,17 @@ class CustomerAction extends CommonAction {
             array_shift($arrExcel);
             $data = array();
             $failData = array();
-            $i=0;
-            foreach($arrExcel as $key => $value){
+            $i = 0;
+            foreach ($arrExcel as $key => $value) {
                 $f = false;
                 $j = 0;
-                foreach($c as $k => $v){
+                foreach ($c as $k => $v) {
                     $value[$j] = trim($value[$j]);
-                    switch($v){
+                    switch ($v) {
                         case 'Userid':
-                            if(array_key_exists($value[$j], $employee))
+                            if (array_key_exists($value[$j], $employee))
                                 $data[$i][$v] = $employee[$value[$j]];
-                            else{
+                            else {
                                 $value[$j] = $value[$j] . '{业务员不存在}';
                                 array_push($failData, $value);
                                 $f = true;
@@ -1537,11 +1579,11 @@ class CustomerAction extends CommonAction {
 
                             $eclStateArr = explode(',', $value[$j]);
 
-                            foreach($eclStateArr as $kecl => $vecl){
-                                if(($kecl+1) == count($eclStateArr)){
+                            foreach ($eclStateArr as $kecl => $vecl) {
+                                if (($kecl + 1) == count($eclStateArr)) {
                                     array_key_exists($vecl, $state) ? $data[$i][$v] .= $state[$vecl] : 0;
-                                }else{
-                                    array_key_exists($vecl, $state) ? $data[$i][$v] .= $state[$vecl].',' : 0;
+                                } else {
+                                    array_key_exists($vecl, $state) ? $data[$i][$v] .= $state[$vecl] . ',' : 0;
                                 }
 
                             }
@@ -1549,9 +1591,9 @@ class CustomerAction extends CommonAction {
                             break;
                         case 'Tel':
                             //重复的手机号不入库
-                            if(false === strpos($allUser[0]['tel'], $value[$j])){
+                            if (false === strpos($allUser[0]['tel'], $value[$j])) {
                                 $data[$i][$v] = $value[$j];
-                            }else {
+                            } else {
                                 $value[$j] = $value[$j] . '{手机已存在}';
                                 array_push($failData, $value);
                                 $f = true;
@@ -1570,7 +1612,7 @@ class CustomerAction extends CommonAction {
                         case 'StartTime':
                         case 'EndTime':
                             //日期格式不正确
-                            if(preg_match('/^\d{4}-\d{2}-\d{2}$/', $value[$j]) || $value[$j] == null || $value[$j] == '')
+                            if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $value[$j]) || $value[$j] == null || $value[$j] == '')
                                 $data[$i][$v] = $value[$j];
 //                            else {
 //                                array_push($failData, $value);
@@ -1593,9 +1635,9 @@ class CustomerAction extends CommonAction {
                             $data[$i][$v] = $value[$j];
                     }
                     $j++;
-                    if(true === $f) break;
+                    if (true === $f) break;
                 }
-                if(true === $f) unset($data[$i]);
+                if (true === $f) unset($data[$i]);
                 $i++;
             }
 
@@ -1608,7 +1650,7 @@ class CustomerAction extends CommonAction {
             $this->assign('data', $data);
             $this->assign('failData', $failData);
             $this->display();
-        } else{
+        } else {
             $this->error($upload->getErrorMsg());
         }
     }
@@ -1620,7 +1662,7 @@ class CustomerAction extends CommonAction {
     {
         $file = "./Uploads/crm_download_demo.xlsx";
         $filename = 'CRM客户信息导入示例.xlsx';
-        if(file_exists($file)){
+        if (file_exists($file)) {
             header("Pragma: public");
             header("Expires: 0");
             header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
@@ -1640,9 +1682,9 @@ class CustomerAction extends CommonAction {
             }
 
             header("Content-Transfer-Encoding: binary");
-            header("Content-Length: ". filesize($file));
+            header("Content-Length: " . filesize($file));
             @readfile($file);
-        }else
+        } else
             $this->error('该文件不存在');
     }
 
@@ -1657,7 +1699,7 @@ class CustomerAction extends CommonAction {
         $material_history = new MaterialHistoryModel();
         $material_history->startTrans();
         $info = $material_history->handleHistory($customer_id, $type_info);
-        if(!$info){
+        if (!$info) {
             $material_history->rollback();
             return false;
         }
@@ -1671,10 +1713,10 @@ class CustomerAction extends CommonAction {
     public function customerNewClass()
     {
         $list = M('NewClass')->where(array('pid' => 0))->select();
-        foreach ($list as $k => $item){
+        foreach ($list as $k => $item) {
             $child = M('NewClass')->where(array('pid' => $item['class_id']))->field('class_name')->select();
             $string = [];
-            foreach ($child as $c){
+            foreach ($child as $c) {
                 $string[] = $c['class_name'];
             }
             $list[$k]['child'] = implode(',', $string);
@@ -1688,7 +1730,7 @@ class CustomerAction extends CommonAction {
      */
     public function addNewClass()
     {
-        if($this->isPost()){
+        if ($this->isPost()) {
             $class_name = $this->_param('class_name');
             $pid = $this->_param('pid');
             $data['class_name'] = $class_name;
@@ -1697,12 +1739,12 @@ class CustomerAction extends CommonAction {
             $where['class_name'] = $class_name;
             $where['pid'] = $pid;
             $info = M('NewClass')->where($where)->select();
-            if(!$info){
+            if (!$info) {
                 $res = M('NewClass')->add($data);
-            }else{
+            } else {
                 $this->ajaxReturn(array('code' => 2, 'msg' => '存在数据'));
             }
-            if($res){
+            if ($res) {
                 $this->ajaxReturn(array('code' => 1, 'msg' => '添加成功'));
             }
         }
@@ -1713,15 +1755,15 @@ class CustomerAction extends CommonAction {
      */
     public function delNewClass()
     {
-        if($this->isPost()){
+        if ($this->isPost()) {
             $class_name = $this->_param('class_name');
             $pid = $this->_param('pid');
             $where['class_name'] = $class_name;
             $where['pid'] = $pid;
             $res = M('NewClass')->where($where)->delete();
-            if($res){
+            if ($res) {
                 $this->ajaxReturn(array('code' => 1, 'msg' => '删除成功'));
-            }else{
+            } else {
                 $this->ajaxReturn(array('code' => 0, 'msg' => '删除失败'));
             }
         }
@@ -1732,14 +1774,14 @@ class CustomerAction extends CommonAction {
      */
     public function addCustomerArea()
     {
-        if($this->isPost()){
+        if ($this->isPost()) {
             $info = M('CustomerArea')->create();
             $info['create_time'] = time();
             $res = M('CustomerArea')->add();
-            if($res){
+            if ($res) {
                 $this->success();
             }
-        }else{
+        } else {
             $this->display();
         }
     }
@@ -1752,5 +1794,110 @@ class CustomerAction extends CommonAction {
         $list = M('CustomerArea')->select();
         $this->assign('list', $list);
         $this->display();
+    }
+
+    /**
+     *报表统计
+     */
+    public function customerChart()
+    {
+        if (IS_POST) {
+            $action = $this->_param('id');
+            switch ($action) {
+                case '1':
+                    $where = array(
+                        'address_id' => array('neq', 0)
+                    );
+                    $total_num = D('customer')->where($where)->count();
+                    $info = D('customer')->where($where)->field('address_id, count(id) use_times')->group('address_id')->order('use_times desc')->select();
+                    foreach($info as $k => $v){
+                        $info[$k]['marterial_name'] = D('NewClass')->where(array('class_id' => $v['address_id']))->getField('class_name');
+                        $info[$k]['proportion'] = round($v['use_times'] / $total_num * 100 , 2) . "％";
+                    }
+                    break;
+                case '2':
+                    $where = array(
+                        'age' => array('neq', 0)
+                    );
+                    $total_num = D('customer')->where($where)->count();
+                    $info = D('customer')
+                        ->where($where)
+                        ->field('age marterial_name, count(id) use_times')
+                        ->order('use_times desc')->group('age')
+                        ->select();
+                    foreach($info as $k => $v){
+                        $info[$k]['proportion'] = round($v['use_times'] / $total_num * 100 , 2) . "％";
+                    }
+                    break;
+                case '3':
+                    $where = array(
+                        'Style' => array('neq', 0)
+                    );
+                    $total_num = D('customer')->where($where)->count();
+                    $info = D('customer')
+                        ->where($where)
+                        ->field('Style, count(id) use_times')
+                        ->group('Style')->order('use_times desc')->select();
+                    foreach($info as $k => $v){
+                        $info[$k]['marterial_name'] = D('RoomStyle')->where(array('id' => $v['Style']))->getField('style_name');
+                        $info[$k]['proportion'] = round($v['use_times'] / $total_num * 100 , 2) . "％";
+                    }
+                    break;
+                case '4':
+                    $where = array(
+                        'RoomType' => array('neq', 0)
+                    );
+                    $total_num = D('customer')->where($where)->count();
+                    $info = D('customer')
+                        ->where($where)
+                        ->field('RoomType, count(id) use_times')
+                        ->group('RoomType')->order('use_times desc')->select();
+                    foreach($info as $k => $v){
+                        $info[$k]['marterial_name'] = D('RoomType')->where(array('id' => $v['RoomType']))->getField('room_type_name');
+                        $info[$k]['proportion'] = round($v['use_times'] / $total_num * 100 , 2) . "％";
+                    }
+                    break;
+                case '5':
+                    $where = array(
+                        'Channel' => array('neq', 0)
+                    );
+                    $total_num = D('customer')->where($where)->count();
+                    $info = D('customer')
+                        ->where($where)
+                        ->field('Channel, count(id) use_times')
+                        ->group('Channel')->order('use_times desc')->select();
+                    foreach($info as $k => $v){
+                        $info[$k]['marterial_name'] = D('Channel')->where(array('id' => $v['Channel']))->getField('channelname');
+                        $info[$k]['proportion'] = round($v['use_times'] / $total_num * 100 , 2) . "％";
+                    }
+                    break;
+            }
+            $this->ajaxReturn($info);
+        } else {
+            $list = array(
+                '1' => array(
+                    'id' => 1,
+                    'name' => '地址'
+                ),
+                '2' => array(
+                    'id' => 2,
+                    'name' => '年龄'
+                ),
+                '3' => array(
+                    'id' => 3,
+                    'name' => '风格'
+                ),
+                '4' => array(
+                    'id' => 4,
+                    'name' => '房屋类型'
+                ),
+                '5' => array(
+                    'id' => 5,
+                    'name' => '渠道'
+                ),
+            );
+            $this->assign('list', $list);
+            $this->display();
+        }
     }
 }

@@ -54,4 +54,8 @@ class AfterSalesAction extends CommonAction
     {
 
     }
+    public function afterChart()
+    {
+
+    }
 }

@@ -1,0 +1,9 @@
+<volist name="list" id="vo" key="k" empty="管理员很懒,还未添加任何装修方式">
+<tr>
+    <td>{$k} </td>
+    <td>{$vo.style_name}</td>
+    <td>[<a class="update" data-toggle="modal" data-val="{$vo.id}" data-item="{$vo.style_name}" >修改</a>] |
+				[<a class="delcfm" data-val="{$vo.id}">删除</a>]
+    </td>
+</tr>
+</volist>

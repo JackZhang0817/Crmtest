@@ -1,68 +1,76 @@
 <!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
 <html lang="en">
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
-<meta charset="utf-8"/>
-<title>修改客户信息 | CRM客户管理系统</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="" name="description"/>
-<meta content="gaorenhua" name="author"/>
-<!-- BEGIN GLOBAL MANDATORY STYLES -->
-<link href="__PUBLIC__/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-<link href="__PUBLIC__/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
-<link href="__PUBLIC__/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-<link href="__PUBLIC__/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
-<link href="__PUBLIC__/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
-<!-- END GLOBAL MANDATORY STYLES -->
-<!-- BEGIN PAGE LEVEL STYLES -->
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css"/>
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/global/plugins/bootstrap-datepicker/css/datepicker.css"/>
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/global/plugins/bootstrap-colorpicker/css/jquery.bigcolorpicker.css"/>
-<link rel="stylesheet" type="text/css" href="__PUBLIC__/global/plugins/icheck/skins/all.css"/>
-<!-- END PAGE LEVEL SCRIPTS -->
-<!-- BEGIN THEME STYLES -->
-<include file="Common:css" />
-<!-- END THEME STYLES -->
-<link rel="shortcut icon" href="favicon.ico"/>
+    <meta charset="utf-8"/>
+    <title>修改客户信息 | CRM客户管理系统</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="gaorenhua" name="author"/>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="__PUBLIC__/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="__PUBLIC__/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet"
+          type="text/css"/>
+    <link href="__PUBLIC__/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="__PUBLIC__/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link href="__PUBLIC__/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet"
+          type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link rel="stylesheet" type="text/css"
+          href="__PUBLIC__/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="__PUBLIC__/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/global/plugins/bootstrap-datepicker/css/datepicker.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="__PUBLIC__/global/plugins/bootstrap-colorpicker/css/jquery.bigcolorpicker.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/global/plugins/icheck/skins/all.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/global/plugins/select2/select2.css">
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <!-- BEGIN THEME STYLES -->
+    <include file="Common:css"/>
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico"/>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
 <body class="page-header-fixed page-quick-sidebar-over-content ">
 <!-- 包含公共头部和公共侧边栏 -->
-<include file="Common:header" />
-    <!-- BEGIN CONTENT -->
-    <div class="page-content-wrapper">
-        <div class="page-content">
-            <!-- BEGIN PAGE CONTENT-->
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- BEGIN VALIDATION STATES-->
-                    <div class="portlet box blue">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="fa fa-gift"></i>修改客户信息
-                            </div>
+<include file="Common:header"/>
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN VALIDATION STATES-->
+                <div class="portlet box blue">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-gift"></i>修改客户信息
                         </div>
-                        <div class="portlet-body form">
-                            <!-- BEGIN FORM-->
-                            <form action="__SELF__" class="form-horizontal" method="post">
-                                <div class="form-body">
+                    </div>
+                    <div class="portlet-body form">
+                        <!-- BEGIN FORM-->
+                        <form action="__SELF__" class="form-horizontal" method="post">
+                            <div class="form-body">
                                 <div style="font-size:18px;border-bottom:darkseagreen solid 2px;margin:0px 20px 20px;padding:10px 0px;color:#333;">
                                     客户信息：
                                     <!--<div style="float: right; font-size: 14px;">-->
-                                        <!--转到：-->
-                                        <!--<select name="dpid">-->
-                                            <!--<option value="" selected>请选择部门</option>-->
-                                            <!--<foreach name='group' item='group'>-->
-                                                <!--<option value="{$group.id}" >{$group.title}</option>-->
-                                            <!--</foreach>-->
-                                        <!--</select>-->
+                                    <!--转到：-->
+                                    <!--<select name="dpid">-->
+                                    <!--<option value="" selected>请选择部门</option>-->
+                                    <!--<foreach name='group' item='group'>-->
+                                    <!--<option value="{$group.id}" >{$group.title}</option>-->
+                                    <!--</foreach>-->
+                                    <!--</select>-->
                                     <!--</div>-->
                                 </div>
                                 <if condition='is_array($users)'>
@@ -71,11 +79,13 @@
                                         <div class="col-md-3">
                                             <select name="Userid" class="form-control">
                                                 <option value="" selected>请选择业务员</option>
-                                            <foreach name='users' item='user'>
-                                                <neq name="user.id" value="0">
-                                                    <option value="{$user.id}" <eq name="user.id" value="$info.Userid">selected</eq>>{$user.realname}</option>
-                                                </neq>
-                                            </foreach>
+                                                <foreach name='users' item='user'>
+                                                    <neq name="user.id" value="0">
+                                                        <option value="{$user.id}"
+                                                        <eq name="user.id" value="$info.Userid">selected</eq>
+                                                        >{$user.realname}</option>
+                                                    </neq>
+                                                </foreach>
                                             </select>
                                         </div>
                                         <label class="control-label col-md-2">设计师</label>
@@ -83,228 +93,280 @@
                                             <select name="Designer" class="form-control">
                                                 <option value="0" selected>请选择接单设计师</option>
                                                 <foreach name='designer' item='de'>
-                                                    <option value="{$de.id}" <eq name="de.id" value="$info.Designer">selected</eq>>{$de.realname}</option>
+                                                    <option value="{$de.id}"
+                                                    <eq name="de.id" value="$info.Designer">selected</eq>
+                                                    >{$de.realname}</option>
                                                 </foreach>
                                             </select>
                                         </div>
                                     </div>
-                                <else/>
-                                    <input type="hidden" name="Userid" value="{$_SESSION['uid']}" />
+                                    <else/>
+                                    <input type="hidden" name="Userid" value="{$_SESSION['uid']}"/>
                                 </if>
-                                    <div class="form-group">
-                                        <input type="hidden" name="id" value="{$info.id}" />
-                                        <label class="control-label col-md-2"><span class="red">*</span> 客户姓名</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="CName" class="form-control" value="{$info.CName}" />
-                                        </div>
-                                        <label class="control-label col-md-2"><span class="red">*</span> 联系方式</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="Tel" class="form-control" value="{$info.Tel}" />
-                                        </div>
-                                        <label id="chk" class="control-label col-md-2" style="text-align:left;"></label>
+                                <div class="form-group">
+                                    <input type="hidden" name="id" value="{$info.id}"/>
+                                    <label class="control-label col-md-2"><span class="red">*</span> 客户姓名</label>
+                                    <div class="col-md-3">
+                                        <input type="text" name="CName" class="form-control" value="{$info.CName}"/>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2"><span class="red">*</span> 所在小区</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="Address" class="form-control" value="{$info.Address}" />
-                                        </div>
-                                        <label class="control-label col-md-2">固定电话</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="fixed" class="form-control" value="{$info.fixed}" />
-                                        </div>
+                                    <label class="control-label col-md-2"><span class="red">*</span> 联系方式</label>
+                                    <div class="col-md-3">
+                                        <input type="text" name="Tel" class="form-control" value="{$info.Tel}"/>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">身份证号</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="IDNo" class="form-control" value="{$info.IDNo}" />
-                                        </div>
-                                        <label class="control-label col-md-2">生日</label>
-                                        <div class="col-md-3">
-                                            <input type="text" id="Birthday" name="Birthday" class="form-control" value="{$info.Birthday}"/>
-                                        </div>
-                                        <label id="chk" class="control-label col-md-2" style="text-align:left;"></label>
+                                    <label id="chk" class="control-label col-md-2" style="text-align:left;"></label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2"><span class="red">*</span> 所在小区</label>
+                                    <div class="col-md-3">
+                                        <select class="form-control select2_category select2-offscreen" tabindex="-1"
+                                                title="" name="address_id" data-val="{$info.address_id}">
+                                            <option value="">请选择</option>
+                                            <volist name="list" id="pvo">
+                                                <optgroup label="{$pvo.class_name}">
+                                                    <volist name="pvo.child" id="vo">
+                                                        <option value="{$vo.class_id}" <eq name="vo.class_id" value="$info.address_id">selected</eq> >{$vo.class_name}</option>
+                                                    </volist>
+                                                </optgroup>
+                                            </volist>
+                                        </select>
                                     </div>
-                                    <div class="form-group">
-                                    	<label class="control-label col-md-2">风格</label>
-                                        <div class="col-md-3">
-                                            <input type="text" id="Style" name="Style" class="form-control" />
-                                        </div>                                        
-                                        <label class="control-label col-md-2">QQ/微信</label>
-                                        <div class="col-md-3">
-                                            <input type="text" id="IM" name="IM" class="form-control" />
-                                        </div>
-                                        <label id="chk" class="control-label col-md-2" style="text-align:left;"></label>
+                                    <label class="control-label col-md-2">固定电话</label>
+                                    <div class="col-md-3">
+                                        <input type="text" name="fixed" class="form-control" value="{$info.fixed}"/>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">房屋类型</label>
-                                        <div class="col-md-3">
-                                              <select name="RoomType" class="form-control">
-                                                <option value="0" selected>请选择房屋类型</option>
-                                                <foreach name='room_type' item='cha'>
-                                                    <option value="{$cha.id}" >{$cha.room_type_name}</option>
-                                                </foreach>
-                                            </select>
-                                        </div>
-                                        <label class="control-label col-md-2">户型</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="huxing" class="form-control" />
-                                        </div>                                     
-                                    </div> 
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">套餐类别</label>
-                                        <div class="col-md-3">
-                                              <select name="taochan" class="form-control" id="taochan">
-                                                <option value="0" selected>请选择套餐类别</option>
-                                               	<option>300套餐</option>
-                                               	<option>400套餐</option>
-                                               	<option>500套餐</option>
-                                               	<option>轻工辅料</option>
-                                            </select>
-                                        </div>
-                                        <label class="control-label col-md-2">预计造价</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="zaojia" class="form-control" value="{$info.zaojia}"/>
-                                        </div>                                     
-                                    </div>                                                                           
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">装修地址</label>
-                                        <div class="col-md-8">
-                                            <input type="text" name="Address2" class="form-control" value="{$info.Address2}" />
-                                        </div>
-                                    </div>                                     
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">房屋面积</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="Space" allownull="true" class="form-control"  <neq name="info.Space" value="0">value="{$info.Space}"</neq>/>
-                                        </div>
-                                        <label class="control-label col-md-2">客户分级</label>
-                                        <div class="col-md-3">
-                                              <select name="level" class="form-control" id='level'>
-                                                <option value="0" selected>请选择客户分级</option>
-                                               	<option>A类</option>
-                                               	<option>B类</option>
-                                               	<option>C类</option>
-                                            </select>
-                                        </div>  
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">身份证号</label>
+                                    <div class="col-md-3">
+                                        <input type="text" name="IDNo" class="form-control" value="{$info.IDNo}"/>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">交房时间</label>
-                                        <div class="col-md-3 input-icon">
-                                            <i class="fa fa-calendar"></i>
-                                            <input type="text" name="jiaofangtime" class="form-control date-picker"  value="{$info.jiaofangtime}" />
-                                        </div>
-                                        <label class="control-label col-md-2">量房时间</label>
-                                        <div class="col-md-3 input-icon">
-                                            <i class="fa fa-calendar"></i>
-                                            <input type="text" name="liangfangtime" class="form-control date-picker"  value="{$info.liangfangtime}" />
-                                        </div>
+                                    <label class="control-label col-md-2">生日</label>
+                                    <div class="col-md-3">
+                                        <input type="text" id="Birthday" name="Birthday" class="form-control"
+                                               value="{$info.Birthday}"/>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">来源渠道</label>
-                                        <div class="col-md-3">
-                                            <select name="Channel" class="form-control">
-                                                <option value="0" selected>请选择客户来源</option>
-                                                <foreach name='channel' item='cha'>
-                                                    <option value="{$cha.id}" <eq name="cha.id" value="$info.Channel">selected</eq>>{$cha.channelname}</option>
-                                                </foreach>
-                                            </select>
-                                        </div>
-                                        <label class="control-label col-md-2">装修方式</label>
-                                        <div class="col-md-3">
-                                            <select name="Way" class="form-control">
-                                                <option value="0" selected>请选择装修方式</option>
-                                                <foreach name='way' item='wa'>
-                                                    <option value="{$wa.id}" <eq name="wa.id" value="$info.Way">selected</eq>>{$wa.wayname}</option>
-                                                </foreach>
-                                            </select>
-                                        </div>
+                                    <label id="chk" class="control-label col-md-2" style="text-align:left;"></label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">风格</label>
+                                    <div class="col-md-3">
+                                        <select name="Style" class="form-control">
+                                            <option value="0" selected>请选择风格</option>
+                                            <foreach name='style_list' item='cha'>
+                                                <option value="{$cha.id}" <eq name="cha.id" value="$info.Style">selected</eq>>{$cha.style_name}</option>
+                                            </foreach>
+                                        </select>
                                     </div>
-                                    <div class="form-group"  style="margin-bottom:30px;">
-                                        <label class="control-label col-md-2">跟踪状态</label>
-                                        <div class="col-md-8">
-                                            <div class="form-control" style="border:none; padding-left:0px;">
-                                                <foreach name='state' item='sta'>
-                                                    <input type="checkbox" class="icheck" data-checkbox="icheckbox_minimal-blue" name="State[]" value="{$sta.id}" {:checked($sta['id'], $info['State'])}>{$sta.state_id|stateName}&nbsp;
-                                                </foreach>
-                                            </div>
-                                        </div>
+                                    <label class="control-label col-md-2">QQ/微信</label>
+                                    <div class="col-md-3">
+                                        <input type="text" id="IM" name="IM" class="form-control"/>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2"><span class="red">*</span> 咨询时间</label>
-                                        <div class="col-md-3 input-icon">
-                                            <i class="fa fa-calendar"></i>
-                                            <input class="form-control date-picker" type="text" name="ConsultDate"  value="{$info.ConsultDate}" />
-                                        </div>
-                                        <label class="control-label col-md-2">到店时间</label>
-                                        <div class="col-md-3 input-icon">
-                                            <i class="fa fa-calendar"></i>
-                                            <input type="text" name="ComeTime" class="form-control date-picker"  value="{$info.ComeTime}"/>
-                                        </div>
+                                    <label id="chk" class="control-label col-md-2" style="text-align:left;"></label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">房屋类型</label>
+                                    <div class="col-md-3">
+                                        <select name="RoomType" class="form-control">
+                                            <option value="0" selected>请选择房屋类型</option>
+                                            <foreach name='room_type' item='cha'>
+                                                <option value="{$cha.id}" <eq name="cha.id" value="$info.RoomType">selected</eq>>{$cha.room_type_name}</option>
+                                            </foreach>
+                                        </select>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">定金时间</label>
-                                        <div class="col-md-3 input-icon">
-                                            <i class="fa fa-calendar"></i>
-                                            <input type="text" name="OrderTime" class="form-control date-picker"  value="{$info.OrderTime}"/>
-                                        </div>
-                                        <label class="control-label col-md-2">定金金额</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="Deposit" allownull="true" class="form-control" <neq name="info.Deposit" value="0">value="{$info.Deposit}"</neq>/>
-                                        </div>
+                                    <label class="control-label col-md-2">户型</label>
+                                    <div class="col-md-3">
+                                        <input type="text" name="huxing" class="form-control"/>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">退定时间</label>
-                                        <div class="col-md-3 input-icon">
-                                            <i class="fa fa-calendar"></i>
-                                            <input type="text" name="CancelTime" class="form-control date-picker" value="{$info.CancelTime}" />
-                                        </div>
-                                        <label class="control-label col-md-2">退定金额</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="CancelDeposit" allownull="true" class="form-control" value="{$info.CancelDeposit}" />
-                                        </div>
-                                    </div>                                     
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">合同时间</label>
-                                        <div class="col-md-3 input-icon">
-                                            <i class="fa fa-calendar"></i>
-                                            <input type="text" name="HetongTime" class="form-control date-picker"  value="{$info.HetongTime}"/>
-                                        </div>
-                                        <label class="control-label col-md-2">合同金额</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="OrdersValue" allownull="true" class="form-control" <neq name="info.OrdersValue" value="0">value="{$info.OrdersValue}"</neq>/>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">套餐类别</label>
+                                    <div class="col-md-3">
+                                        <select name="taochan" class="form-control" id="taochan">
+                                            <option value="0" selected>请选择套餐类别</option>
+                                            <option>300套餐</option>
+                                            <option>400套餐</option>
+                                            <option>500套餐</option>
+                                            <option>轻工辅料</option>
+                                        </select>
+                                    </div>
+                                    <label class="control-label col-md-2">预计造价</label>
+                                    <div class="col-md-3">
+                                        <input type="text" name="zaojia" class="form-control" value="{$info.zaojia}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">年龄</label>
+                                    <div class="col-md-3">
+                                        <input type="text" name="age" class="form-control" value="{$info.age}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">装修地址</label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="Address2" class="form-control"
+                                               value="{$info.Address2}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">房屋面积</label>
+                                    <div class="col-md-3">
+                                        <input type="text" name="Space" allownull="true" class="form-control"
+                                        <neq name="info.Space" value="0">value="{$info.Space}"</neq>
+                                        />
+                                    </div>
+                                    <label class="control-label col-md-2">客户分级</label>
+                                    <div class="col-md-3">
+                                        <select name="level" class="form-control" id='level'>
+                                            <option value="0" selected>请选择客户分级</option>
+                                            <option>A类</option>
+                                            <option>B类</option>
+                                            <option>C类</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">交房时间</label>
+                                    <div class="col-md-3 input-icon">
+                                        <i class="fa fa-calendar"></i>
+                                        <input type="text" name="jiaofangtime" class="form-control date-picker"
+                                               value="{$info.jiaofangtime}"/>
+                                    </div>
+                                    <label class="control-label col-md-2">量房时间</label>
+                                    <div class="col-md-3 input-icon">
+                                        <i class="fa fa-calendar"></i>
+                                        <input type="text" name="liangfangtime" class="form-control date-picker"
+                                               value="{$info.liangfangtime}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">来源渠道</label>
+                                    <div class="col-md-3">
+                                        <select name="Channel" class="form-control">
+                                            <option value="0" selected>请选择客户来源</option>
+                                            <foreach name='channel' item='cha'>
+                                                <option value="{$cha.id}"
+                                                <eq name="cha.id" value="$info.Channel">selected</eq>
+                                                >{$cha.channelname}</option>
+                                            </foreach>
+                                        </select>
+                                    </div>
+                                    <label class="control-label col-md-2">装修方式</label>
+                                    <div class="col-md-3">
+                                        <select name="Way" class="form-control">
+                                            <option value="0" selected>请选择装修方式</option>
+                                            <foreach name='way' item='wa'>
+                                                <option value="{$wa.id}"
+                                                <eq name="wa.id" value="$info.Way">selected</eq>
+                                                >{$wa.wayname}</option>
+                                            </foreach>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-bottom:30px;">
+                                    <label class="control-label col-md-2">跟踪状态</label>
+                                    <div class="col-md-8">
+                                        <div class="form-control" style="border:none; padding-left:0px;">
+                                            <foreach name='state' item='sta'>
+                                                <input type="checkbox" class="icheck"
+                                                       data-checkbox="icheckbox_minimal-blue" name="State[]"
+                                                       value="{$sta.id}" {:checked($sta['id'],
+                                                $info['State'])}>{$sta.state_id|stateName}&nbsp;
+                                            </foreach>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">材料员</label>
-                                        <div class="col-md-3">
-                                            <select name="Material" class="form-control">
-                                                <option value="0" selected>请选择材料员</option>
-                                                <foreach name='material' item='ma'>
-                                                    <option value="{$ma.id}" <eq name="ma.id" value="$info.Material">selected</eq>>{$ma.realname}</option>
-                                                </foreach>
-                                            </select>
-                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2"><span class="red">*</span> 咨询时间</label>
+                                    <div class="col-md-3 input-icon">
+                                        <i class="fa fa-calendar"></i>
+                                        <input class="form-control date-picker" type="text" name="ConsultDate"
+                                               value="{$info.ConsultDate}"/>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">制图员</label>
-                                        <div class="col-md-3">
-                                            <select name="Drawing" class="form-control">
-                                                <option value="0" selected>请选择制图员</option>
-                                                <foreach name='drawer' item='dr'>
-                                                    <option value="{$dr.id}" <eq name="dr.id" value="$info.Drawing">selected</eq>>{$dr.realname}</option>
-                                                </foreach>
-                                            </select>
-                                        </div>
-                                        <label class="control-label col-md-2">效果图制图员</label>
-                                        <div class="col-md-3">
-                                            <select name="xiaoguotu" class="form-control">
-                                                <option value="0" selected>请选择效果图制图员</option>
-                                                <foreach name='xiaoguotu' item='xg'>
-                                                    <option value="{$xg.id}" <eq name="xg.id" value="$info.xiaoguotu">selected</eq>>{$xg.realname}</option>
-                                                </foreach>
-                                            </select>
-                                        </div>
+                                    <label class="control-label col-md-2">到店时间</label>
+                                    <div class="col-md-3 input-icon">
+                                        <i class="fa fa-calendar"></i>
+                                        <input type="text" name="ComeTime" class="form-control date-picker"
+                                               value="{$info.ComeTime}"/>
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">定金时间</label>
+                                    <div class="col-md-3 input-icon">
+                                        <i class="fa fa-calendar"></i>
+                                        <input type="text" name="OrderTime" class="form-control date-picker"
+                                               value="{$info.OrderTime}"/>
+                                    </div>
+                                    <label class="control-label col-md-2">定金金额</label>
+                                    <div class="col-md-3">
+                                        <input type="text" name="Deposit" allownull="true" class="form-control"
+                                        <neq name="info.Deposit" value="0">value="{$info.Deposit}"</neq>
+                                        />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">退定时间</label>
+                                    <div class="col-md-3 input-icon">
+                                        <i class="fa fa-calendar"></i>
+                                        <input type="text" name="CancelTime" class="form-control date-picker"
+                                               value="{$info.CancelTime}"/>
+                                    </div>
+                                    <label class="control-label col-md-2">退定金额</label>
+                                    <div class="col-md-3">
+                                        <input type="text" name="CancelDeposit" allownull="true" class="form-control"
+                                               value="{$info.CancelDeposit}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">合同时间</label>
+                                    <div class="col-md-3 input-icon">
+                                        <i class="fa fa-calendar"></i>
+                                        <input type="text" name="HetongTime" class="form-control date-picker"
+                                               value="{$info.HetongTime}"/>
+                                    </div>
+                                    <label class="control-label col-md-2">合同金额</label>
+                                    <div class="col-md-3">
+                                        <input type="text" name="OrdersValue" allownull="true" class="form-control"
+                                        <neq name="info.OrdersValue" value="0">value="{$info.OrdersValue}"</neq>
+                                        />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">材料员</label>
+                                    <div class="col-md-3">
+                                        <select name="Material" class="form-control">
+                                            <option value="0" selected>请选择材料员</option>
+                                            <foreach name='material' item='ma'>
+                                                <option value="{$ma.id}"
+                                                <eq name="ma.id" value="$info.Material">selected</eq>
+                                                >{$ma.realname}</option>
+                                            </foreach>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">制图员</label>
+                                    <div class="col-md-3">
+                                        <select name="Drawing" class="form-control">
+                                            <option value="0" selected>请选择制图员</option>
+                                            <foreach name='drawer' item='dr'>
+                                                <option value="{$dr.id}"
+                                                <eq name="dr.id" value="$info.Drawing">selected</eq>
+                                                >{$dr.realname}</option>
+                                            </foreach>
+                                        </select>
+                                    </div>
+                                    <label class="control-label col-md-2">效果图制图员</label>
+                                    <div class="col-md-3">
+                                        <select name="xiaoguotu" class="form-control">
+                                            <option value="0" selected>请选择效果图制图员</option>
+                                            <foreach name='xiaoguotu' item='xg'>
+                                                <option value="{$xg.id}"
+                                                <eq name="xg.id" value="$info.xiaoguotu">selected</eq>
+                                                >{$xg.realname}</option>
+                                            </foreach>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-2">CAD图</label>
                                     <div class="col-md-3">
@@ -312,20 +374,22 @@
                                     </div>
                                     <label class="control-label col-md-2">效果图</label>
                                     <div class="col-md-3">
-                                        <input type="text" name="Pic" class="form-control" value="{$info.Pic}" />
-                                    </div>                                        
-                                </div>                                     
+                                        <input type="text" name="Pic" class="form-control" value="{$info.Pic}"/>
+                                    </div>
+                                </div>
                                 <if condition="is_admin()">
                                     <div class="form-group">
                                         <label class="control-label col-md-2"> 业务回访提醒</label>
                                         <div class="col-md-3 input-icon">
                                             <i class="fa fa-calendar"></i>
-                                            <input class="form-control date-picker" type="text" name="sremind"  value="{$info.sremind}"/>
+                                            <input class="form-control date-picker" type="text" name="sremind"
+                                                   value="{$info.sremind}"/>
                                         </div>
                                         <label class="control-label col-md-2"> 设计回访提醒</label>
                                         <div class="col-md-3 input-icon">
                                             <i class="fa fa-calendar"></i>
-                                            <input class="form-control date-picker" type="text" name="dremind"  value="{$info.dremind}"/>
+                                            <input class="form-control date-picker" type="text" name="dremind"
+                                                   value="{$info.dremind}"/>
                                         </div>
                                     </div>
                                     <elseif condition="is_manager()"/>
@@ -334,7 +398,8 @@
                                             <label class="control-label col-md-2"> 回访提醒</label>
                                             <div class="col-md-3 input-icon">
                                                 <i class="fa fa-calendar"></i>
-                                                <input class="form-control date-picker" type="text" name="sremind"  value="{$info.sremind}"/>
+                                                <input class="form-control date-picker" type="text" name="sremind"
+                                                       value="{$info.sremind}"/>
                                             </div>
                                         </div>
                                     </eq>
@@ -343,7 +408,8 @@
                                             <label class="control-label col-md-2"> 回访提醒</label>
                                             <div class="col-md-3 input-icon">
                                                 <i class="fa fa-calendar"></i>
-                                                <input class="form-control date-picker" type="text" name="dremind"  value="{$info.dremind}" />
+                                                <input class="form-control date-picker" type="text" name="dremind"
+                                                       value="{$info.dremind}"/>
                                             </div>
                                         </div>
                                     </eq>
@@ -353,7 +419,8 @@
                                         <label class="control-label col-md-2"> 回访提醒</label>
                                         <div class="col-md-3 input-icon">
                                             <i class="fa fa-calendar"></i>
-                                            <input class="form-control date-picker" type="text" name="sremind"  value="{$info.sremind}"/>
+                                            <input class="form-control date-picker" type="text" name="sremind"
+                                                   value="{$info.sremind}"/>
                                         </div>
                                     </div>
                                     <elseif condition="is_designer()"/>
@@ -361,7 +428,8 @@
                                         <label class="control-label col-md-2"> 回访提醒</label>
                                         <div class="col-md-3 input-icon">
                                             <i class="fa fa-calendar"></i>
-                                            <input class="form-control date-picker" type="text" name="dremind"  value="{$info.dremind}"/>
+                                            <input class="form-control date-picker" type="text" name="dremind"
+                                                   value="{$info.dremind}"/>
                                         </div>
                                     </div>
                                     <elseif condition="is_project()"/>
@@ -369,141 +437,160 @@
                                         <label class="control-label col-md-2"> 回访提醒</label>
                                         <div class="col-md-3 input-icon">
                                             <i class="fa fa-calendar"></i>
-                                            <input class="form-control date-picker" type="text" name="premind"  value="{$info.premind}"/>
+                                            <input class="form-control date-picker" type="text" name="premind"
+                                                   value="{$info.premind}"/>
                                         </div>
                                     </div>
                                 </if>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">标记颜色</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="markcolor" class="colorpicker-default form-control" id="color" value="{$info.markcolor|markcolor}"/>
-                                        </div>
-                                         
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">标记颜色</label>
+                                    <div class="col-md-3">
+                                        <input type="text" name="markcolor" class="colorpicker-default form-control"
+                                               id="color" value="{$info.markcolor|markcolor}"/>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">洽谈情况</label>
-                                        <div class="col-md-8">
-                                            <textarea name="Content" rows="3" class="form-control">{$info.Content}</textarea>
-                                        </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">洽谈情况</label>
+                                    <div class="col-md-8">
+                                        <textarea name="Content" rows="3"
+                                                  class="form-control">{$info.Content}</textarea>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">优惠码</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="DiscountCode" class=" form-control"  value="{$info.DiscountCode}"/>
-                                        </div>
-                                    </div>                                      
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">优惠码备注</label>
-                                        <div class="col-md-8">
-                                            <textarea name="Detail" rows="3" class="form-control">{$info.Detail}</textarea>
-                                        </div>
-                                    </div> 
-                                  
-                                <div style="font-size:18px;border-bottom:darkseagreen solid 2px;margin:0px 20px 20px;padding:10px 0px;color:#333;">工程费用：</div>
-                                  <!--  <div class="form-group">
-                                        <label class="control-label col-md-2">设计费</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="shejifei" allownull="true" class="form-control" <neq name="info.shejifei" value="0">value="{$info.shejifei}"</neq> />
-                                        </div>
-                                        <label class="control-label col-md-2">服务费</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="guanlifei" allownull="true" class="form-control" <neq name="info.guanlifei" value="0">value="{$info.guanlifei}"</neq> />
-                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">优惠码</label>
+                                    <div class="col-md-3">
+                                        <input type="text" name="DiscountCode" class=" form-control"
+                                               value="{$info.DiscountCode}"/>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">轻辅费</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="qingfu" allownull="true" class="form-control" <neq name="info.qingfu" value="0">value="{$info.qingfu}"</neq> />
-                                        </div>
-                                        <label class="control-label col-md-2">主材费</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="zhucai" allownull="true" class="form-control" <neq name="info.zhucai" value="0">value="{$info.zhucai}"</neq> />
-                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">优惠码备注</label>
+                                    <div class="col-md-8">
+                                        <textarea name="Detail" rows="3" class="form-control">{$info.Detail}</textarea>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">第一笔人工费</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="once" allownull="true" class="form-control" <neq name="info.once" value="0">value="{$info.once}"</neq> />
-                                        </div>
-                                        <label class="control-label col-md-2">第二笔人工费</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="twice" allownull="true" class="form-control" <neq name="info.twice" value="0">value="{$info.twice}"</neq> />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">第三笔人工费</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="tirth" allownull="true" class="form-control" <neq name="info.tirth" value="0">value="{$info.tirth}"</neq> />
-                                        </div>
-                                        <label class="control-label col-md-2">其他费用</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="others" allownull="true" class="form-control" <neq name="info.others" value="0">value="{$info.others}"</neq> />
-                                        </div>
-                                    </div>-->
-                                    <div class="form-group">
-                                    	<div class="col-md-7">
+                                </div>
+
+                                <div style="font-size:18px;border-bottom:darkseagreen solid 2px;margin:0px 20px 20px;padding:10px 0px;color:#333;">
+                                    工程费用：
+                                </div>
+                                <!--  <div class="form-group">
+                                      <label class="control-label col-md-2">设计费</label>
+                                      <div class="col-md-3">
+                                          <input type="text" name="shejifei" allownull="true" class="form-control" <neq name="info.shejifei" value="0">value="{$info.shejifei}"</neq> />
+                                      </div>
+                                      <label class="control-label col-md-2">服务费</label>
+                                      <div class="col-md-3">
+                                          <input type="text" name="guanlifei" allownull="true" class="form-control" <neq name="info.guanlifei" value="0">value="{$info.guanlifei}"</neq> />
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="control-label col-md-2">轻辅费</label>
+                                      <div class="col-md-3">
+                                          <input type="text" name="qingfu" allownull="true" class="form-control" <neq name="info.qingfu" value="0">value="{$info.qingfu}"</neq> />
+                                      </div>
+                                      <label class="control-label col-md-2">主材费</label>
+                                      <div class="col-md-3">
+                                          <input type="text" name="zhucai" allownull="true" class="form-control" <neq name="info.zhucai" value="0">value="{$info.zhucai}"</neq> />
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="control-label col-md-2">第一笔人工费</label>
+                                      <div class="col-md-3">
+                                          <input type="text" name="once" allownull="true" class="form-control" <neq name="info.once" value="0">value="{$info.once}"</neq> />
+                                      </div>
+                                      <label class="control-label col-md-2">第二笔人工费</label>
+                                      <div class="col-md-3">
+                                          <input type="text" name="twice" allownull="true" class="form-control" <neq name="info.twice" value="0">value="{$info.twice}"</neq> />
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="control-label col-md-2">第三笔人工费</label>
+                                      <div class="col-md-3">
+                                          <input type="text" name="tirth" allownull="true" class="form-control" <neq name="info.tirth" value="0">value="{$info.tirth}"</neq> />
+                                      </div>
+                                      <label class="control-label col-md-2">其他费用</label>
+                                      <div class="col-md-3">
+                                          <input type="text" name="others" allownull="true" class="form-control" <neq name="info.others" value="0">value="{$info.others}"</neq> />
+                                      </div>
+                                  </div>-->
+                                <div class="form-group">
+                                    <div class="col-md-7">
                                         <label class="control-label col-md-3">首期款应付</label>
-	                                        <div class="col-md-3">
-	                                        	<input type="text" name="FirstPay" class="form-control" value="{$info.FirstPay}"/>                                        	                                        	                                        	                                                 
-	                                        </div>
-	                                        <label class="control-label col-md-3">首期款实付：</label>
-	                                        <div class="col-md-3">
-	                                        	<input type="text" name="FirstPay2" class="form-control" value="{$info.FirstPay2}"/>
-	                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" name="FirstPay" class="form-control"
+                                                   value="{$info.FirstPay}"/>
                                         </div>
-                                        <div class="col-md-4">
-	                                        <label class="control-label col-md-6">首期款日期</label>
-	                                        <div class="col-md-6 input-icon">
-	                                        	<i class="fa fa-calendar"></i>
-	                                            <input type="text" name="FirstPayDate"  class="form-control  date-picker" value="{$info.FirstPayDate}" />
-	                                        </div>
+                                        <label class="control-label col-md-3">首期款实付：</label>
+                                        <div class="col-md-3">
+                                            <input type="text" name="FirstPay2" class="form-control"
+                                                   value="{$info.FirstPay2}"/>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                    	<div class="col-md-7">
+                                    <div class="col-md-4">
+                                        <label class="control-label col-md-6">首期款日期</label>
+                                        <div class="col-md-6 input-icon">
+                                            <i class="fa fa-calendar"></i>
+                                            <input type="text" name="FirstPayDate" class="form-control  date-picker"
+                                                   value="{$info.FirstPayDate}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-7">
                                         <label class="control-label col-md-3">中期应付</label>
-	                                        <div class="col-md-3">
-	                                        	<input type="text" name="MidPay" class="form-control"  value="{$info.MidPay}"/>                                        	                                        	                                        	                                                 
-	                                        </div>
-	                                        <label class="control-label col-md-3">中期实付：</label>
-	                                        <div class="col-md-3">
-	                                        	<input type="text" name="MidPay2" class="form-control"  value="{$info.MidPay2}"/>
-	                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" name="MidPay" class="form-control"
+                                                   value="{$info.MidPay}"/>
                                         </div>
-                                        <div class="col-md-4">
-	                                        <label class="control-label col-md-6">中期款日期</label>
-	                                        <div class="col-md-6 input-icon">
-	                                        	<i class="fa fa-calendar"></i>
-	                                            <input type="text" name="MidPayDate"  class="form-control  date-picker"  value="{$info.MidPayDate}"/>
-	                                        </div>
+                                        <label class="control-label col-md-3">中期实付：</label>
+                                        <div class="col-md-3">
+                                            <input type="text" name="MidPay2" class="form-control"
+                                                   value="{$info.MidPay2}"/>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                    	<div class="col-md-7">
+                                    <div class="col-md-4">
+                                        <label class="control-label col-md-6">中期款日期</label>
+                                        <div class="col-md-6 input-icon">
+                                            <i class="fa fa-calendar"></i>
+                                            <input type="text" name="MidPayDate" class="form-control  date-picker"
+                                                   value="{$info.MidPayDate}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-7">
                                         <label class="control-label col-md-3">尾款应付</label>
-	                                        <div class="col-md-3">
-	                                        	<input type="text" name="EndPay" class="form-control" value="{$info.EndPay}"/>                                        	                                        	                                        	                                                 
-	                                        </div>
-	                                        <label class="control-label col-md-3">尾款实付：</label>
-	                                        <div class="col-md-3">
-	                                        	<input type="text" name="EndPay2" class="form-control"  value="{$info.EndPay2}"/>
-	                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" name="EndPay" class="form-control"
+                                                   value="{$info.EndPay}"/>
                                         </div>
-                                        <div class="col-md-4">
-	                                        <label class="control-label col-md-6">中期款日期</label>
-	                                        <div class="col-md-6 input-icon">
-	                                        	<i class="fa fa-calendar"></i>
-	                                            <input type="text" name="EndPayDate"  class="form-control  date-picker"  value="{$info.EndPayDate}"/>
-	                                        </div>
+                                        <label class="control-label col-md-3">尾款实付：</label>
+                                        <div class="col-md-3">
+                                            <input type="text" name="EndPay2" class="form-control"
+                                                   value="{$info.EndPay2}"/>
                                         </div>
-                                    </div> 
-<div style="font-size:18px;border-bottom:darkseagreen solid 2px;margin:0px 20px 20px;padding:10px 0px;color:#333;">材料信息：</div>
-                                    <div class="form-group">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="control-label col-md-6">中期款日期</label>
+                                        <div class="col-md-6 input-icon">
+                                            <i class="fa fa-calendar"></i>
+                                            <input type="text" name="EndPayDate" class="form-control  date-picker"
+                                                   value="{$info.EndPayDate}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="font-size:18px;border-bottom:darkseagreen solid 2px;margin:0px 20px 20px;padding:10px 0px;color:#333;">
+                                    材料信息：
+                                </div>
+                                <div class="form-group">
                                     <volist name="materialTypeList" id="vo">
                                         <div class="form-group col-md-6 ">
                                             <label class="control-label col-md-4">{$vo.type_name}</label>
                                             <div class="col-md-6">
-                                                <select class="form-control input-medium material-select" name="material_info[{$vo.type_id}]" id="material-select-{$vo.type_id}" data-val="{$vo.type_id}">
+                                                <select class="form-control input-medium material-select"
+                                                        name="material_info[{$vo.type_id}]"
+                                                        id="material-select-{$vo.type_id}" data-val="{$vo.type_id}">
                                                     <option value="0">无</option>
                                                 </select>
                                             </div>
@@ -511,93 +598,104 @@
                                     </volist>
                                 </div>
 
-                            <div style="font-size:18px;border-bottom:darkseagreen solid 2px;margin:0px 20px 20px;padding:10px 0px;color:#333;">施工信息：</div>
-                                    <div class="form-group">
-                                        <if condition="is_admin() || is_project()">
-                                            <label class="control-label col-md-2"> 监理巡检提醒</label>
-                                            <div class="col-md-3 input-icon">
-                                                <i class="fa fa-calendar"></i>
-                                                <input class="form-control date-picker" type="text" name="premind"  value="{$info.premind}"/>
-                                            </div>
-                                        </if>
-                                        <label class="control-label col-md-2">合同编号</label>
-                                        <div class="col-md-3">
-                                            <input type="text" name="Number" class="form-control" value="{$info.Number}"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">工程监理</label>
-                                        <div class="col-md-3">
-                                            <select name="Project" class="form-control">
-                                                <option value="0" selected>请选择工程监理</option>
-                                                <foreach name='project' item='pr'>
-                                                    <option value="{$pr.id}" <eq name="pr.id" value="$info.Project">selected</eq>>{$pr.realname}</option>
-                                                </foreach>
-                                            </select>
-                                        </div>
-                                        <label class="control-label col-md-2">工长</label>
-                                        <div class="col-md-3">
-                                            <select name="Captain" class="form-control">
-                                                <option value="0" selected>请选择施工队长</option>
-                                                <foreach name='caption' item='cp'>
-                                                    <option value="{$cp.id}" <eq name="cp.id" value="$info.Captain">selected</eq>>{$cp.realname}</option>
-                                                </foreach>
-                                            </select>
-                                        </div>
-                                    </div>
-									<div class="form-group">
-                                        <label class="control-label col-md-2"> 开工时间</label>
-                                        <div class="col-md-3 input-icon">
-                                            <i class="fa fa-calendar"></i>
-                                            <input class="form-control date-picker" type="text" name="StartTime"  value="{$info.StartTime}" />
-                                        </div>
-                                        <label class="control-label col-md-2">合同工期</label>
-                                        <div class="col-md-3">
-                                            <input class="form-control" type="text" name="gongqi" value="{$info.gongqi}" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">竣工时间</label>
-                                        <div class="col-md-3 input-icon">
-                                            <i class="fa fa-calendar"></i>
-                                            <input class="form-control date-picker" type="text" name="EndTime" value="{$info.EndTime}" />
-                                        </div>
-                                        <label class="control-label col-md-2">延期提醒</label>
-                                        <div class="col-md-3 input-icon">
-                                            <i class="fa fa-calendar"></i>
-                                            <input class="form-control date-picker" type="text" name="yanqi"  value="{$info.yanqi}"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-2">保修日期</label>
-                                        <div class="col-md-3 input-icon">
-                                            <i class="fa fa-calendar"></i>
-                                            <input class="form-control date-picker" type="text" name="baoxiuriqi" value="{$info.baoxiuriqi}" />
-                                        </div>
-                                    </div>   
+                                <div style="font-size:18px;border-bottom:darkseagreen solid 2px;margin:0px 20px 20px;padding:10px 0px;color:#333;">
+                                    施工信息：
                                 </div>
-                                <div class="form-actions">
-                                    <div class="row">
-                                        <div class="col-md-offset-2 col-md-10">
-                                            <button type="submit" class="btn green">　确认添加　</button>
-                                            <button type="button" class="btn default">重新填写</button>
+                                <div class="form-group">
+                                    <if condition="is_admin() || is_project()">
+                                        <label class="control-label col-md-2"> 监理巡检提醒</label>
+                                        <div class="col-md-3 input-icon">
+                                            <i class="fa fa-calendar"></i>
+                                            <input class="form-control date-picker" type="text" name="premind"
+                                                   value="{$info.premind}"/>
                                         </div>
+                                    </if>
+                                    <label class="control-label col-md-2">合同编号</label>
+                                    <div class="col-md-3">
+                                        <input type="text" name="Number" class="form-control" value="{$info.Number}"/>
                                     </div>
                                 </div>
-                            </form>
-                            <!-- END FORM-->
-                        </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">工程监理</label>
+                                    <div class="col-md-3">
+                                        <select name="Project" class="form-control">
+                                            <option value="0" selected>请选择工程监理</option>
+                                            <foreach name='project' item='pr'>
+                                                <option value="{$pr.id}"
+                                                <eq name="pr.id" value="$info.Project">selected</eq>
+                                                >{$pr.realname}</option>
+                                            </foreach>
+                                        </select>
+                                    </div>
+                                    <label class="control-label col-md-2">工长</label>
+                                    <div class="col-md-3">
+                                        <select name="Captain" class="form-control">
+                                            <option value="0" selected>请选择施工队长</option>
+                                            <foreach name='caption' item='cp'>
+                                                <option value="{$cp.id}"
+                                                <eq name="cp.id" value="$info.Captain">selected</eq>
+                                                >{$cp.realname}</option>
+                                            </foreach>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2"> 开工时间</label>
+                                    <div class="col-md-3 input-icon">
+                                        <i class="fa fa-calendar"></i>
+                                        <input class="form-control date-picker" type="text" name="StartTime"
+                                               value="{$info.StartTime}"/>
+                                    </div>
+                                    <label class="control-label col-md-2">合同工期</label>
+                                    <div class="col-md-3">
+                                        <input class="form-control" type="text" name="gongqi" value="{$info.gongqi}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">竣工时间</label>
+                                    <div class="col-md-3 input-icon">
+                                        <i class="fa fa-calendar"></i>
+                                        <input class="form-control date-picker" type="text" name="EndTime"
+                                               value="{$info.EndTime}"/>
+                                    </div>
+                                    <label class="control-label col-md-2">延期提醒</label>
+                                    <div class="col-md-3 input-icon">
+                                        <i class="fa fa-calendar"></i>
+                                        <input class="form-control date-picker" type="text" name="yanqi"
+                                               value="{$info.yanqi}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">保修日期</label>
+                                    <div class="col-md-3 input-icon">
+                                        <i class="fa fa-calendar"></i>
+                                        <input class="form-control date-picker" type="text" name="baoxiuriqi"
+                                               value="{$info.baoxiuriqi}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <button type="submit" class="btn green">　确认添加　</button>
+                                        <button type="button" class="btn default">重新填写</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- END FORM-->
                     </div>
-                    <!-- END VALIDATION STATES-->
                 </div>
+                <!-- END VALIDATION STATES-->
             </div>
-            <!-- END PAGE CONTENT-->
         </div>
+        <!-- END PAGE CONTENT-->
     </div>
-    <!-- END CONTENT -->
+</div>
+<!-- END CONTENT -->
 </div>
 <!-- END CONTAINER -->
-<include file="Common:footer" />
+<include file="Common:footer"/>
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
 <!--[if lt IE 9]>
@@ -609,7 +707,8 @@
 <!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
 <script src="__PUBLIC__/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
 <script src="__PUBLIC__/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="__PUBLIC__/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
+        type="text/javascript"></script>
 <script src="__PUBLIC__/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
 <script src="__PUBLIC__/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
 <script src="__PUBLIC__/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
@@ -621,7 +720,8 @@
 <script type="text/javascript" src="__PUBLIC__/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="__PUBLIC__/global/plugins/bootstrap-colorpicker/js/jquery.bigcolorpicker.js"></script>
+<script type="text/javascript"
+        src="__PUBLIC__/global/plugins/bootstrap-colorpicker/js/jquery.bigcolorpicker.js"></script>
 <script type="text/javascript" src="__PUBLIC__/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
 <script type="text/javascript" src="__PUBLIC__/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
 <script type="text/javascript" src="__PUBLIC__/global/plugins/bootstrap-markdown/js/bootstrap-markdown.js"></script>
@@ -637,31 +737,36 @@
 <script src="__PUBLIC__/javascript/customer.js"></script>
 <!-- END PAGE LEVEL STYLES -->
 <script>
-	jQuery(document).ready(function() {
-		
-		$('#taochan').val('{$info.taochan}');
-		
-		$('#level').val('{$info.level}');
-		// initiate layout and plugins
-		Metronic.init();
-		// init metronic core components
-		Layout.init();
-		// init current layout
-		QuickSidebar.init();
-		// init quick sidebar
-		Demo.init();
-		// init demo features
-		FormValidation.init();
-		//颜色板
-		$("#color").bigColorpicker("color", "L", 6);
-		materialTypeList()
+    jQuery(document).ready(function () {
+
+        $('#taochan').val('{$info.taochan}');
+
+        $('#level').val('{$info.level}');
+        // initiate layout and plugins
+        Metronic.init();
+        // init metronic core components
+        Layout.init();
+        // init current layout
+        QuickSidebar.init();
+        // init quick sidebar
+        Demo.init();
+        // init demo features
+        FormValidation.init();
+        $('.select2_category').select2({
+            placeholder: "Select an option",
+            allowClear: true
+        });
+        //颜色板
+        $("#color").bigColorpicker("color", "L", 6);
+        materialTypeList()
         $('#material_reload').on('click', function () {
             console.log('111')
             materialTypeList()
         })
-		//颜色板
-		$("#color").bigColorpicker("color", "L", 6);
-		function materialTypeList() {
+        //颜色板
+        $("#color").bigColorpicker("color", "L", 6);
+
+        function materialTypeList() {
             var type_list = '{$info.material_info}';
 
 
@@ -672,12 +777,12 @@
                 var mtype_id = $(this).attr('data-val')
                 $.post(ajax_url, {type_id: mtype_id}, function (res) {
                     var _html = '<option value="0">无</option>';
-                    if(res.length > 0) {
+                    if (res.length > 0) {
                         $.each(res, function (index, value) {
-                            if(new_type != null && value.marterial_id == new_type[mtype_id]){
+                            if (new_type != null && value.marterial_id == new_type[mtype_id]) {
                                 console.log('value:' + new_type[mtype_id])
                                 _html += '<option value="' + value.marterial_id + '" selected>' + value.marterial_name + '</option>'
-                            }else{
+                            } else {
                                 _html += '<option value=' + value.marterial_id + '>' + value.marterial_name + '</option>'
                             }
                         })
@@ -686,7 +791,7 @@
                 })
             })
         }
-	}); 
+    });
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

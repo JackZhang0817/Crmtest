@@ -115,9 +115,8 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-2"><span class="red">*</span> 所在小区</label>
                                     <div class="col-md-3">
-                                        <select class="form-control select2_category select2-offscreen" tabindex="-1" title="" name="Address">
+                                        <select class="form-control select2_category select2-offscreen" tabindex="-1" title="" name="address_id">
                                             <option value="">请选择</option>
-                                            <php>dump($list);</php>
                                             <volist name="list" id="pvo">
                                                 <optgroup label="{$pvo.class_name}">
                                                     <volist name="pvo.child" id="vo">
@@ -138,7 +137,7 @@
                                     <div class="col-md-3">
                                         <input type="text" name="IDNo" class="form-control"/>
                                     </div>
-                                    <label class="control-label col-md-2">年龄</label>
+                                    <label class="control-label col-md-2">生日</label>
                                     <div class="col-md-3">
                                         <input type="text" id="Birthday" name="Birthday" class="form-control"/>
                                     </div>
@@ -147,7 +146,12 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-2">风格</label>
                                     <div class="col-md-3">
-                                        <input type="text" id="Style" name="Style" class="form-control"/>
+                                        <select name="Style" class="form-control">
+                                            <option value="0" selected>请选择风格</option>
+                                            <foreach name='style_list' item='cha'>
+                                                <option value="{$cha.id}">{$cha.style_name}</option>
+                                            </foreach>
+                                        </select>
                                     </div>
                                     <label class="control-label col-md-2">QQ/微信</label>
                                     <div class="col-md-3">
@@ -186,17 +190,12 @@
                                         <input type="text" name="zaojia" class="form-control"/>
                                     </div>
                                 </div>
-                                <!--<div class="form-group">-->
-                                <!--<label class="control-label col-md-2">所在小区</label>-->
-                                <!--<div class="col-md-3">-->
-                                <!--<input type="text" name="IDNo" class="form-control"  />-->
-                                <!--</div>-->
-                                <!--<label class="control-label col-md-2">年龄</label>-->
-                                <!--<div class="col-md-3">-->
-                                <!--<input type="text" id="year" name="year" class="form-control" />-->
-                                <!--</div>-->
-                                <!--&lt;!&ndash;<label id="chk" class="control-label col-md-2" style="text-align:left;"></label>&ndash;&gt;-->
-                                <!--</div>-->
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">年龄</label>
+                                    <div class="col-md-3">
+                                        <input type="text" name="age" class="form-control"/>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-2">装修地址</label>
                                     <div class="col-md-8">

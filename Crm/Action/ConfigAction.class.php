@@ -480,4 +480,47 @@ class ConfigAction extends CommonAction {
             }
         }
     }
+
+    /**
+     * 装修风格
+     */
+    public function addStyle()
+    {
+        if(IS_POST) {
+            $action = $this->_param('action');
+            if ($action == 'add') {
+                $info = D('RoomStyle')->create();
+                if (!$info)
+                    $this->ajaxReturn(array('code' => 0, 'msg' => D('RoomStyle')->getError()));
+                $res = D('RoomStyle')->add($info);
+                if ($res)
+                    $this->ajaxReturn(array('code' => 1, 'msg' => '添加成功'));
+            } elseif ($action == 'list') {
+                $list = D("RoomStyle")->select();
+                $this->assign('list', $list);
+                $this->display('ajaxStyle');
+            } elseif ($action == 'update') {
+                $info = D('RoomStyle')->create();
+                if (!$info) {
+                    $this->ajaxReturn(array('code' => 0, 'msg' => '没有任何修改'));
+                }
+                $res = D('RoomStyle')->where(array('id' => $info['id']))->save($info);
+                if ($res) {
+                    $this->ajaxReturn(array('code' => 1, 'msg' => '修改成功'));
+                } else {
+                    $this->ajaxReturn(array('code' => 0, 'msg' => '修改失败'));
+                }
+            } elseif ($action == 'delete') {
+                $class_id = $this->_param('id');
+                $res = D('RoomStyle')->where(array('id' => $class_id))->delete();
+                if ($res) {
+                    $this->ajaxReturn(array('code' => 1, 'msg' => '删除成功'));
+                }
+            }
+        }else{
+            $list = D("RoomStyle")->select();
+            $this->assign('list', $list);
+            $this->display();
+        }
+    }
 }
