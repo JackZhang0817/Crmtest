@@ -45,6 +45,10 @@ class AfterSalesAction extends CommonAction
         $this->assign('list', $list);
         $this->display();
     }
+
+    /**
+     *修改售后服务
+     */
     public function alertAfterSale()
     {
 
@@ -54,8 +58,17 @@ class AfterSalesAction extends CommonAction
     {
 
     }
+
+    /**
+     * 售后使用材料的统计
+     */
     public function afterChart()
     {
+        if(IS_POST){
+            $where = array();
+            $list = D('AfterService')->where($where)->field()->group('')->select();
+        }
+        $this->display();
 
     }
 }

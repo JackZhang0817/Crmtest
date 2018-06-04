@@ -9,7 +9,7 @@
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8"/>
-    <title> | CRM客户管理系统</title>
+    <title> 区域管理| CRM客户管理系统</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta content="" name="description"/>
@@ -52,7 +52,7 @@
                 <!-- BEGIN SAMPLE TABLE PORTLET-->
                 <div class="portlet box green">
                     <div class="portlet-title">
-                        <div class="caption"><i class="fa fa-cogs"></i>小区名称列表</div>
+                        <div class="caption"><i class="fa fa-cogs"></i>区域列表</div>
                     </div>
                     <div class="portlet-body">
                         <div class="table-responsive">
@@ -61,7 +61,7 @@
                                     <thead>
                                     <tr>
                                         <th style="width:75px;">序号</th>
-                                        <th>小区名称</th>
+                                        <th>区域名称</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
@@ -71,32 +71,6 @@
                                 </table>
                             </form>
                         </div>
-                        <!--弹出修改框开始-->
-                        <div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal"
-                                                aria-hidden="true"></button>
-                                        <h4 class="modal-title">修改施工工序</h4>
-                                    </div>
-                                    <form action="{:U('updateProject')}" method="post">
-                                        <div class="modal-body form-body">
-                                            <div class="row">
-                                                <div class="form-group">
-                                                    <div id="updaterecord" class="col-md-12"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" data-dismiss="modal" class="btn default">取消修改</button>
-                                            <button type="submit" class="btn green">确认修改</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <!--弹出修改框结束-->
                     </div>
                 </div>
                 <!-- END SAMPLE TABLE PORTLET-->
@@ -106,28 +80,28 @@
                 <div class="portlet box blue">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="fa fa-gift"></i>添加小区
+                            <i class="fa fa-gift"></i>添加区域
                         </div>
                     </div>
                     <div class="portlet-body form">
                         <!-- BEGIN FORM-->
                         <form class="form-horizontal">
                             <div class="form-body">
+                                <!--<div class="form-group">-->
+                                    <!--<label class="control-label col-md-3">小区区域</label>-->
+                                    <!--<div class="col-md-7">-->
+                                        <!--<select name="pid" class="form-control" id="class_select">-->
+                                            <!--<option value="0" selected>请选择区域, 添加区域不用选择</option>-->
+                                            <!--<volist name="pname" id="p">-->
+                                                <!--<option value="{$p.class_id}">{$p.class_name}</option>-->
+                                            <!--</volist>-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                <!--</div>-->
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">小区区域</label>
+                                    <label class="control-label col-md-3"><span class="red">*</span> 区域名称</label>
                                     <div class="col-md-7">
-                                        <select name="pid" class="form-control" id="class_select">
-                                            <option value="0" selected>请选择区域, 添加区域不用选择</option>
-                                            <volist name="pname" id="p">
-                                                <option value="{$p.class_id}">{$p.class_name}</option>
-                                            </volist>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3"><span class="red">*</span> 小区名称</label>
-                                    <div class="col-md-7">
-                                        <input type="text" name="pname" class="form-control" placeholder="小区名称不能为空"/>
+                                        <input type="text" name="pname" class="form-control" placeholder="区域名称不能为空"/>
                                     </div>
                                 </div>
                             </div>
@@ -233,10 +207,9 @@
 
         $('#addClassBt').on('click', function () {
             var addUrl = "__SELF__";
-            pid = $('#class_select').find('option:selected').val()
+            // pid = $('#class_select').find('option:selected').val()
             class_name = $('input[name="pname"]').val()
-            console.log(pid + class_name)
-            data = {pid: pid, class_name: class_name}
+            data = {pid: 0, class_name: class_name}
             postFormMethod(addUrl, data)
         })
 
