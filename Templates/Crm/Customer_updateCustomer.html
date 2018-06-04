@@ -118,17 +118,17 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-2"><span class="red">*</span> 所在小区</label>
                                     <div class="col-md-3">
-                                        <select class="form-control select2_category select2-offscreen" tabindex="-1"
-                                                title="" name="address_id" data-val="{$info.address_id}">
-                                            <option value="">请选择</option>
-                                            <volist name="list" id="pvo">
-                                                <optgroup label="{$pvo.class_name}">
-                                                    <volist name="pvo.child" id="vo">
-                                                        <option value="{$vo.class_id}" <eq name="vo.class_id" value="$info.address_id">selected</eq> >{$vo.class_name}</option>
-                                                    </volist>
-                                                </optgroup>
-                                            </volist>
-                                        </select>
+                                        <div class="col-md-4" style="padding-left:0; padding-right: 20px;">
+                                            <select name="address_id" id="address_id" class="form-control">
+                                                <option value="0">请选择区域</option>
+                                                <volist name="list" id="vo">
+                                                    <option value="{$vo.class_id}" <eq name="vo.class_id" value="$info.address_id">selected</eq>>{$vo.class_name}</option>
+                                                </volist>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-8" style="padding:0">
+                                            <input type="text" name="Address" value="{$info.Address}" class="form-control"/>
+                                        </div>
                                     </div>
                                     <label class="control-label col-md-2">固定电话</label>
                                     <div class="col-md-3">
@@ -153,7 +153,9 @@
                                         <select name="Style" class="form-control">
                                             <option value="0" selected>请选择风格</option>
                                             <foreach name='style_list' item='cha'>
-                                                <option value="{$cha.id}" <eq name="cha.id" value="$info.Style">selected</eq>>{$cha.style_name}</option>
+                                                <option value="{$cha.id}"
+                                                <eq name="cha.id" value="$info.Style">selected</eq>
+                                                >{$cha.style_name}</option>
                                             </foreach>
                                         </select>
                                     </div>
@@ -169,7 +171,9 @@
                                         <select name="RoomType" class="form-control">
                                             <option value="0" selected>请选择房屋类型</option>
                                             <foreach name='room_type' item='cha'>
-                                                <option value="{$cha.id}" <eq name="cha.id" value="$info.RoomType">selected</eq>>{$cha.room_type_name}</option>
+                                                <option value="{$cha.id}"
+                                                <eq name="cha.id" value="$info.RoomType">selected</eq>
+                                                >{$cha.room_type_name}</option>
                                             </foreach>
                                         </select>
                                     </div>

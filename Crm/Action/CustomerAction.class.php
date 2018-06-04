@@ -32,7 +32,7 @@ class CustomerAction extends CommonAction
             // 创建数据集
             $data = D('Customer')->create();
 
-            $data['address_pid'] = D('NewClass')->where(array('class_id' => $data['address_id']))->getField('pid');
+//            $data['address_pid'] = D('NewClass')->where(array('class_id' => $data['address_id']))->getField('pid');
             // 判断手机号是否重复
             $map['pid'] = fid();
             $user = array_column(M('users')->where($map)->field('id')->select(), 'id');
@@ -93,9 +93,9 @@ class CustomerAction extends CommonAction
             $group = M('group')->where($where)->field('id,title')->select();
 
             $list = D("NewClass")->where(array('pid' => 0))->select();
-            foreach ($list as $k => $v) {
-                $list[$k]['child'] = D('NewClass')->where(array('pid' => $v['class_id']))->select();
-            }
+//            foreach ($list as $k => $v) {
+//                $list[$k]['child'] = D('NewClass')->where(array('pid' => $v['class_id']))->select();
+//            }
             $style_list = D('RoomStyle')->select();
             $this->assign('style_list', $style_list);
 
@@ -216,9 +216,6 @@ class CustomerAction extends CommonAction
             $materialTypeList = $materialType->select();
 
             $list = D("NewClass")->where(array('pid' => 0))->select();
-            foreach ($list as $k => $v) {
-                $list[$k]['child'] = D('NewClass')->where(array('pid' => $v['class_id']))->select();
-            }
 
             $style_list = D('RoomStyle')->select();
 
