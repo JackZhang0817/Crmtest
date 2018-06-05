@@ -115,17 +115,17 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-2"><span class="red">*</span> 所在小区</label>
                                     <div class="col-md-3">
-                                        <select class="form-control select2_category select2-offscreen" tabindex="-1" title="" name="address_id">
-                                            <option value="">请选择</option>
-                                            <volist name="list" id="pvo">
-                                                <optgroup label="{$pvo.class_name}">
-                                                    <volist name="pvo.child" id="vo">
-                                                        <option value="{$vo.class_id}">{$vo.class_name}</option>
-                                                    </volist>
-                                                </optgroup>
-                                            </volist>
-                                        </select>
-                                        <!--<input type="text" name="Address" class="form-control"  />-->
+                                        <div class="col-md-4" style="padding-left:0; padding-right: 20px;">
+                                            <select name="address_id" id="address_id" class="form-control">
+                                                <option value="0">请选择区域</option>
+                                                <volist name="list" id="vo">
+                                                    <option value="{$vo.class_id}">{$vo.class_name}</option>
+                                                </volist>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-8" style="padding:0">
+                                            <input type="text" name="Address" class="form-control"/>
+                                        </div>
                                     </div>
                                     <label class="control-label col-md-2">固定电话</label>
                                     <div class="col-md-3">
@@ -195,6 +195,7 @@
                                     <div class="col-md-3">
                                         <input type="text" name="age" class="form-control"/>
                                     </div>
+
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-2">装修地址</label>
