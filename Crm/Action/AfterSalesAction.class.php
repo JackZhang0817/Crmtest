@@ -65,10 +65,27 @@ class AfterSalesAction extends CommonAction
     public function afterChart()
     {
         if(IS_POST){
-            $where = array();
-            $list = D('AfterService')->where($where)->field()->group('')->select();
+            $type_id = $this->_param('id');
+            $where = array(
+                'material_type' => $type_id,
+            );
+            $num = D('AfterService')->where($where)->count();
+            $list = D('AfterService')
+                ->where($where)
+                ->field('material_id, count(after_id) use_times')
+                ->group('material_id')->select();
+            foreach($list as &$value){
+                $value['marterial_name'] = getMaterialName($value['material_id']);
+                $value['proportion'] = round($value['use_times'] / $num * 100 , 2) . "％";
+            }
+            $this->ajaxReturn($list);
+        }else{
+            $list = D('AfterService')->field('material_type id')->group('material_type')->select();
+            foreach ($list as &$value){
+                $value['name'] = getMaterialTypeName($value['id']);
+            }
+            $this->assign('list', $list);
+            $this->display();
         }
-        $this->display();
-
     }
 }

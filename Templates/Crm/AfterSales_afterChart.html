@@ -55,7 +55,7 @@
                         <div class="portlet box purple">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <i class="fa fa-coffee"></i>{$vo.name} - 排行榜
+                                    <i class="fa fa-coffee"></i>{$vo.name} - 售后使用统计
                                 </div>
                                 <div class="tools">
                                     <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -101,7 +101,7 @@
                             <div class="portlet-title">
                                 <div class="caption">
                                     <i class="icon-bar-chart font-green-haze"></i>
-                                    <span class="caption-subject bold uppercase font-green-haze"> 客户统计 - {$vo.name}</span>
+                                    <span class="caption-subject bold uppercase font-green-haze"> 维修统计 - {$vo.name}</span>
                                 </div>
                                 <div class="tools">
                                     <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -180,7 +180,7 @@
         QuickSidebar.init(); // init quick sidebar
         Demo.init(); // init demo features
         FormValidation.init();
-        var url = "{:U('Customer/customerChart')}";
+        var url = "{:U('AfterSales/afterChart')}";
 
         // $.post(url, {type_id: 1}, function (res) {
         //     var chart_data = res
@@ -190,6 +190,7 @@
             var type_id = $(this).attr('data-val')
             var char_id = 'chart_' + type_id
             $.post(url, {id: type_id}, function (res) {
+                console.log(res)
                 var _html = ''
                 $.each(res, function (index, item) {
                     index_num = parseInt(index) + 1
