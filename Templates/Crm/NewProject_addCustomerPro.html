@@ -276,6 +276,7 @@
                 inputType: 'text',
                 value: style_name,
                 callback: function (result) {
+                callback: function (result) {
                     if (result != style_name && result != null) {
                         $.post(alertMaUrl, {action: 'update', id: id, project_name: result}, function (res) {
                             if (res.code == 1) {
