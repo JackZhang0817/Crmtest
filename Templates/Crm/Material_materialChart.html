@@ -143,6 +143,7 @@
             var type_id = $(this).attr('data-val')
             var char_id = 'chart_' + type_id
             $.post(url, {type_id: type_id}, function (res) {
+                console.log(res)
                 var chart_data = res
                 if(res.length > 1) {
                     ChartsAmcharts.init(chart_data, char_id);

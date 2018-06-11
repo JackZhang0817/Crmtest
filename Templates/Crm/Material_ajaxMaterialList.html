@@ -13,7 +13,7 @@
             <span class="label label-sm {$vo['marterial_status'] == 1 ? 'label-success' : 'label-warning'}"> {$vo['marterial_status'] == 1 ? '正常' : '禁用'}</span>
         </td>
         <td>
-            {$vo.use_times}
+            {$vo.use_time}
         </td>
         <td>
             {$vo.create_time|date='Y-m-d H:i:s', ###}
@@ -28,29 +28,34 @@
 <!--page start-->
 <tr>
     <td colspan="7">
+        <div class="row" style="position:absolute; top: 500px; width: 100%">
+            <div class="col-md-5 col-sm-12">
+                <div class="dataTables_info" id="sample_3_info" role="status" aria-live="polite">
+                    共{$page_total}页 {$total_num}项 第<b>{$page_num}</b>页
+                </div>
+            </div>
+            <div class="col-md-7 col-sm-12">
+                <div class="dataTables_paginate paging_simple_numbers" id="sample_3_paginate">
+                    <ul class="pagination page_info">
+                        <li class="paginate_button previous disabled" aria-controls="sample_3" tabindex="0"
+                            id="sample_3_previous"><a><i class="fa fa-angle-left"></i></a></li>
 
-    <div class="row" style="position:absolute; top: 500px;">
-        <div class="col-md-5 col-sm-12">
-            <div class="dataTables_info" id="sample_3_info" role="status" aria-live="polite">Showing
-                1 to {$page_total} of {$total_num} entries
+                        <php> $page_start = $page_num - 2 >= 0 ? $page_num - 2 : $page_num; $page_end = $page_num + 2 <=
+                            $total_num ? $page_num + 2: $page_num; $range = $page_start . ',' . $page_end;
+                        </php>
+                        <for start="1" end="$page_total+1">
+                            <between name="i" value="$range">
+                                <li class="paginate_button page_li <eq name='i' value='$page_num'>active</eq>"
+                                    aria-controls="sample_3" tabindex="0">
+                                    <a class="page_a">{$i}</a></li>
+                            </between>
+                        </for>
+                        <li class="paginate_button next" aria-controls="sample_3" tabindex="0" id="sample_3_next"><a
+                                href="#"><i class="fa fa-angle-right"></i></a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <div class="col-md-7 col-sm-12">
-            <div class="dataTables_paginate paging_simple_numbers" id="sample_3_paginate">
-                <ul class="pagination page_info">
-                    <li class="paginate_button previous disabled" aria-controls="sample_3" tabindex="0"
-                        id="sample_3_previous"><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                    <for start="1" end="$page_total+1">
-                        <li class="paginate_button page_li <eq name='i' value='$page_num'>active</eq>"
-                            aria-controls="sample_3" tabindex="0">
-                            <a class="page_a">{$i}</a></li>
-                    </for>
-                    <li class="paginate_button next" aria-controls="sample_3" tabindex="0" id="sample_3_next"><a
-                            href="#"><i class="fa fa-angle-right"></i></a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
     </td>
 </tr>
 <!--page end-->

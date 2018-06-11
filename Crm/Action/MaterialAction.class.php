@@ -82,6 +82,7 @@ class MaterialAction extends CommonAction
     {
         $material = D('Material');
         $material_history = D('MaterialHistory');
+        $materialview = D('MaterialView');
         if($this->isPost()){
             $type_id = $this->_param('type_id');
             $page_num = $this->_param('page_num');
@@ -90,10 +91,10 @@ class MaterialAction extends CommonAction
             }
             $where['marterial_type'] = $type_id;
             if($type_id == 0) {
-                $list = $material->page($page_num, 10)->select();
+                $list = $materialview->group('marterial_id')->order('`use_time` desc')->page($page_num, 10)->select();
                 $total_num = $material->count();
             }else{
-                $list = $material->where($where)->order('use_times desc')->page($page_num, 10)->select();
+                $list = $materialview->where($where)->group('marterial_id')->order('`use_time` desc')->page($page_num, 10)->select();
                 $total_num = $material->where($where)->count();
             }
             foreach ($list as $k => &$v){
@@ -103,11 +104,7 @@ class MaterialAction extends CommonAction
             if($total_num % 10 == 0){
                 $page_total = intval($total_num / 10);
             }else{
-<<<<<<< HEAD
-                $list = $material->where($where)->order('use_times desc, martrial_name asc')->select();
-=======
                 $page_total = intval($total_num / 10) + 1;
->>>>>>> 19d47e21a45c42cdf2006951f3dc2278ef197a78
             }
             $this->assign('page_num', $page_num);
             $this->assign('page_total',$page_total);
@@ -121,10 +118,8 @@ class MaterialAction extends CommonAction
             }else{
                 $page_total = intval($total_num / 10) + 1;
             }
-            $list = $material->order('marterial_type asc,use_times desc')->page(1, 10)->select();
-            foreach ($list as $k => &$v){
-                $v['use_time'] = $material_history->where(array('material_id' => $v['marterial_id']))->count();
-            }
+            $list = $materialview->group('marterial_id')->order('`use_time` desc')->page(1, 10)->select();
+//            $list = $material->order('marterial_type asc,use_times desc')->page(1, 10)->select();
             $list = array_sort($list, 'use_time', 'desc');
             $material_type = D('MaterialType');
             $type = $material_type->select();
@@ -185,8 +180,12 @@ class MaterialAction extends CommonAction
             $where = array(
                 array('marterial_type' => $info['type_id'])
             );
-            $material = D('Material');
-            $list = $material->where($where)->field('marterial_type, marterial_name, use_times')->select();
+            $materialview = D('MaterialView');
+
+            $list = $materialview->where($where)->group('marterial_id')->order('`use_time` desc')->select();
+            foreach ($list as &$value){
+                $value['use_times'] = $value['use_time'];
+            }
             $new_arr = $list == null ? [] : $list;
             $this->ajaxReturn($new_arr);
         }else{

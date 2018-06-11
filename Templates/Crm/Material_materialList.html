@@ -265,7 +265,6 @@
                 var type_id = $('#alert_type').find("option:selected").val()
                 var ajax_url = "{:U('Material/materialList')}"
                 var page_num = $(this).text()
-                console.log(page_num)
                 $.post(ajax_url, {type_id: type_id, page_num: page_num}, function (res) {
                     $('#mlist-body').html(res)
                 })
