@@ -8,56 +8,56 @@
 <!--<![endif]-->
 <!-- BEGIN HEAD -->
 <head>
-	<meta charset="utf-8"/>
-	<title>材料列表 | CRM客户管理系统</title>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-	<meta content="" name="description"/>
-	<meta content="gaorenhua" name="author"/>
-	<!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <meta charset="utf-8"/>
+    <title>材料列表 | CRM客户管理系统</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="gaorenhua" name="author"/>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
 
-	<link href="__PUBLIC__/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-	<link href="__PUBLIC__/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet"
-		  type="text/css"/>
-	<link href="__PUBLIC__/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-	<link href="__PUBLIC__/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
-	<link href="__PUBLIC__/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet"
-		  type="text/css"/>
-	<!-- END GLOBAL MANDATORY STYLES -->
-	<!-- BEGIN PAGE LEVEL STYLES -->
-	<link rel="stylesheet" type="text/css" href="__PUBLIC__/global/plugins/select2/select2.css"/>
-	<link rel="stylesheet" type="text/css"
-		  href="__PUBLIC__/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css"/>
-	<link rel="stylesheet" type="text/css"
-		  href="__PUBLIC__/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
-	<link rel="stylesheet" type="text/css" href="__PUBLIC__/global/plugins/bootstrap-datepicker/css/datepicker.css"/>
-	<link rel="stylesheet" type="text/css" href="__PUBLIC__/global/plugins/bootstrap-toastr/toastr.min.css">
-	<!-- END PAGE LEVEL SCRIPTS -->
-	<!-- BEGIN THEME STYLES -->
-	<include file="Common:css"/>
-	<!-- END THEME STYLES -->
-	<link rel="shortcut icon" href="favicon.ico"/>
+    <link href="__PUBLIC__/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="__PUBLIC__/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet"
+          type="text/css"/>
+    <link href="__PUBLIC__/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="__PUBLIC__/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link href="__PUBLIC__/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet"
+          type="text/css"/>
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/global/plugins/select2/select2.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="__PUBLIC__/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="__PUBLIC__/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/global/plugins/bootstrap-datepicker/css/datepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/global/plugins/bootstrap-toastr/toastr.min.css">
+    <!-- END PAGE LEVEL SCRIPTS -->
+    <!-- BEGIN THEME STYLES -->
+    <include file="Common:css"/>
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="favicon.ico"/>
 </head>
 <style>
-	/*.portlet.box.blue {*/
-		/*border: none;*/
-	/*}*/
+    /*.portlet.box.blue {*/
+    /*border: none;*/
+    /*}*/
 
-	/*.portlet.box.blue > .portlet-title {*/
-		/*background-color: white;*/
-		/*border-bottom: 1px solid #333;*/
-	/*}*/
+    /*.portlet.box.blue > .portlet-title {*/
+    /*background-color: white;*/
+    /*border-bottom: 1px solid #333;*/
+    /*}*/
 
-	/*.portlet.box.blue > .portlet-title > .caption {*/
-		/*color: #333;*/
-	/*}*/
+    /*.portlet.box.blue > .portlet-title > .caption {*/
+    /*color: #333;*/
+    /*}*/
 
-	/*.portlet.box.blue > .portlet-title > .caption > i {*/
-		/*color: #333*/
-	/*}*/
-	.portlet.box > .portlet-title > .caption {
-		padding: 18px 0 9px 0;
-	}
+    /*.portlet.box.blue > .portlet-title > .caption > i {*/
+    /*color: #333*/
+    /*}*/
+    .portlet.box > .portlet-title > .caption {
+        padding: 18px 0 9px 0;
+    }
 </style>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -66,66 +66,67 @@
 <include file="Common:header"/>
 <!-- BEGIN CONTENT -->
 <div class="page-content-wrapper">
-	<div class="page-content">
-		<!-- BEGIN PAGE CONTENT-->
-		<div class="row">
-			<div class="col-md-12">
+    <div class="page-content">
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row">
+            <div class="col-md-12">
 
-				<!-- BEGIN VALIDATION STATES-->
-				<div class="portlet box grey">
-					<div class="portlet-title">
-						<div class="caption">
-							<i class="fa fa-cogs"></i>材料列表
-						</div>
-						<div class="tools">
-							<select id="alert_type" class="form-control input-medium">
-								<option value="0">全部</option>
+                <!-- BEGIN VALIDATION STATES-->
+                <div class="portlet box grey">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-cogs"></i>材料列表
+                        </div>
+                        <div class="tools">
+                            <select id="alert_type" class="form-control input-medium">
+                                <option value="0">全部</option>
                                 <volist name="type" id="vo">
-									<option value="{$vo.type_id}">{$vo.type_name}</option>
-								</volist>
-							</select>
-						</div>
-					</div>
-					<div class="portlet-body">
-						<div class="table-responsive">
-							<table class="table">
-								<thead>
-								<tr>
-									<th>
-										序号
-									</th>
-									<th>
-										材料类型
-									</th>
-									<th>
-										材料名称
-									</th>
-									<th class="text-center">
-										材料状态
-									</th>
-									<th>
-										使用次数
-									</th>
-									<th>
-										创建时间
-									</th>
-									<th>
-										操作
-									</th>
-								</tr>
-								</thead>
-								<tbody id="mlist-body">
-                                	<include file="ajaxMaterialList" />
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<!-- end validation states-->
-			</div>
-		</div>
-		<!-- end page content-->
-	</div>
+                                    <option value="{$vo.type_id}">{$vo.type_name}</option>
+                                </volist>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        序号
+                                    </th>
+                                    <th>
+                                        材料类型
+                                    </th>
+                                    <th>
+                                        材料名称
+                                    </th>
+                                    <th class="text-center">
+                                        材料状态
+                                    </th>
+                                    <th>
+                                        使用次数
+                                    </th>
+                                    <th>
+                                        创建时间
+                                    </th>
+                                    <th>
+                                        操作
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody id="mlist-body">
+                                    <include file="ajaxMaterialList"/>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- end validation states-->
+            </div>
+        </div>
+        <!-- end page content-->
+    </div>
 </div>
 <!-- end content -->
 </div>
@@ -143,7 +144,7 @@
 <script src="__PUBLIC__/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
 <script src="__PUBLIC__/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="__PUBLIC__/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
-		type="text/javascript"></script>
+        type="text/javascript"></script>
 <script src="__PUBLIC__/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
 <script src="__PUBLIC__/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
 <script src="__PUBLIC__/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
@@ -152,8 +153,12 @@
 <!-- end core plugins -->
 <!-- begin page level plugins -->
 <script type="text/javascript" src="__PUBLIC__/global/plugins/jquery-validation/js/jquery.validate.min.js"></scrit>
-<script type="text/javascript" src="__PUBLIC__/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
-<script type="text/javascript" src="__PUBLIC__/global/plugins/select2/select2.min.js"></script>
+    <script type="text/javascript"
+            src="__PUBLIC__/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+    <
+    script
+    type = "text/javascript"
+    src = "__PUBLIC__/global/plugins/select2/select2.min.js" ></script>
 <script type="text/javascript" src="__PUBLIC__/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="__PUBLIC__/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
 <script type="text/javascript" src="__PUBLIC__/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
@@ -178,11 +183,10 @@
         Layout.init(); // init current layout
         QuickSidebar.init(); // init quick sidebar
         Demo.init(); // init demo features
-        FormValidation.init();
         UIToastr.init();
         toastr.options = {
-			"closeButton": true,
-			"debug": false,
+            "closeButton": true,
+            "debug": false,
             "positionClass": "toast-top-center",
             "onclick": null,
             "showDuration": "1000",
@@ -196,20 +200,23 @@
         }
         $('#alert_type').change(function () {
             var type_id = $(this).find("option:selected").val()
-			console.log(type_id)
             var ajax_url = "{:U('Material/materialList')}"
-			$.post(ajax_url, {type_id:type_id}, function (res) {
-			    $('#mlist-body').html(res)
-            })
-        })
-		function getAjaxList(){
-            var type_id = $('#alert_type').find("option:selected").val()
-            var ajax_url = "{:U('Material/materialList')}"
-            $.post(ajax_url, {type_id: type_id}, function (res) {
+            $.post(ajax_url, {type_id: type_id,}, function (res) {
+                $('#mlist-body').empty()
                 $('#mlist-body').html(res)
             })
-		}
-        window.onload = function() {
+        })
+
+        function getAjaxList() {
+            var type_id = $('#alert_type').find("option:selected").val()
+            var page_num = 1
+            var ajax_url = "{:U('Material/materialList')}"
+            $.post(ajax_url, {type_id: type_id, page_num: page_num}, function (res) {
+                $('#mlist-body').html(res)
+            })
+        }
+
+        window.onload = function () {
             $('body').delegate('.alertMaType', "click", function () {
                 var alertMaUrl = "{:U('Material/alertMaterial')}"
                 var type_id = $(this).attr('data-val')
@@ -224,9 +231,9 @@
                             $.post(alertMaUrl, {marterial_id: type_id, marterial_name: result}, function (res) {
                                 if (res.code == 1) {
                                     getAjaxList()
-                                }else{
+                                } else {
                                     toastr.error(res.msg, '修改失败');
-								}
+                                }
                             })
                         }
                     }
@@ -240,16 +247,27 @@
                     message: '删除之后不可恢复,请谨慎操作',
                     size: "small",
                     callback: function (result) {
-                        if(result === true) {
+                        if (result === true) {
                             $.post(delTypeUrl, {marterial_id: type_id}, function (res) {
                                 if (res.code == 1) {
                                     getAjaxList()
-                                }else{
+                                } else {
                                     toastr.error(res.msg, "删除失败")
                                 }
                             })
                         }
                     }
+                })
+            })
+            $('body').delegate('.page_a', "click", function () {
+                $(this).parent().attr('class', 'paginate_button page_li active')
+                $(this).parent().siblings().attr('class', 'paginate_button page_li')
+                var type_id = $('#alert_type').find("option:selected").val()
+                var ajax_url = "{:U('Material/materialList')}"
+                var page_num = $(this).text()
+                console.log(page_num)
+                $.post(ajax_url, {type_id: type_id, page_num: page_num}, function (res) {
+                    $('#mlist-body').html(res)
                 })
             })
         }

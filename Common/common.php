@@ -675,6 +675,7 @@ function wisopen($id)
 
     return $status;
 }
+
 /**
  * 随机输出一些小提示
  */
@@ -909,7 +910,7 @@ function orderhandle($parameter)
  */
 function deduct_money($aid)
 {
-    $employee_num = M('Users')->where(array('pid'=>$aid,'status'=>'1'))->count();
+    $employee_num = M('Users')->where(array('pid' => $aid, 'status' => '1'))->count();
     $com_admin = M('Users')->where('id=' . $aid)->find();
 
     $balance = M('Orders')->where('userid=' . $aid)->sum('ordfee');
@@ -918,9 +919,9 @@ function deduct_money($aid)
     if ($com_admin['flag'] === '0' && $employee_num > C('MAX_USER_NUMS') && $balance != null && $balance >= 0) {
         //扣款条件
         $map = array(
-            'userid' => $aid, //管理员ID
+            'userid'    => $aid, //管理员ID
             'productid' => 2, //账户扣款
-            'ordtime' => array('LT', strtotime(date('Y-m'))) //当月是否有账户扣款记录
+            'ordtime'   => array('LT', strtotime(date('Y-m'))) //当月是否有账户扣款记录
         );
 
         //若当月未扣款, 则扣款, 并保存交易记录和发送通知邮件
@@ -931,16 +932,16 @@ function deduct_money($aid)
             //扣款成功, 插入交易记录数据
             $order = M('Orders');
             $data = array(
-                'userid' => $aid,
-                'ordid' => createOrderno(),
-                'ordtime' => time(),
+                'userid'    => $aid,
+                'ordid'     => createOrderno(),
+                'ordtime'   => time(),
                 'productid' => 2,
-                'ordtitle' => '系统扣款',
+                'ordtitle'  => '系统扣款',
                 'ordbuynum' => 1,
-                'ordprice' => $total_money,
-                'ordfee' => $total_money,
+                'ordprice'  => $total_money,
+                'ordfee'    => $total_money,
                 'ordstatus' => 1,
-                'ordbody' => $body,
+                'ordbody'   => $body,
             );
             $ordid = $order->data($data)->add();
 
@@ -961,16 +962,16 @@ function deduct_add_platform()
     if ($customer_num >= C('MAX_PROJECT_USER_NUMS')) {
         $order = M('Orders');
         $order_data = array(
-            'userid' => fid(),
-            'ordid' => createOrderno(),
-            'ordtime' => time(),
+            'userid'    => fid(),
+            'ordid'     => createOrderno(),
+            'ordtime'   => time(),
             'productid' => 3,
-            'ordtitle' => '系统扣款',
+            'ordtitle'  => '系统扣款',
             'ordbuynum' => 1,
-            'ordprice' => C('MAX_PROJECT_USER_PRICE'),
-            'ordfee' => -intval(C('MAX_PROJECT_USER_PRICE')), //I('post.ordprice'),
+            'ordprice'  => C('MAX_PROJECT_USER_PRICE'),
+            'ordfee'    => -intval(C('MAX_PROJECT_USER_PRICE')), //I('post.ordprice'),
             'ordstatus' => 1,
-            'ordbody' => "开通工程管理用户",
+            'ordbody'   => "开通工程管理用户",
         );
         $id = $order->data($order_data)->add();
     }
@@ -1061,7 +1062,8 @@ function isMobile()
  * @param $type_id
  * @return mixed
  */
-function getMaterialTypeName($type_id){
+function getMaterialTypeName($type_id)
+{
     $info = M('material_type')->where(array('type_id' => $type_id))->getField('type_name');
     return $info;
 }
@@ -1071,15 +1073,42 @@ function getMaterialTypeName($type_id){
  * @param $type_id
  * @return mixed
  */
-function getMaterialTypeNum($type_id){
+function getMaterialTypeNum($type_id)
+{
     $material = M('material');
     $info = $material->where(array('marterial_type' => $type_id))->count(marterial_id);
 //    return $material->getLastSql();
     return $info;
 }
+
 function getMaterialName($material_id)
 {
     $info = M('material')->where(array('marterial_id' => $material_id))->getField('marterial_name');
     return $info;
 
+}
+
+/**
+ * 按照指定键值排血
+ * @param $arr
+ * @param $keys
+ * @param string $type
+ * @return array
+ */
+function array_sort($arr, $keys, $type = 'asc')
+{
+    $keysvalue = $new_array = array();
+    foreach ($arr as $k => $v) {
+        $keysvalue[$k] = $v[$keys];
+    }
+    if ($type == 'asc') {
+        asort($keysvalue);
+    } else {
+        arsort($keysvalue);
+    }
+    reset($keysvalue);
+    foreach ($keysvalue as $k => $v) {
+        $new_array[$k] = $arr[$k];
+    }
+    return $new_array;
 }
