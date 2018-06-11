@@ -81,20 +81,56 @@ class MaterialAction extends CommonAction
     public function materialList()
     {
         $material = D('Material');
+        $material_history = D('MaterialHistory');
         if($this->isPost()){
             $type_id = $this->_param('type_id');
+            $page_num = $this->_param('page_num');
+            if($page_num == ''){
+                $page_num = 1;
+            }
             $where['marterial_type'] = $type_id;
             if($type_id == 0) {
-                $list = $material->select();
+                $list = $material->page($page_num, 10)->select();
+                $total_num = $material->count();
             }else{
-                $list = $material->where($where)->order('use_times desc, martrial_name asc')->select();
+                $list = $material->where($where)->order('use_times desc')->page($page_num, 10)->select();
+                $total_num = $material->where($where)->count();
             }
+            foreach ($list as $k => &$v){
+                $v['use_time'] = $material_history->where(array('material_id' => $v['marterial_id']))->count();
+            }
+            $list = array_sort($list, 'use_time', 'desc');
+            if($total_num % 10 == 0){
+                $page_total = intval($total_num / 10);
+            }else{
+<<<<<<< HEAD
+                $list = $material->where($where)->order('use_times desc, martrial_name asc')->select();
+=======
+                $page_total = intval($total_num / 10) + 1;
+>>>>>>> 19d47e21a45c42cdf2006951f3dc2278ef197a78
+            }
+            $this->assign('page_num', $page_num);
+            $this->assign('page_total',$page_total);
+            $this->assign('total_num', $total_num);
             $this->assign('list', $list);
             $this->display('ajaxMaterialList');
         }else{
-            $list = $material->order('marterial_type asc,use_times desc')->select();
+            $total_num = $material->count();
+            if($total_num % 10 == 0){
+                $page_total = intval($total_num / 10);
+            }else{
+                $page_total = intval($total_num / 10) + 1;
+            }
+            $list = $material->order('marterial_type asc,use_times desc')->page(1, 10)->select();
+            foreach ($list as $k => &$v){
+                $v['use_time'] = $material_history->where(array('material_id' => $v['marterial_id']))->count();
+            }
+            $list = array_sort($list, 'use_time', 'desc');
             $material_type = D('MaterialType');
             $type = $material_type->select();
+            $this->assign('page_num', 1);
+            $this->assign('page_total',$page_total);
+            $this->assign('total_num', $total_num);
             $this->assign('type', $type);
             $this->assign('list', $list);
             $this->display();

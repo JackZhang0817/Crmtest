@@ -122,6 +122,7 @@ class NewProjectAction extends CommonAction
     }
 
     /**
+<<<<<<< HEAD
      * 综合查询条件
      */
     protected function where()
@@ -211,5 +212,12 @@ class NewProjectAction extends CommonAction
         }
     }
 
+=======
+     *施工列表
+     */
+    public function projectList()
+    {
+>>>>>>> 19d47e21a45c42cdf2006951f3dc2278ef197a78
 
+    }
 }
