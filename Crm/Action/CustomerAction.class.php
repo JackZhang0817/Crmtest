@@ -89,7 +89,7 @@ class CustomerAction extends CommonAction
                 'class'    => 5
             );
             $materialType = D('MaterialType');
-            $materialTypeList = $materialType->select();
+            $materialTypeList = $materialType->order('type_name desc')->select();
             $group = M('group')->where($where)->field('id,title')->select();
 
             $list = D("NewClass")->where(array('pid' => 0))->select();
@@ -180,7 +180,6 @@ class CustomerAction extends CommonAction
                         $data['attached'] = array('markcolor' => $oldcolor);
                     }
                 }
-                $data['material_info'] = json_encode($data['material_info']);
 
             } else {
                 // 判断该用户ID是否标记颜色 如果标记了则更新 没标记 则插入原有数组
@@ -191,6 +190,7 @@ class CustomerAction extends CommonAction
                 }
             }
 
+            $data['material_info'] = json_encode($data['material_info']);
             // 更新客户信息
             if (D('Customer')->relation(true)->save($data) !== false) {
                 // 添加操作记录 以便及时提醒相关人员

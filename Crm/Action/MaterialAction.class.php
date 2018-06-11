@@ -66,13 +66,8 @@ class MaterialAction extends CommonAction
         if($this->isPost()){
             $material_id = $this->_param('marterial_id');
 
-            $where = array('material_id' => $material_id);
             $material = D('Material');
-            $material_history = D('MaterialHistory');
-            $info = $material_history->where($where)->select();
-            if($info){
-                $this->ajaxReturn(array('code' => 0, 'msg' => '已经有客户使用此材料，无法删除'));
-            }
+
             $res = $material->where(array('marterial_id' => $material_id))->delete();
             if($res) {
                 $this->ajaxReturn(array('code' => 1, 'msg' => '成功'));
@@ -92,7 +87,7 @@ class MaterialAction extends CommonAction
             if($type_id == 0) {
                 $list = $material->select();
             }else{
-                $list = $material->where($where)->order('use_times desc')->select();
+                $list = $material->where($where)->order('use_times desc, martrial_name asc')->select();
             }
             $this->assign('list', $list);
             $this->display('ajaxMaterialList');

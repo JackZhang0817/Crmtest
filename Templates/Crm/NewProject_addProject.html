@@ -225,7 +225,7 @@
                 value:style_name,
                 callback: function (result) {
                     if (result != style_name && result != null) {
-                        $.post(alertMaUrl, {action: 'update',id: id, project_name: result}, function (res) {
+                        $.post(alertMaUrl, {action: 'update',project_id: id, project_name: result}, function (res) {
                             if (res.code == 1) {
                                 getList()
                             } else {

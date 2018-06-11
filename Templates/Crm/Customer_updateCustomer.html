@@ -772,9 +772,10 @@
 
         function materialTypeList() {
             var type_list = '{$info.material_info}';
-
+            console.log(type_list)
 
             var new_type = $.parseJSON(type_list)
+            console.log(new_type)
 
             $('.material-select').each(function () {
                 var ajax_url = "{:U('Material/getMaterialList')}"
