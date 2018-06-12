@@ -122,7 +122,6 @@ class NewProjectAction extends CommonAction
     }
 
     /**
-<<<<<<< HEAD
      * 综合查询条件
      */
     protected function where()
@@ -212,12 +211,62 @@ class NewProjectAction extends CommonAction
         }
     }
 
-=======
+    /**
      *施工列表
      */
     public function projectList()
     {
->>>>>>> 19d47e21a45c42cdf2006951f3dc2278ef197a78
+        if(IS_POST){
 
+        }else{
+            $customer_pro = M('CustomerPro');
+            $Customer = M('Customer');
+            $list = $customer_pro->group('customer_id')->select();
+            foreach($list as &$value){
+                $where = [
+                    'customer_id' => $value['customer_id'],
+                ];
+                $value['customer_info'] = $Customer->where(array('id' => $value['customer_id']))->field('id, CName, Tel, Address, Project')->find();
+                $value['project_id'] = $customer_pro->where($where)->order('create_time desc')->getField('project_id');
+                $value['project_name'] = $this->_getProjectName($value['project_id']);
+            }
+            $this->assign('list', $list);
+            $this->display();
+        }
+    }
+
+    /**
+     * create by Mr.Zhang time 2018/6/12 19:48
+     */
+    public function getProContent()
+    {
+        $customer_id = $this->_param('customer_id');
+        $customer_pro = M('CustomerPro');
+        $customer = M('customer');
+        $where = [
+            'customer_id' => $customer_id,
+        ];
+        $list = $customer_pro->where($where)->select();
+        $customer_info = $customer->where($where)->field('CName, Tel, Address, Project')->find();
+        foreach ($list as &$v){
+            $v['project_name'] = $this->_getProjectName($v['project_id']);
+        }
+        $this->assign('list', $list);
+        $this->assign('customer_info', $customer_info);
+        $this->display();
+    }
+
+    /**
+     * @param $project_id
+     * create by Mr.Zhang time 2018/6/12 19:36
+     * @return mixed
+     */
+    private function _getProjectName($project_id)
+    {
+        $where = ['project_id' => $project_id];
+        $pro = M('Xiangmu');
+        $pro_name =  $pro->where($where)->getField('project_name');
+
+        return $pro_name;
     }
 }
