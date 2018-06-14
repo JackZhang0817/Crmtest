@@ -494,6 +494,7 @@
                                 <div style="font-size:18px;border-bottom:darkseagreen solid 2px;margin:0px 20px 20px;padding:10px 0px;color:#333;">
                                     材料信息：<a
                                         href="javascript:;" id="material_reload" style="font-size:12px">重新加载</a>
+                                    <a href="javascript:;" id="add_material" style="font-size:12px">添加材料</a>
                                 </div>
                                 <div class="form-group">
                                     <volist name="materialTypeList" id="vo">
@@ -509,7 +510,6 @@
                                         </div>
                                     </volist>
                                 </div>
-
                                 <div style="font-size:18px;border-bottom:darkseagreen solid 2px;margin:0px 20px 20px;padding:10px 0px;color:#333;">
                                     施工信息：
                                 </div>
@@ -680,7 +680,9 @@
         })
         //颜色板
         $("#color").bigColorpicker("color", "L", 6);
-
+        $('#add_material').on('click', function () {
+            
+        })
         function materialTypeList() {
             console.log('zhixing')
             $('.material-select').each(function () {
@@ -697,6 +699,13 @@
                 })
             })
         }
+        $('#add_material').on('click', function () {
+            bootbox.dialog({
+
+            })
+
+
+        })
     });
 </script>
 <!-- END JAVASCRIPTS -->
