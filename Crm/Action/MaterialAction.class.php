@@ -141,7 +141,7 @@ class MaterialAction extends CommonAction
             $material = D('Material');
             $type_id = $this->_param('type_id');
             $where['marterial_type'] = $type_id;
-            $list = $material->where($where)->select();
+            $list = $material->where($where)->order('marterial_name asc')->select();
             $new_arr = $list == null ? [] : $list;
             $this->ajaxReturn($new_arr);
         }
