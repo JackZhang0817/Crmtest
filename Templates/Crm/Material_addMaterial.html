@@ -327,7 +327,7 @@
                 var _html = '';
                 $.each(res, function (index, item) {
                     index = Number(index) + 1
-                    _html += '<tr><td>' + index + '</td><td>' + item.type_name + '</td><td>' + item.material_num + '</td><td>' +
+                    _html += '<tr><td><input class="form-control type_sort" type="text" style="width:40px; padding:0px; text-align:center;" data-id="'+ item.type_id +'" name="type_sort" value="' + item.sort + '" /></td><td>' + item.type_name + '</td><td>' + item.material_num + '</td><td>' +
 						'<a class="btn btn-xs red alertMaType" data-val="' + item.type_id + '" data-item="'+ item.type_name + '"> 修改 <i class="fa fa-edit"></i></a>' +
 						'<a  class="btn btn-xs purple delMaType" data-val="' + item.type_id + '"><i class="fa fa-times"></i> 删除 </a></td></tr>'
                 })
@@ -380,6 +380,15 @@
                     }
 				})
             })
+            $('body').delegate('.type_sort', "blur", function () {
+                var sort_num = $(this).val()
+				var type_id = $(this).attr('data-id')
+                var alertTypeUrl = "{:U('Material/alertMaterialType')}"
+                $.post(alertTypeUrl, {type_id: type_id, sort: sort_num, status: 2}, function (res) {
+                    console.log(res)
+                    getMaterialList()
+                })
+			})
         }
     });
 </script>

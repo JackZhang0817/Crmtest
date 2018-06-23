@@ -79,7 +79,7 @@ class NewProjectAction extends CommonAction
                 $where = array('customer_id' => $customer_id);
                 $list = D('CustomerPro')->where($where)->select();
                 $customer_info = D('customer')->where(array('id' => $customer_id))->field('id, CName, Tel, Address, Captain')->find();
-                foreach ($list as &$value){
+                foreach ($list as &$value) {
                     $value['customer_name'] = $customer_info['CName'];
                     $value['project_name'] = D('Xiangmu')->where(array('project_id' => $value['project_id']))->getField('project_name');
                     $value['tel'] = $customer_info['Tel'];
@@ -216,13 +216,13 @@ class NewProjectAction extends CommonAction
      */
     public function projectList()
     {
-        if(IS_POST){
+        if (IS_POST) {
 
-        }else{
+        } else {
             $customer_pro = M('CustomerPro');
             $Customer = M('Customer');
             $list = $customer_pro->group('customer_id')->select();
-            foreach($list as &$value){
+            foreach ($list as &$value) {
                 $where = [
                     'customer_id' => $value['customer_id'],
                 ];
@@ -247,13 +247,104 @@ class NewProjectAction extends CommonAction
             'customer_id' => $customer_id,
         ];
         $list = $customer_pro->where($where)->select();
+        $min_time = $customer_pro->where($where)->order('start_time asc')->getField('start_time');
+        $max_time = $customer_pro->where($where)->order('end_time desc')->getField('end_time');
+        $info = $this->_getMarginData(1524931200, $max_time);
+        $width = 35 * $info['day'] + 100;
+
         $customer_info = $customer->where($where)->field('CName, Tel, Address, Project')->find();
-        foreach ($list as &$v){
+        foreach ($list as &$v) {
             $v['project_name'] = $this->_getProjectName($v['project_id']);
+            $v['date_arr'] = $this->_getProClass(1524931200, $v['start_time'], $v['end_time'], $info['day']);
         }
+        $this->assign('width',$width);
+        $this->assign('info', $info);
         $this->assign('list', $list);
         $this->assign('customer_info', $customer_info);
         $this->display();
+    }
+
+    /**
+     * 获取日期间隔的全部日期
+     * @param $min
+     * @param $max
+     * create by Mr.Zhang time 2018/6/23 11:51
+     * @return array
+     */
+    private function _getMarginData($min, $max)
+    {
+        $day = ($max - $min) / 86400;
+        $run = 0;
+        if (date('L', $min) == 1) {
+            $run = 1;
+        } else {
+            $run = 0;
+        }
+        $month_list = [1,3,5,7,8,10,12];
+        $start_month = intval(date('m',$min));
+        $start_day = intval(date('d', $min));
+        $arr = [];
+        for($i = 0; $i <= $day; $i ++){
+            if(in_array($start_month, $month_list)){
+                if($start_day == 31){
+                    $arr[$start_month][] = $start_day;
+                    $start_month++;
+                    $start_day = 1;
+                }else{
+                    $arr[$start_month][] = $start_day;
+                    $start_day++;
+                }
+            }elseif($start_month == 2){
+                if($start_day == 28){
+                    $arr[$start_month][] = $start_day;
+                    $start_month++;
+                    $start_day = 1;
+                }else{
+                    $arr[$start_month][] = $start_day;
+                    $start_day++;
+                }
+            }else{
+                if($start_day == 30){
+                    $arr[$start_month][] = $start_day;
+                    $start_month++;
+                    $start_day = 1;
+                }else{
+                    $arr[$start_month][] = $start_day;
+                    $start_day++;
+                }
+            }
+        }
+        foreach ($arr as $k=> $v){
+            $m_arr[] = [
+                'month' => $k,
+                'day_num' => count($v),
+            ];
+        }
+        return ['start_time' => date('Y-m-d', $min), 'end_time' => date('Y-m-d', $max), 'day' => $day, 'm_arr' => $m_arr, 'result' => $arr];
+    }
+
+    /**
+     * 处理施工日期在日期间隔中的日期
+     * @param $min
+     * @param $start
+     * @param $end
+     * @param $day
+     * create by Mr.Zhang time 2018/6/23 11:51
+     * @return array
+     */
+    private function _getProClass($min, $start, $end, $day)
+    {
+        $start_day = ($start - $min) / 86400;
+        $end_day = ($end - $min) / 86400;
+        $arr = [];
+        for($i = 0; $i <= $day; $i++){
+            if($i >= $start_day && $i <= $end_day){
+                $arr[] = 1;
+            }else{
+                $arr[] = 0;
+            }
+        }
+        return $arr;
     }
 
     /**
@@ -265,7 +356,7 @@ class NewProjectAction extends CommonAction
     {
         $where = ['project_id' => $project_id];
         $pro = M('Xiangmu');
-        $pro_name =  $pro->where($where)->getField('project_name');
+        $pro_name = $pro->where($where)->getField('project_name');
 
         return $pro_name;
     }

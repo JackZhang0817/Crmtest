@@ -203,7 +203,7 @@ class MaterialAction extends CommonAction
     {
         if($this->isPost()){
             $material_type = D('MaterialType');
-            $list = $material_type->select();
+            $list = $material_type->order('sort asc')->select();
             $new_arr = $list == null ? [] : $list;
             if($new_arr != null){
                 foreach ($new_arr as $key => $value){
@@ -221,6 +221,19 @@ class MaterialAction extends CommonAction
     public function alertMaterialType()
     {
         if ($this->isPost()){
+            $status = $this->_param('status');
+            if($status == ''){
+                $status = 1;
+            }
+            if($status == 2){
+                $type_id = $this->_param('type_id');
+                $sort = $this->_param('sort');
+                $material_type = D('MaterialType');
+                $res = $material_type->where(array('type_id' => $type_id))->save(array('sort' => $sort));
+                if($res){
+                    $this->ajaxReturn(array('code' => 1, 'msg' => '成功'));
+                }
+            }
             $type_id = $this->_param('type_id');
             $type_name = $this->_param('type_name');
 
