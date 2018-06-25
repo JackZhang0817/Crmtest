@@ -30,7 +30,7 @@ class NewProjectAction extends CommonAction
             } elseif ($action == 'list') {
                 $list = D("Xiangmu")->select();
                 $this->assign('list', $list);
-                $this->display('ajaxProject');
+                $this->display('ajaxProjectNew');
             } elseif ($action == 'update') {
                 $info = D('Xiangmu')->create();
                 if (!$info) {
