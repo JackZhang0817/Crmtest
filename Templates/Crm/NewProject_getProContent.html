@@ -58,6 +58,12 @@
     .portlet.box > .portlet-title > .caption {
         padding: 18px 0 9px 0;
     }
+    .border-table {
+        display: block;
+        border-top: 3px solid #ff0000;
+        width: 100%;
+        margin-top: 14px;
+    }
 </style>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -132,6 +138,35 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                    <div class="portlet-body" style="overflow-x: scroll">
+                        <table class="table table-striped table-bordered table-hover" style="width:{$width}px; max-width: {$width}px">
+                            <thead>
+                            <tr>
+                                <th class="text-center" rowspan="2" style="vertical-align: middle;">进度名称</th>
+                                <volist name="info.m_arr" id="vo">
+                                    <th colspan="{$vo.day_num}" class="text-center">{$vo.month}月</th>
+                                </volist>
+                            </tr>
+                            <tr>
+                                <volist name="info.result" id="re">
+                                    <volist name="re" id="do">
+                                        <th class="text-center">{$do}</th>
+                                    </volist>
+                                </volist>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <volist name="list" id="vo" key="k">
+                                    <tr>
+                                        <td>{$vo.project_name}</td>
+                                        <volist name="vo.date_arr" id="da">
+                                            <td style="padding:0;">  <eq name="da" value="1"><span class="border-table"></span></eq> </td>
+                                        </volist>
+                                    </tr>
+                                </volist>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <!-- end validation states-->
