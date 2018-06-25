@@ -50,38 +50,6 @@
         <!-- BEGIN PAGE CONTENT-->
         <div class="row">
             <div class="col-md-6">
-                <!-- BEGIN SAMPLE TABLE PORTLET-->
-                <div class="portlet box green">
-                    <div class="portlet-title">
-                        <div class="caption"><i class="fa fa-cogs"></i>进度列表</div>
-                    </div>
-                    <div class="portlet-body">
-                        <div class="table-responsive">
-                            <form>
-                                <table class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>序号</th>
-                                        <th>项目名称</th>
-                                        <th>工期天数</th>
-                                        <th>具体工期</th>
-                                        <th>状态</th>
-                                        <th>录入人</th>
-                                        <th>录入时间</th>
-                                        <th>操作</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="styleList">
-                                    <include file="ajaxCustomerPro"/>
-                                    </tbody>
-                                </table>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!-- END SAMPLE TABLE PORTLET-->
-            </div>
-            <div class="col-md-6">
                 <!-- BEGIN VALIDATION STATES-->
                 <div class="portlet box blue">
                     <div class="portlet-title">
@@ -120,13 +88,21 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3">日期</label>
                                     <div class="col-md-4">
-                                        <div class="input-group input-large date-picker input-daterange"
-                                             data-date="10/11/2012" data-date-format="mm/dd/yyyy">
-                                            <input type="text" class="form-control" name="from">
+                                        <div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="mm/dd/yyyy">
+                                            <input type="text" class="form-control" value="<php> echo date('m/d/Y', time())</php>" name="from">
                                             <span class="input-group-addon"> to </span>
-                                            <input type="text" class="form-control" name="to">
+                                            <input type="text" class="form-control" value="<php> echo date('m/d/Y', time())</php>" name="to">
                                         </div>
                                         <!-- /input-group -->
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">状态</label>
+                                    <div class="col-md-4">
+                                        <select name="status" id="status" class="form-control">
+                                            <option value="0">未完成</option>
+                                            <option value="1">已完成</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -144,11 +120,84 @@
                 </div>
                 <!-- END VALIDATION STATES-->
             </div>
+            <div class="col-md-6">
+                <!-- BEGIN SAMPLE TABLE PORTLET-->
+                <div class="portlet box green">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="fa fa-cogs"></i>进度列表</div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-responsive">
+                            <form>
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>项目名称</th>
+                                        <th>工期天数</th>
+                                        <th>具体工期</th>
+                                        <th>状态</th>
+                                        <th>录入人</th>
+                                        <th>录入时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="styleList">
+                                    <include file="ajaxCustomerPro"/>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- END SAMPLE TABLE PORTLET-->
+            </div>
+
         </div>
         <!-- END PAGE CONTENT-->
+        <div class="row">
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3"> 客户姓名</label>
+                            <div class="col-md-7">
+                                <input type="hidden" name="update_Id">
+                                <input type="text" name="update_Name" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3"> 项目名称</label>
+                            <div class="col-md-7">
+                                <input type="hidden" name="update_Id">
+                                <input type="text" name="update_Name" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">日期</label>
+                            <div class="col-md-4">
+                                <div class="input-group input-large date-picker input-daterange"
+                                     data-date="10/11/2012" data-date-format="mm/dd/yyyy">
+                                    <input type="text" class="form-control" name="update_from">
+                                    <span class="input-group-addon"> to </span>
+                                    <input type="text" class="form-control" name="update_to">
+                                </div>
+                                <!-- /input-group -->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3"> 状态</label>
+                            <div class="col-md-7">
+                                <input type="text" name="update_status" class="form-control"/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-</div>
-<!-- END CONTENT -->
+    <!-- END CONTENT -->
 </div>
 <!-- END CONTAINER -->
 <include file="Common:footer"/>
@@ -173,9 +222,11 @@
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script type="text/javascript" src="__PUBLIC__/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
-<script type="text/javascript" src="__PUBLIC__/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+<script type="text/javascript"
+        src="__PUBLIC__/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/global/plugins/select2/select2.min.js"></script>
-<script type="text/javascript" src="__PUBLIC__/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript"
+        src="__PUBLIC__/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="__PUBLIC__/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
 <script type="text/javascript" src="__PUBLIC__/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
 <script type="text/javascript" src="__PUBLIC__/global/plugins/ckeditor/ckeditor.js"></script>
@@ -259,23 +310,31 @@
             pro_id = $('#pro_id').find("option:selected").val()
             start_time = $('input[name="from"]').val()
             end_time = $('input[name="to"]').val()
-            if(customer_id == 0){
-                toastr.error('请选择客户','错误')
+            status = $('#status').find('option:selected').val()
+            if (customer_id == 0) {
+                toastr.error('请选择客户', '错误')
                 return
             }
-            if(pro_id == 0){
-                toastr.error('请选择施工项目','错误')
+            if (pro_id == 0) {
+                toastr.error('请选择施工项目', '错误')
                 return
             }
-            if(start_time == '' || end_time == ''){
-                toastr.error('请选择开始或者结束时间','错误')
+            if (start_time == '' || end_time == '') {
+                toastr.error('请选择开始或者结束时间', '错误')
                 return
             }
-            data = {action: 'add', customer_id: customer_id, project_id: pro_id, start_time: start_time, end_time: end_time}
+            data = {
+                action: 'add',
+                customer_id: customer_id,
+                project_id: pro_id,
+                start_time: start_time,
+                end_time: end_time,
+                status: status,
+            }
             postFormMethod(addUrl, data)
         })
 
-        $('body').delegate('.update', "click", function () {
+        $('body').delegate('.updatecfm', "click", function () {
             var alertMaUrl = "__SELF__"
             var id = $(this).attr('data-val')
             var style_name = $(this).attr('data-item')
@@ -284,7 +343,6 @@
                 size: 'small',
                 inputType: 'text',
                 value: style_name,
-                callback: function (result) {
                 callback: function (result) {
                     if (result != style_name && result != null) {
                         $.post(alertMaUrl, {action: 'update', id: id, project_name: result}, function (res) {
@@ -344,7 +402,7 @@
                 console.log(res)
                 if (res) {
                     $('#styleList').html(res)
-                }else{
+                } else {
                     $('#styleList').empty()
                 }
             })

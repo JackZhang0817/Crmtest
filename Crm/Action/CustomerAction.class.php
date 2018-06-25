@@ -89,7 +89,7 @@ class CustomerAction extends CommonAction
                 'class'    => 5
             );
             $materialType = D('MaterialType');
-            $materialTypeList = $materialType->order('type_name desc')->select();
+            $materialTypeList = $materialType->order('sort asc')->select();
             $group = M('group')->where($where)->field('id,title')->select();
 
             $list = D("NewClass")->where(array('pid' => 0))->select();
@@ -213,7 +213,7 @@ class CustomerAction extends CommonAction
             $group = M('group')->where($where)->field('id,title')->select();
 
             $materialType = D('MaterialType');
-            $materialTypeList = $materialType->select();
+            $materialTypeList = $materialType->order('sort asc')->select();
 
             $list = D("NewClass")->where(array('pid' => 0))->select();
 

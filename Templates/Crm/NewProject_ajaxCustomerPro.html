@@ -1,15 +1,16 @@
 <volist name="list" id="vo" key="k">
-<tr>
-    <td>{$k} </td>
-    <td>{$vo.project_name}</td>
-    <td>{$vo.day}</td>
-    <td>{$vo.start_time|date="Y-m-d", ###} ~ {$vo.end_time|date="Y-m-d", ###}</td>
-    <td></td>
-    <td>{$vo.create_by|realname}</td>
-    <td>{$vo.create_time|date="Y-m-d", ###}</td>
-    <td>
-        <!--[<a class="update" data-toggle="modal" data-val="{$vo.project_id}" data-item="{$vo.project_name}" >修改</a>] |-->
-				[<a class="delcfm" data-val="{$vo.id}" data-cus="{$vo.customer_id}">删除</a>]
-    </td>
-</tr>
+    <tr>
+        <td>{$k}</td>
+        <td>{$vo.project_name}</td>
+        <td>{$vo.day}</td>
+        <td>{$vo.start_time|date="Y-m-d", ###} ~ {$vo.end_time|date="Y-m-d", ###}</td>
+        <td></td>
+        <td>{$vo.create_by|realname}</td>
+        <td>{$vo.create_time|date="Y-m-d", ###}</td>
+        <td>
+            <!--[<a class="update" data-toggle="modal" data-val="{$vo.project_id}" data-item="{$vo.project_name}" >修改</a>] |-->
+            [<a class="updatecfm" data-val="{$vo.id}" data-cus="{$vo.customer_id}">删除</a>]
+            [<a class="delcfm" data-val="{$vo.id}" data-cus="{$vo.customer_id}">删除</a>]
+        </td>
+    </tr>
 </volist>
