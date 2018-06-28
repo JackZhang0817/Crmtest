@@ -66,7 +66,7 @@ class NewProjectAction extends CommonAction
             if ($action == 'add') {
                 $info = D('CustomerPro')->create();
                 if (!$info)
-                    $this->ajaxReturn(array('code' => 0, 'msg' => D('Xiangmu')->getError()));
+                    $this->ajaxReturn(array('code' => 0, 'msg' => D('CustomerPro')->getError()));
                 $info['start_time'] = strtotime($info['start_time']);
                 $info['end_time'] = strtotime($info['end_time']);
                 $info['create_by'] = session('uid');
@@ -86,16 +86,19 @@ class NewProjectAction extends CommonAction
                     $value['address'] = $customer_info['Address'];
                     $value['Caption'] = realname($customer_info['Caption']);
                     $value['day'] = ($value['end_time'] - $value['start_time']) / 86400;
+                    $value['state'] = $value['status'];
                     $value['status'] = $value['status'] == 1 ? '已完工' : '施工中';
                 }
                 $this->assign('list', $list);
                 $this->display('ajaxCustomerPro');
             } elseif ($action == 'update') {
-                $info = D('Xiangmu')->create();
+                $info = D('CustomerPro')->create();
                 if (!$info) {
                     $this->ajaxReturn(array('code' => 0, 'msg' => '没有任何修改'));
                 }
-                $res = D('Xiangmu')->where(array('project_id' => $info['id']))->save($info);
+                $info['start_time'] = strtotime($info['start_time']);
+                $info['end_time'] = strtotime($info['end_time']);
+                $res = D('CustomerPro')->where(array('id' => $info['id']))->save($info);
                 if ($res) {
                     $this->ajaxReturn(array('code' => 1, 'msg' => '修改成功'));
                 } else {
