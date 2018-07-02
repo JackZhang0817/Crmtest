@@ -115,6 +115,9 @@
                                         施工进度
                                     </th>
                                     <th>
+                                        施工状态
+                                    </th>
+                                    <th>
                                         施工日期
                                     </th>
                                     <th>
@@ -131,6 +134,7 @@
                                         <td>{$customer_info.Address}</td>
                                         <td>{$customer_info.Project|realname}</td>
                                         <td>{$vo.project_name}</td>
+                                        <td>{$vo.status}</td>
                                         <td>{$vo.start_time|date="Y-m-d", ###} ~ {$vo.end_time|date="Y-m-d", ###}</td>
                                         <td>{$vo.create_time|date="Y-m-d", ###}</td>
                                     </tr>
@@ -161,7 +165,7 @@
                                     <tr>
                                         <td>{$vo.project_name}</td>
                                         <volist name="vo.date_arr" id="da">
-                                            <td style="padding:0;">  <eq name="da" value="1"><span class="border-table"></span></eq> </td>
+                                            <td style="padding:0;">  <eq name="da" value="1"><span class="border-table" style="border-top-color: {$vo.color}"></span></eq> </td>
                                         </volist>
                                     </tr>
                                 </volist>

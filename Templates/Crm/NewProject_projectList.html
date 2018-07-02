@@ -112,6 +112,9 @@
                                         施工日期
                                     </th>
                                     <th>
+                                        施工状态
+                                    </th>
+                                    <th>
                                         创建时间
                                     </th>
                                     <th>
@@ -259,6 +262,35 @@
                                     toastr.error(res.msg, "删除失败")
                                 }
                             })
+                        }
+                    }
+                })
+            })
+            $('body').delegate('.alertState', "click", function () {
+                console.log(1)
+                var state = $(this).attr('data-state');
+                console.log(state)
+                bootbox.prompt({
+                    title: '修改超期状态',
+                    inputType: 'select',
+                    size: 'small',
+                    value: state,
+                    inputOptions: [
+                        {
+                            text: '未超期',
+                            value: 0,
+                        },
+                        {
+                            text: '已超期',
+                            value: 1,
+                            selected: 'selected'
+                        }
+                    ],
+                    callback: function (result) {
+                        if(result == state){
+                            toastr.error('没有作出修改', "修改失败")
+                        }else{
+
                         }
                     }
                 })

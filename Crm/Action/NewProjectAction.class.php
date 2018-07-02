@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 /**
  * Created by PhpStorm.
@@ -31,7 +30,7 @@ class NewProjectAction extends CommonAction
             } elseif ($action == 'list') {
                 $list = D("Xiangmu")->select();
                 $this->assign('list', $list);
-                $this->display('ajaxProject');
+                $this->display('ajaxProjectNew');
             } elseif ($action == 'update') {
                 $info = D('Xiangmu')->create();
                 if (!$info) {
@@ -67,7 +66,7 @@ class NewProjectAction extends CommonAction
             if ($action == 'add') {
                 $info = D('CustomerPro')->create();
                 if (!$info)
-                    $this->ajaxReturn(array('code' => 0, 'msg' => D('Xiangmu')->getError()));
+                    $this->ajaxReturn(array('code' => 0, 'msg' => D('CustomerPro')->getError()));
                 $info['start_time'] = strtotime($info['start_time']);
                 $info['end_time'] = strtotime($info['end_time']);
                 $info['create_by'] = session('uid');
@@ -87,15 +86,19 @@ class NewProjectAction extends CommonAction
                     $value['address'] = $customer_info['Address'];
                     $value['Caption'] = realname($customer_info['Caption']);
                     $value['day'] = ($value['end_time'] - $value['start_time']) / 86400;
+                    $value['state'] = $value['status'];
+                    $value['status'] = $value['status'] == 1 ? '已完工' : '施工中';
                 }
                 $this->assign('list', $list);
                 $this->display('ajaxCustomerPro');
             } elseif ($action == 'update') {
-                $info = D('Xiangmu')->create();
+                $info = D('CustomerPro')->create();
                 if (!$info) {
                     $this->ajaxReturn(array('code' => 0, 'msg' => '没有任何修改'));
                 }
-                $res = D('Xiangmu')->where(array('project_id' => $info['id']))->save($info);
+                $info['start_time'] = strtotime($info['start_time']);
+                $info['end_time'] = strtotime($info['end_time']);
+                $res = D('CustomerPro')->where(array('id' => $info['id']))->save($info);
                 if ($res) {
                     $this->ajaxReturn(array('code' => 1, 'msg' => '修改成功'));
                 } else {
@@ -109,11 +112,13 @@ class NewProjectAction extends CommonAction
                 }
             }
         } else {
+            $state = 8;
+            $map['_string'] = "POSITION($state IN CONCAT(',',State,','))";
             $map['status'] = 0;   // 没有被删除的客户
             $map['_complex'] = $this->where();
             $c_list = D('customer')
                 ->where($map)
-                ->field('id, CName, Tel, Captain')->select();
+                ->field('id, CName, Tel, Captain, Number')->select();
             $p_list = D('Xiangmu')->select();
 
             $this->assign('c_list', $c_list);
@@ -217,8 +222,34 @@ class NewProjectAction extends CommonAction
      */
     public function projectList()
     {
+        $customer_pro = M('CustomerPro');
         if (IS_POST) {
+            $action = $this->_param('action');
+            if ($action == 'edit_state') {
+                $chaoqi_state = $this->_param('state');
+                $res = $customer_pro->where(array('id' => $info['id']))->save($info);
+                if ($res) {
+                    $this->ajaxReturn(array('code' => 1, 'msg' => '修改成功'));
+                } else {
+                    $this->ajaxReturn(array('code' => 0, 'msg' => '修改失败'));
+                }
 
+            } elseif ($action == 'list') {
+                $Customer = M('Customer');
+                $list = $customer_pro->group('customer_id')->select();
+                foreach ($list as &$value) {
+                    $where = [
+                        'customer_id' => $value['customer_id'],
+                    ];
+                    $value['customer_info'] = $Customer->where(array('id' => $value['customer_id']))->field('id, CName, Tel, Address, Project')->find();
+                    $value['project_id'] = $customer_pro->where($where)->order('create_time desc')->getField('project_id');
+                    $value['project_name'] = $this->_getProjectName($value['project_id']);
+                    $value['status'] = $value['status'] == 1 ? '已完工' : '施工中';
+                    $value['state'] = $value['chaoqi_state'] == 1 ? '已超期' : '未超期';
+                }
+                $this->assign('list', $list);
+                $this->display('ajaxProject');
+            }
         } else {
             $customer_pro = M('CustomerPro');
             $Customer = M('Customer');
@@ -230,6 +261,8 @@ class NewProjectAction extends CommonAction
                 $value['customer_info'] = $Customer->where(array('id' => $value['customer_id']))->field('id, CName, Tel, Address, Project')->find();
                 $value['project_id'] = $customer_pro->where($where)->order('create_time desc')->getField('project_id');
                 $value['project_name'] = $this->_getProjectName($value['project_id']);
+                $value['status'] = $value['status'] == 1 ? '已完工' : '施工中';
+                $value['state'] = $value['chaoqi_state'] == 1 ? '已超期' : '未超期';
             }
             $this->assign('list', $list);
             $this->display();
@@ -247,20 +280,31 @@ class NewProjectAction extends CommonAction
         $where = [
             'customer_id' => $customer_id,
         ];
+        $map = [
+            'id' => $customer_id,
+        ];
         $list = $customer_pro->where($where)->select();
         $min_time = $customer_pro->where($where)->order('start_time asc')->getField('start_time');
         $max_time = $customer_pro->where($where)->order('end_time desc')->getField('end_time');
         $info = $this->_getMarginData(1524931200, $max_time);
         $width = 35 * $info['day'] + 100;
 
-        $customer_info = $customer->where($where)->field('CName, Tel, Address, Project')->find();
+        $customer_info = $customer->where($map)->field('CName, Tel, Address, Project')->find();
         foreach ($list as &$v) {
             $v['project_name'] = $this->_getProjectName($v['project_id']);
             $v['date_arr'] = $this->_getProClass(1524931200, $v['start_time'], $v['end_time'], $info['day']);
+            $v['color'] = $v['status'] == 1 ? '#008b00' : '#ccc';
+            $v['status'] = $v['status'] == 1 ? '已完工' : '施工中';
         }
+        unset($v);
+
+        $p_list = D('Xiangmu')->select();
+
+        $this->assign('p_list', $p_list);
         $this->assign('width', $width);
         $this->assign('info', $info);
         $this->assign('list', $list);
+        unset($list);
         $this->assign('customer_info', $customer_info);
         $this->display();
     }

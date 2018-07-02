@@ -88,10 +88,13 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3">日期</label>
                                     <div class="col-md-4">
-                                        <div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="mm/dd/yyyy">
-                                            <input type="text" class="form-control" value="<php> echo date('m/d/Y', time())</php>" name="from">
+                                        <div class="input-group input-large date-picker input-daterange"
+                                             data-date="10/11/2012" data-date-format="mm/dd/yyyy">
+                                            <input type="text" class="form-control"
+                                                   value="<php> echo date('m/d/Y', time())</php>" name="from">
                                             <span class="input-group-addon"> to </span>
-                                            <input type="text" class="form-control" value="<php> echo date('m/d/Y', time())</php>" name="to">
+                                            <input type="text" class="form-control"
+                                                   value="<php> echo date('m/d/Y', time())</php>" name="to">
                                         </div>
                                         <!-- /input-group -->
                                     </div>
@@ -152,10 +155,9 @@
                 </div>
                 <!-- END SAMPLE TABLE PORTLET-->
             </div>
-
         </div>
         <!-- END PAGE CONTENT-->
-        <div class="row">
+        <div class="row" id="update_content" style="display: none">
             <div class="portlet-body form">
                 <!-- BEGIN FORM-->
                 <form class="form-horizontal">
@@ -163,15 +165,18 @@
                         <div class="form-group">
                             <label class="control-label col-md-3"> 客户姓名</label>
                             <div class="col-md-7">
-                                <input type="hidden" name="update_Id">
-                                <input type="text" name="update_Name" class="form-control"/>
+                                <input type="hidden" name="update_id">
+                                <input type="text" name="update_name" class="form-control" readonly />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3"> 项目名称</label>
                             <div class="col-md-7">
-                                <input type="hidden" name="update_Id">
-                                <input type="text" name="update_Name" class="form-control"/>
+                                <select name="update_pro_id" id="update_pro_id" class="form-control">
+                                    <volist name="p_list" id="vo">
+                                        <option value="{$vo.project_id}">{$vo.project_name}</option>
+                                    </volist>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -189,7 +194,10 @@
                         <div class="form-group">
                             <label class="control-label col-md-3"> 状态</label>
                             <div class="col-md-7">
-                                <input type="text" name="update_status" class="form-control"/>
+                                <select name="upate_state" id="update_state" class="form-control">
+                                    <option value="0">施工中</option>
+                                    <option value="1">已完工</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -275,6 +283,8 @@
         });
         $('.select2_category').change(function () {
             var customer_id = $(this).find('option:selected').val()
+            var customer_name = $(this).find('option:selected').text()
+            $('input[name="update_name"]').attr('value', customer_name)
             getList(customer_id)
         })
         // 点击修改的时候
@@ -337,21 +347,59 @@
         $('body').delegate('.updatecfm', "click", function () {
             var alertMaUrl = "__SELF__"
             var id = $(this).attr('data-val')
-            var style_name = $(this).attr('data-item')
-            bootbox.prompt({
-                title: "修改材料名称",
-                size: 'small',
-                inputType: 'text',
-                value: style_name,
-                callback: function (result) {
-                    if (result != style_name && result != null) {
-                        $.post(alertMaUrl, {action: 'update', id: id, project_name: result}, function (res) {
-                            if (res.code == 1) {
-                                getList()
-                            } else {
-                                toastr.error(res.msg, '修改失败');
+            var pro = $(this).attr('data-pro')
+            var start_time = $(this).attr('data-start')
+            var end_time = $(this).attr('data-end')
+            var state = $(this).attr('data-state')
+            var customer_id = $('#customer_id').find('option:selected').val()
+
+            $('input[name="update_id"]').val(id)
+            $('#update_pro_id').val(pro)
+            $('#update_pro_id option').each(function () {
+                if($(this).val() == pro){
+                    $(this).attr('selected', 'selected')
+                }else{
+                    $(this).removeAttr('selected')
+                }
+            })
+            $('input[name="update_from"]').attr('value', start_time)
+            $('input[name="update_to"]').attr('value', end_time)
+            $('#update_state').val(state)
+            $('#update_state option').each(function () {
+                if($(this).val() == state){
+                    $(this).attr('selected', 'selected')
+                }else{
+                    $(this).removeAttr('selected')
+                }
+            })
+            var _update_html = $('#update_content').html()
+            bootbox.dialog({
+                title: "修改施工进度",
+                size: 'middle',
+                message: _update_html,
+                buttons: {
+                    ok: {
+                        label: '确定',
+                        className: 'btn-info',
+                        callback: function (result) {
+                            $("#update_content").empty()
+                            var update_id = $('input[name="update_id"]').val()
+                            var update_pro = $('#update_pro_id').find('option:selected').val()
+                            var update_start = $('input[name="update_from"]').val()
+                            var update_end = $('input[name="update_to"]').val()
+                            var update_state = $('#update_state').find('option:selected').val()
+                            var info = {
+                                action: 'update',
+                                id: update_id,
+                                project_id: update_pro,
+                                start_time: update_start,
+                                end_time: update_end,
+                                status: update_state,
                             }
-                        })
+                            postFormMethod(alertMaUrl, info);
+                            getList(customer_id)
+                            $("#update_content").html(_update_html)
+                        }
                     }
                 }
             })
@@ -360,7 +408,6 @@
             var delTypeUrl = "__SELF__"
             var id = $(this).attr('data-val')
             var customer_id = $(this).attr('data-cus');
-            console.log(customer_id)
             bootbox.confirm({
                 title: "确定删除吗?",
                 message: '删除之后不可恢复,请谨慎操作',
@@ -383,7 +430,6 @@
         //post 公用方法
         function postFormMethod(url, info) {
             $.post(url, info, function (res) {
-                console.log(res)
                 if (res.code == 1) {
                     getList(info.customer_id);
                     toastr.success(res.msg, '成功');
@@ -398,8 +444,6 @@
             var list_url = "__SELF__"
             var customer_id = id
             $.post(list_url, {action: 'list', customer_id: customer_id}, function (res) {
-                console.log('do')
-                console.log(res)
                 if (res) {
                     $('#styleList').html(res)
                 } else {
