@@ -222,8 +222,34 @@ class NewProjectAction extends CommonAction
      */
     public function projectList()
     {
+        $customer_pro = M('CustomerPro');
         if (IS_POST) {
+            $action = $this->_param('action');
+            if ($action == 'edit_state') {
+                $chaoqi_state = $this->_param('state');
+                $res = $customer_pro->where(array('id' => $info['id']))->save($info);
+                if ($res) {
+                    $this->ajaxReturn(array('code' => 1, 'msg' => '修改成功'));
+                } else {
+                    $this->ajaxReturn(array('code' => 0, 'msg' => '修改失败'));
+                }
 
+            } elseif ($action == 'list') {
+                $Customer = M('Customer');
+                $list = $customer_pro->group('customer_id')->select();
+                foreach ($list as &$value) {
+                    $where = [
+                        'customer_id' => $value['customer_id'],
+                    ];
+                    $value['customer_info'] = $Customer->where(array('id' => $value['customer_id']))->field('id, CName, Tel, Address, Project')->find();
+                    $value['project_id'] = $customer_pro->where($where)->order('create_time desc')->getField('project_id');
+                    $value['project_name'] = $this->_getProjectName($value['project_id']);
+                    $value['status'] = $value['status'] == 1 ? '已完工' : '施工中';
+                    $value['state'] = $value['chaoqi_state'] == 1 ? '已超期' : '未超期';
+                }
+                $this->assign('list', $list);
+                $this->display('ajaxProject');
+            }
         } else {
             $customer_pro = M('CustomerPro');
             $Customer = M('Customer');
@@ -236,6 +262,7 @@ class NewProjectAction extends CommonAction
                 $value['project_id'] = $customer_pro->where($where)->order('create_time desc')->getField('project_id');
                 $value['project_name'] = $this->_getProjectName($value['project_id']);
                 $value['status'] = $value['status'] == 1 ? '已完工' : '施工中';
+                $value['state'] = $value['chaoqi_state'] == 1 ? '已超期' : '未超期';
             }
             $this->assign('list', $list);
             $this->display();

@@ -266,6 +266,35 @@
                     }
                 })
             })
+            $('body').delegate('.alertState', "click", function () {
+                console.log(1)
+                var state = $(this).attr('data-state');
+                console.log(state)
+                bootbox.prompt({
+                    title: '修改超期状态',
+                    inputType: 'select',
+                    size: 'small',
+                    value: state,
+                    inputOptions: [
+                        {
+                            text: '未超期',
+                            value: 0,
+                        },
+                        {
+                            text: '已超期',
+                            value: 1,
+                            selected: 'selected'
+                        }
+                    ],
+                    callback: function (result) {
+                        if(result == state){
+                            toastr.error('没有作出修改', "修改失败")
+                        }else{
+
+                        }
+                    }
+                })
+            })
             $('body').delegate('.page_a', "click", function () {
                 $(this).parent().attr('class', 'paginate_button page_li active')
                 $(this).parent().siblings().attr('class', 'paginate_button page_li')
