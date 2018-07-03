@@ -123,6 +123,9 @@
                                     <th>
                                         创建时间
                                     </th>
+                                    <th>
+                                        操作
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -137,6 +140,10 @@
                                         <td>{$vo.status}</td>
                                         <td>{$vo.start_time|date="Y-m-d", ###} ~ {$vo.end_time|date="Y-m-d", ###}</td>
                                         <td>{$vo.create_time|date="Y-m-d", ###}</td>
+                                        <td>
+                                            [<a class="updatecfm" data-val="{$vo.id}" data-cus="{$customer_info.CName}" data-pro="{$vo.project_id}" data-state="{$vo.state}" data-start="{$vo.start_time|date='m/d/Y', ###}" data-end="{$vo.end_time|date='m/d/Y', ###}">修改</a>]
+                                            [<a class="delcfm" data-val="{$vo.id}" data-cus="{$vo.customer_id}">删除</a>]
+                                        </td>
                                     </tr>
                                 </volist>
                                 </tbody>
@@ -177,6 +184,53 @@
             </div>
         </div>
         <!-- end page content-->
+        <div class="row" id="update_content" style="display: none">
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form class="form-horizontal">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3"> 客户姓名</label>
+                            <div class="col-md-7">
+                                <input type="hidden" name="update_id">
+                                <input type="text" name="update_name" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3"> 项目名称</label>
+                            <div class="col-md-7">
+                                <select name="update_pro_id" id="update_pro_id" class="form-control">
+                                    <volist name="p_list" id="vo">
+                                        <option value="{$vo.project_id}">{$vo.project_name}</option>
+                                    </volist>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">日期</label>
+                            <div class="col-md-4">
+                                <div class="input-group input-large date-picker input-daterange"
+                                     data-date="10/11/2012" data-date-format="mm/dd/yyyy">
+                                    <input type="text" class="form-control" name="update_from">
+                                    <span class="input-group-addon"> to </span>
+                                    <input type="text" class="form-control" name="update_to">
+                                </div>
+                                <!-- /input-group -->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3"> 状态</label>
+                            <div class="col-md-7">
+                                <select name="upate_state" id="update_state" class="form-control">
+                                    <option value="0">施工中</option>
+                                    <option value="1">已完工</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 <!-- end content -->
@@ -203,13 +257,9 @@
 <script src="__PUBLIC__/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- end core plugins -->
 <!-- begin page level plugins -->
-<script type="text/javascript" src="__PUBLIC__/global/plugins/jquery-validation/js/jquery.validate.min.js"></scrit>
-    <script type="text/javascript"
-            src="__PUBLIC__/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
-    <
-    script
-    type = "text/javascript"
-    src = "__PUBLIC__/global/plugins/select2/select2.min.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="__PUBLIC__/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
 <script type="text/javascript" src="__PUBLIC__/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
@@ -319,6 +369,101 @@
                 $.post(ajax_url, {type_id: type_id, page_num: page_num}, function (res) {
                     $('#mlist-body').html(res)
                 })
+            })
+        }
+        $('body').delegate('.updatecfm', "click", function () {
+            var alertMaUrl = "{:U('NewProject/addCustomerPro')}"
+            var id = $(this).attr('data-val')
+            var pro = $(this).attr('data-pro')
+            var start_time = $(this).attr('data-start')
+            var end_time = $(this).attr('data-end')
+            var state = $(this).attr('data-state')
+            var customer_id = $('#customer_id').find('option:selected').val()
+            var customer_name = $(this).attr('data-cus')
+
+            $('input[name="update_id"]').val(id)
+            $('input[name="update_name"]').attr('value', customer_name)
+            $('#update_pro_id').val(pro)
+            $('#update_pro_id option').each(function () {
+                if($(this).val() == pro){
+                    $(this).attr('selected', 'selected')
+                }else{
+                    $(this).removeAttr('selected')
+                }
+            })
+            $('input[name="update_from"]').attr('value', start_time)
+            $('input[name="update_to"]').attr('value', end_time)
+            $('#update_state').val(state)
+            $('#update_state option').each(function () {
+                if($(this).val() == state){
+                    $(this).attr('selected', 'selected')
+                }else{
+                    $(this).removeAttr('selected')
+                }
+            })
+            var _update_html = $('#update_content').html()
+            bootbox.dialog({
+                title: "修改施工进度",
+                size: 'middle',
+                message: _update_html,
+                buttons: {
+                    ok: {
+                        label: '确定',
+                        className: 'btn-info',
+                        callback: function (result) {
+                            $("#update_content").empty()
+                            var update_id = $('input[name="update_id"]').val()
+                            var update_pro = $('#update_pro_id').find('option:selected').val()
+                            var update_start = $('input[name="update_from"]').val()
+                            var update_end = $('input[name="update_to"]').val()
+                            var update_state = $('#update_state').find('option:selected').val()
+                            var info = {
+                                action: 'update',
+                                id: update_id,
+                                project_id: update_pro,
+                                start_time: update_start,
+                                end_time: update_end,
+                                status: update_state,
+                            }
+                            postFormMethod(alertMaUrl, info);
+                            location.href="__SELF__"
+                            // $("#update_content").html(_update_html)
+                        }
+                    }
+                }
+            })
+        })
+        $('body').delegate('.delcfm', "click", function () {
+            var delTypeUrl = "{:U('NewProject/addCustomerPro')}"
+            var id = $(this).attr('data-val')
+            var customer_id = $(this).attr('data-cus');
+            bootbox.confirm({
+                title: "确定删除吗?",
+                message: '删除之后不可恢复,请谨慎操作',
+                size: "small",
+                callback: function (result) {
+                    if (result === true) {
+                        $.post(delTypeUrl, {action: 'delete', id: id}, function (res) {
+                            if (res.code == 1) {
+                                location.href = "__SELF__"
+                                toastr.success(res.msg, "删除成功")
+                            } else {
+                                toastr.error(res.msg, "删除失败")
+                            }
+                        })
+                    }
+                }
+            })
+        })
+//post 公用方法
+        function postFormMethod(url, info) {
+            $.post(url, info, function (res) {
+                if (res.code == 1) {
+                    location.href="__SELF__"
+                    toastr.success(res.msg, '成功');
+                } else {
+                    toastr.error(res.msg, '失败');
+                }
             })
         }
     });

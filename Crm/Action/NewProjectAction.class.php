@@ -118,7 +118,7 @@ class NewProjectAction extends CommonAction
             $map['_complex'] = $this->where();
             $c_list = D('customer')
                 ->where($map)
-                ->field('id, CName, Tel, Captain')->select();
+                ->field('id, CName, Tel, Captain, Number')->select();
             $p_list = D('Xiangmu')->select();
 
             $this->assign('c_list', $c_list);
@@ -270,7 +270,11 @@ class NewProjectAction extends CommonAction
             $v['status'] = $v['status'] == 1 ? '已完工' : '施工中';
         }
         unset($v);
-        $this->assign('width',$width);
+
+        $p_list = D('Xiangmu')->select();
+
+        $this->assign('p_list', $p_list);
+        $this->assign('width', $width);
         $this->assign('info', $info);
         $this->assign('list', $list);
         unset($list);
@@ -294,43 +298,43 @@ class NewProjectAction extends CommonAction
         } else {
             $run = 0;
         }
-        $month_list = [1,3,5,7,8,10,12];
-        $start_month = intval(date('m',$min));
+        $month_list = [1, 3, 5, 7, 8, 10, 12];
+        $start_month = intval(date('m', $min));
         $start_day = intval(date('d', $min));
         $arr = [];
-        for($i = 0; $i <= $day; $i ++){
-            if(in_array($start_month, $month_list)){
-                if($start_day == 31){
+        for ($i = 0; $i <= $day; $i++) {
+            if (in_array($start_month, $month_list)) {
+                if ($start_day == 31) {
                     $arr[$start_month][] = $start_day;
                     $start_month++;
                     $start_day = 1;
-                }else{
+                } else {
                     $arr[$start_month][] = $start_day;
                     $start_day++;
                 }
-            }elseif($start_month == 2){
-                if($start_day == 28){
+            } elseif ($start_month == 2) {
+                if ($start_day == 28) {
                     $arr[$start_month][] = $start_day;
                     $start_month++;
                     $start_day = 1;
-                }else{
+                } else {
                     $arr[$start_month][] = $start_day;
                     $start_day++;
                 }
-            }else{
-                if($start_day == 30){
+            } else {
+                if ($start_day == 30) {
                     $arr[$start_month][] = $start_day;
                     $start_month++;
                     $start_day = 1;
-                }else{
+                } else {
                     $arr[$start_month][] = $start_day;
                     $start_day++;
                 }
             }
         }
-        foreach ($arr as $k=> $v){
+        foreach ($arr as $k => $v) {
             $m_arr[] = [
-                'month' => $k,
+                'month'   => $k,
                 'day_num' => count($v),
             ];
         }
@@ -351,10 +355,10 @@ class NewProjectAction extends CommonAction
         $start_day = ($start - $min) / 86400;
         $end_day = ($end - $min) / 86400;
         $arr = [];
-        for($i = 0; $i <= $day; $i++){
-            if($i >= $start_day && $i <= $end_day){
+        for ($i = 0; $i <= $day; $i++) {
+            if ($i >= $start_day && $i <= $end_day) {
                 $arr[] = 1;
-            }else{
+            } else {
                 $arr[] = 0;
             }
         }
