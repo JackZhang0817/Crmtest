@@ -394,7 +394,10 @@ class CustomerAction extends CommonAction
 
             // 追踪记录
             $record = M('record')->where(array('customer_id' => $this->_get('id')))->select();
+            $materialType = D('MaterialType');
+            $materialTypeList = $materialType->order('sort asc')->select();
 
+            $this->assign('materialTypeList', $materialTypeList);
             $this->assign('record', $record);
             $this->assign('info', $info);
             $this->pre = $pre;
@@ -1800,72 +1803,167 @@ class CustomerAction extends CommonAction
     {
         if (IS_POST) {
             $action = $this->_param('id');
+            $state = 8;
             switch ($action) {
                 case '1':
                     $where = array(
                         'address_id' => array('neq', 0)
                     );
+                    $where['_string'] = "POSITION($state IN CONCAT(',',State,','))";
                     $total_num = D('customer')->where($where)->count();
                     $info = D('customer')->where($where)->field('address_id, count(id) use_times')->group('address_id')->order('use_times desc')->select();
-                    foreach($info as $k => $v){
+                    foreach ($info as $k => $v) {
                         $info[$k]['marterial_name'] = D('NewClass')->where(array('class_id' => $v['address_id']))->getField('class_name');
-                        $info[$k]['proportion'] = round($v['use_times'] / $total_num * 100 , 2) . "％";
+                        $info[$k]['proportion'] = round($v['use_times'] / $total_num * 100, 2) . "％";
                     }
                     break;
                 case '2':
                     $where = array(
                         'age' => array('neq', 0)
                     );
+                    $where['_string'] = "POSITION($state IN CONCAT(',',State,','))";
                     $total_num = D('customer')->where($where)->count();
-                    $info = D('customer')
-                        ->where($where)
-                        ->field('age marterial_name, count(id) use_times')
-                        ->order('use_times desc')->group('age')
-                        ->select();
-                    foreach($info as $k => $v){
-                        $info[$k]['proportion'] = round($v['use_times'] / $total_num * 100 , 2) . "％";
+                    $age_data = [
+                        [
+                            'name'  => '0~25',
+                            'where' => ['age' => ['between', '1,25'], '_string' => "POSITION($state IN CONCAT(',',State,','))"]
+                        ],
+                        [
+                            'name'  => '25~30',
+                            'where' => ['age' => ['between', '26,30'], '_string' => "POSITION($state IN CONCAT(',',State,','))"]
+                        ],
+                        [
+                            'name'  => '30~40',
+                            'where' => ['age' => ['between', '31,40'], '_string' => "POSITION($state IN CONCAT(',',State,','))"]
+                        ],
+                        [
+                            'name'  => '41~50',
+                            'where' => ['age' => ['between', '41,50'], '_string' => "POSITION($state IN CONCAT(',',State,','))"]
+                        ],
+                        [
+                            'name'  => '51~60',
+                            'where' => ['age' => ['between', '51,60'], '_string' => "POSITION($state IN CONCAT(',',State,','))"]
+                        ],
+                        [
+                            'name'  => '60以上',
+                            'where' => ['age' => ['gt', '60'], '_string' => "POSITION($state IN CONCAT(',',State,','))"]
+                        ],
+                    ];
+                    $info = [];
+                    foreach ($age_data as $v) {
+                        $info[] = [
+                            'marterial_name' => $v['name'],
+                            'use_times'      => D('customer')->where($v['where'])->count(),
+                        ];
+                    }
+//                    $info = D('customer')
+//                        ->where($where)
+//                        ->field('age marterial_name, count(id) use_times')
+//                        ->order('use_times desc')->group('age')
+//                        ->select();
+                    foreach ($info as $k => $v) {
+                        $info[$k]['proportion'] = round($v['use_times'] / $total_num * 100, 2) . "％";
                     }
                     break;
                 case '3':
                     $where = array(
                         'Style' => array('neq', 0)
                     );
+                    $where['_string'] = "POSITION($state IN CONCAT(',',State,','))";
                     $total_num = D('customer')->where($where)->count();
                     $info = D('customer')
                         ->where($where)
                         ->field('Style, count(id) use_times')
                         ->group('Style')->order('use_times desc')->select();
-                    foreach($info as $k => $v){
+                    foreach ($info as $k => $v) {
                         $info[$k]['marterial_name'] = D('RoomStyle')->where(array('id' => $v['Style']))->getField('style_name');
-                        $info[$k]['proportion'] = round($v['use_times'] / $total_num * 100 , 2) . "％";
+                        $info[$k]['proportion'] = round($v['use_times'] / $total_num * 100, 2) . "％";
                     }
                     break;
                 case '4':
                     $where = array(
                         'RoomType' => array('neq', 0)
                     );
+                    $where['_string'] = "POSITION($state IN CONCAT(',',State,','))";
                     $total_num = D('customer')->where($where)->count();
                     $info = D('customer')
                         ->where($where)
                         ->field('RoomType, count(id) use_times')
                         ->group('RoomType')->order('use_times desc')->select();
-                    foreach($info as $k => $v){
+                    foreach ($info as $k => $v) {
                         $info[$k]['marterial_name'] = D('RoomType')->where(array('id' => $v['RoomType']))->getField('room_type_name');
-                        $info[$k]['proportion'] = round($v['use_times'] / $total_num * 100 , 2) . "％";
+                        $info[$k]['proportion'] = round($v['use_times'] / $total_num * 100, 2) . "％";
                     }
                     break;
                 case '5':
                     $where = array(
                         'Channel' => array('neq', 0)
                     );
+                    $where['_string'] = "POSITION($state IN CONCAT(',',State,','))";
                     $total_num = D('customer')->where($where)->count();
                     $info = D('customer')
                         ->where($where)
                         ->field('Channel, count(id) use_times')
                         ->group('Channel')->order('use_times desc')->select();
-                    foreach($info as $k => $v){
+                    foreach ($info as $k => $v) {
                         $info[$k]['marterial_name'] = D('Channel')->where(array('id' => $v['Channel']))->getField('channelname');
-                        $info[$k]['proportion'] = round($v['use_times'] / $total_num * 100 , 2) . "％";
+                        $info[$k]['proportion'] = round($v['use_times'] / $total_num * 100, 2) . "％";
+                    }
+                    break;
+                case '6':
+                    $where = array(
+                        'Space' => array('neq', 0)
+                    );
+                    $where['_string'] = "POSITION($state IN CONCAT(',',State,','))";
+                    $total_num = D('customer')->where($where)->count();
+                    $age_data = [
+                        [
+                            'name'  => '60平以下',
+                            'where' => ['Space' => ['between', '1,60'], '_sting' => "POSITION($state IN CONCAT(',', State,','))"]
+                        ],
+                        [
+                            'name'  => '60~70平',
+                            'where' => ['Space' => ['between', '61,70'], '_string' => "POSITION($state IN CONCAT(',',State,','))"]
+                        ],
+                        [
+                            'name'  => '70~80平',
+                            'where' => ['Space' => ['between', '71,80'], '_string' => "POSITION($state IN CONCAT(',',State,','))"]
+                        ],
+                        [
+                            'name'  => '80~90平',
+                            'where' => ['Space' => ['between', '81,90'], '_string' => "POSITION($state IN CONCAT(',',State,','))"]
+                        ],
+                        [
+                            'name'  => '90~120平',
+                            'where' => ['Space' => ['between', '91,120'], '_string' => "POSITION($state IN CONCAT(',',State,','))"]
+                        ],
+                        [
+                            'name'  => '120~160平',
+                            'where' => ['Space' => ['between', '121,160'], '_string' => "POSITION($state IN CONCAT(',',State,','))"]
+                        ],
+                        [
+                            'name'  => '160~250平',
+                            'where' => ['Space' => ['between', '161,250'], '_string' => "POSITION($state IN CONCAT(',',State,','))"]
+                        ],
+                        [
+                            'name'  => '250平以上',
+                            'where' => ['Space' => ['gt', '251'], '_string' => "POSITION($state IN CONCAT(',',State,','))"]
+                        ],
+                    ];
+                    $info = [];
+                    foreach ($age_data as $v) {
+                        $info[] = [
+                            'marterial_name' => $v['name'],
+                            'use_times'      => D('customer')->where($v['where'])->count(),
+                        ];
+                    }
+//                    $info = D('customer')
+//                        ->where($where)
+//                        ->field('age marterial_name, count(id) use_times')
+//                        ->order('use_times desc')->group('age')
+//                        ->select();
+                    foreach ($info as $k => $v) {
+                        $info[$k]['proportion'] = round($v['use_times'] / $total_num * 100, 2) . "％";
                     }
                     break;
             }
@@ -1873,24 +1971,28 @@ class CustomerAction extends CommonAction
         } else {
             $list = array(
                 '1' => array(
-                    'id' => 1,
+                    'id'   => 1,
                     'name' => '地址'
                 ),
                 '2' => array(
-                    'id' => 2,
+                    'id'   => 2,
                     'name' => '年龄'
                 ),
                 '3' => array(
-                    'id' => 3,
+                    'id'   => 3,
                     'name' => '风格'
                 ),
                 '4' => array(
-                    'id' => 4,
+                    'id'   => 4,
                     'name' => '房屋类型'
                 ),
                 '5' => array(
-                    'id' => 5,
+                    'id'   => 5,
                     'name' => '渠道'
+                ),
+                '6' => array(
+                    'id'   => 6,
+                    'name' => '面积'
                 ),
             );
             $this->assign('list', $list);
