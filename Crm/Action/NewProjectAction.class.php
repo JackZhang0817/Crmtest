@@ -226,8 +226,9 @@ class NewProjectAction extends CommonAction
         if (IS_POST) {
             $action = $this->_param('action');
             if ($action == 'edit_state') {
-                $chaoqi_state = $this->_param('state');
-                $res = $customer_pro->where(array('id' => $info['id']))->save($info);
+                $id = $this->_param('id');
+                $info['chaoqi_state'] = $this->_param('state');
+                $res = $customer_pro->where(array('customer_id' => $id))->save($info);
                 if ($res) {
                     $this->ajaxReturn(array('code' => 1, 'msg' => '修改成功'));
                 } else {
@@ -253,7 +254,17 @@ class NewProjectAction extends CommonAction
         } else {
             $customer_pro = M('CustomerPro');
             $Customer = M('Customer');
+            $total_sql = $customer_pro->group('customer_id')->buildSql();
             $list = $customer_pro->group('customer_id')->select();
+            $total_num = $customer_pro->group('customer_id')->count('customer_id');
+            $total_num = $customer_pro->table($total_sql. ' a')->count();
+            $chaoqi_sql = $customer_pro->where(['chaoqi_state' => 1])->group('customer_id')->buildSql();
+            $chaoqi_num = $customer_pro->table($chaoqi_sql. ' a')->count();
+            $promotion = round($chaoqi_num / $total_num * 100, 2) . "％";
+            $promotion_info = [
+                'chaoqi_num' => $chaoqi_num,
+                'promotion' => $promotion
+            ];
             foreach ($list as &$value) {
                 $where = [
                     'customer_id' => $value['customer_id'],
@@ -264,6 +275,7 @@ class NewProjectAction extends CommonAction
                 $value['status'] = $value['status'] == 1 ? '已完工' : '施工中';
                 $value['state'] = $value['chaoqi_state'] == 1 ? '已超期' : '未超期';
             }
+            $this->assign('promotion_info', $promotion_info);
             $this->assign('list', $list);
             $this->display();
         }
