@@ -75,6 +75,7 @@
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="fa fa-cogs"></i>施工客户列表
+                            (超期数: {$promotion_info.chaoqi_num} 超期率：{$promotion_info.promotion})
                         </div>
                         <div class="tools">
                             <!--<select id="alert_type" class="form-control input-medium">-->
@@ -215,10 +216,8 @@
         })
 
         function getAjaxList() {
-            var type_id = $('#alert_type').find("option:selected").val()
-            var page_num = 1
-            var ajax_url = "{:U('Material/materialList')}"
-            $.post(ajax_url, {type_id: type_id, page_num: page_num}, function (res) {
+            var ajax_url = "__SELF__"
+            $.post(ajax_url, {action:'list'}, function (res) {
                 $('#mlist-body').html(res)
             })
         }
@@ -267,14 +266,19 @@
                 })
             })
             $('body').delegate('.alertState', "click", function () {
-                console.log(1)
                 var state = $(this).attr('data-state');
-                console.log(state)
+                var id = $(this).attr('data-id')
                 bootbox.prompt({
                     title: '修改超期状态',
                     inputType: 'select',
                     size: 'small',
                     value: state,
+                    buttons: {
+                        confirm: {
+                            label: '确定',
+                            className: 'btn-success'
+                        }
+                    },
                     inputOptions: [
                         {
                             text: '未超期',
@@ -283,14 +287,17 @@
                         {
                             text: '已超期',
                             value: 1,
-                            selected: 'selected'
                         }
                     ],
                     callback: function (result) {
-                        if(result == state){
+                        if(result == state || result == null){
                             toastr.error('没有作出修改', "修改失败")
                         }else{
-
+                            ajax_url = "__SELF__"
+                            $.post(ajax_url, {action: 'edit_state', id: id, state: result}, function (res) {
+                                toastr.success('修改状态成功', "修改成功")
+                                getAjaxList()
+                            })
                         }
                     }
                 })

@@ -1826,6 +1826,7 @@ class CustomerAction extends CommonAction
                     $age_data = [
                         [
                             'name'  => '0~25',
+<<<<<<< HEAD
                             'where' => ['age' => ['between', '1,25'], '_string' => "POSITION($state IN CONCAT(',',State,','))"]
                         ],
                         [
@@ -1847,6 +1848,29 @@ class CustomerAction extends CommonAction
                         [
                             'name'  => '60以上',
                             'where' => ['age' => ['gt', '60'], '_string' => "POSITION($state IN CONCAT(',',State,','))"]
+=======
+                            'where' => ['age' => ['between', '1,25']]
+                        ],
+                        [
+                            'name'  => '25~30',
+                            'where' => ['age' => ['between', '26,30']]
+                        ],
+                        [
+                            'name'  => '30~40',
+                            'where' => ['age' => ['between', '31,40']]
+                        ],
+                        [
+                            'name'  => '41~50',
+                            'where' => ['age' => ['between', '41,50']]
+                        ],
+                        [
+                            'name'  => '51~60',
+                            'where' => ['age' => ['between', '51,60']]
+                        ],
+                        [
+                            'name'  => '60以上',
+                            'where' => ['age' => ['gt', '60']]
+>>>>>>> dfdac2d86603ba80635ceb094b6981efaa3d3ad5
                         ],
                     ];
                     $info = [];
@@ -1914,11 +1938,15 @@ class CustomerAction extends CommonAction
                     $where = array(
                         'Space' => array('neq', 0)
                     );
+<<<<<<< HEAD
                     $where['_string'] = "POSITION($state IN CONCAT(',',State,','))";
+=======
+>>>>>>> dfdac2d86603ba80635ceb094b6981efaa3d3ad5
                     $total_num = D('customer')->where($where)->count();
                     $age_data = [
                         [
                             'name'  => '60平以下',
+<<<<<<< HEAD
                             'where' => ['Space' => ['between', '1,60'], '_sting' => "POSITION($state IN CONCAT(',', State,','))"]
                         ],
                         [
@@ -1948,6 +1976,37 @@ class CustomerAction extends CommonAction
                         [
                             'name'  => '250平以上',
                             'where' => ['Space' => ['gt', '251'], '_string' => "POSITION($state IN CONCAT(',',State,','))"]
+=======
+                            'where' => ['Space' => ['between', '1,60']]
+                        ],
+                        [
+                            'name'  => '60~70平',
+                            'where' => ['Space' => ['between', '61,70']]
+                        ],
+                        [
+                            'name'  => '70~80平',
+                            'where' => ['Space' => ['between', '71,80']]
+                        ],
+                        [
+                            'name'  => '80~90平',
+                            'where' => ['Space' => ['between', '81,90']]
+                        ],
+                        [
+                            'name'  => '90~120平',
+                            'where' => ['Space' => ['between', '91,120']]
+                        ],
+                        [
+                            'name'  => '120~160平',
+                            'where' => ['Space' => ['between', '121,160']]
+                        ],
+                        [
+                            'name'  => '160~250平',
+                            'where' => ['Space' => ['between', '161,250']]
+                        ],
+                        [
+                            'name'  => '250平以上',
+                            'where' => ['Space' => ['gt', '251']]
+>>>>>>> dfdac2d86603ba80635ceb094b6981efaa3d3ad5
                         ],
                     ];
                     $info = [];
