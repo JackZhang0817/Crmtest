@@ -235,6 +235,15 @@ class NewProjectAction extends CommonAction
                     $this->ajaxReturn(array('code' => 0, 'msg' => '修改失败'));
                 }
 
+            } elseif ($action == 'edit_satisfied') {
+                $id = $this->_param('id');
+                $info['satisfied_state'] = $this->_param('state');
+                $res = $customer_pro->where(array('customer_id' => $id))->save($info);
+                if ($res) {
+                    $this->ajaxReturn(array('code' => 1, 'msg' => '修改成功'));
+                } else {
+                    $this->ajaxReturn(array('code' => 0, 'msg' => '修改失败'));
+                }
             } elseif ($action == 'list') {
                 $Customer = M('Customer');
                 $list = $customer_pro->group('customer_id')->select();
@@ -247,6 +256,7 @@ class NewProjectAction extends CommonAction
                     $value['project_name'] = $this->_getProjectName($value['project_id']);
                     $value['status'] = $value['status'] == 1 ? '已完工' : '施工中';
                     $value['state'] = $value['chaoqi_state'] == 1 ? '已超期' : '未超期';
+                    $value['satisfied'] = $value['satisfied_state'] == 1 ? '满意' : '不满意';
                 }
                 $this->assign('list', $list);
                 $this->display('ajaxProject');
@@ -254,17 +264,31 @@ class NewProjectAction extends CommonAction
         } else {
             $customer_pro = M('CustomerPro');
             $Customer = M('Customer');
+
+            // 获取用户总数
             $total_sql = $customer_pro->group('customer_id')->buildSql();
-            $list = $customer_pro->group('customer_id')->select();
-            $total_num = $customer_pro->group('customer_id')->count('customer_id');
-            $total_num = $customer_pro->table($total_sql. ' a')->count();
+            $total_num = $customer_pro->table($total_sql . ' a')->count();
+
+            // 计算超期问题
             $chaoqi_sql = $customer_pro->where(['chaoqi_state' => 1])->group('customer_id')->buildSql();
-            $chaoqi_num = $customer_pro->table($chaoqi_sql. ' a')->count();
+            $chaoqi_num = $customer_pro->table($chaoqi_sql . ' a')->count();
             $promotion = round($chaoqi_num / $total_num * 100, 2) . "％";
             $promotion_info = [
                 'chaoqi_num' => $chaoqi_num,
-                'promotion' => $promotion
+                'promotion'  => $promotion
             ];
+
+            // 计算满意度问题
+            $satisfied_sql = $customer_pro->where(['satisfied_state' => 1])->group('customer_id')->buildSql();
+            $satisfied_num = $customer_pro->table($satisfied_sql . ' a')->count();
+            $satisfied_pro = round($satisfied_num / $total_num * 100, 2) . '%';
+            $satisfied_info = [
+                'satisfied_num' => $satisfied_num,
+                'satisfied_pro' => $satisfied_pro
+            ];
+
+            //循环列表
+            $list = $customer_pro->group('customer_id')->select();
             foreach ($list as &$value) {
                 $where = [
                     'customer_id' => $value['customer_id'],
@@ -274,7 +298,10 @@ class NewProjectAction extends CommonAction
                 $value['project_name'] = $this->_getProjectName($value['project_id']);
                 $value['status'] = $value['status'] == 1 ? '已完工' : '施工中';
                 $value['state'] = $value['chaoqi_state'] == 1 ? '已超期' : '未超期';
+                $value['satisfied'] = $value['satisfied_state'] == 1 ? '满意' : '不满意';
             }
+
+            $this->assign('satisfied_info', $satisfied_info);
             $this->assign('promotion_info', $promotion_info);
             $this->assign('list', $list);
             $this->display();
@@ -286,6 +313,8 @@ class NewProjectAction extends CommonAction
      */
     public function getProContent()
     {
+
+
         $customer_id = $this->_param('customer_id');
         $customer_pro = M('CustomerPro');
         $customer = M('customer');

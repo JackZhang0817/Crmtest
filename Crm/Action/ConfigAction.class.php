@@ -1,15 +1,18 @@
 <?php
+
 /**
  * Author: gaorenhua
  * Date: 2014-12-19
  * Email: 597170962@qq.com
  * 系统配置控制器
  */
-class ConfigAction extends CommonAction {
+class ConfigAction extends CommonAction
+{
     /**
      * 部门排序
      */
-    public function groupSort(){
+    public function groupSort()
+    {
         // 调用公共排序
         $this->sortCommon('group', 'Auth/groupList');
     }
@@ -17,19 +20,23 @@ class ConfigAction extends CommonAction {
     /**
      * 添加 更新 删除 排序客户来源
      */
-    public function addChannel(){
+    public function addChannel()
+    {
         $this->addCommon('channelname', 'channel');
     }
 
-    public function updateChannel(){
+    public function updateChannel()
+    {
         $this->updateCommon('channelname', 'channel', 'addChannel');
     }
 
-    public function deleteChannel(){
+    public function deleteChannel()
+    {
         $this->deleteCommon('channel');
     }
 
-    public function channelSort(){
+    public function channelSort()
+    {
         // 调用公共排序
         $this->sortCommon('channel', 'addChannel');
     }
@@ -37,54 +44,64 @@ class ConfigAction extends CommonAction {
     /**
      * 添加 更新 删除客户状态
      */
-    public function addState(){
+    public function addState()
+    {
         $this->addCommon('statename', 'state');
     }
 
-    public function updateState(){
+    public function updateState()
+    {
         $this->updateCommon('statename', 'state', 'addState');
     }
 
-    public function deleteState(){
+    public function deleteState()
+    {
         $this->deleteCommon('state');
     }
 
-    public function stateSort(){
+    public function stateSort()
+    {
         $this->sortCommon('com_state', 'checkState');
     }
 
-    public function deleteComState(){
+    public function deleteComState()
+    {
         $this->deleteCommon('com_state');
     }
 
     /**
      * 添加 更新 删除装修方式
      */
-    public function addWay(){
+    public function addWay()
+    {
         $this->addCommon('wayname', 'way');
     }
 
-    public function updateWay(){
+    public function updateWay()
+    {
         $this->updateCommon('wayname', 'way', 'addWay');
     }
 
-    public function deleteWay(){
+    public function deleteWay()
+    {
         $this->deleteCommon('way');
     }
 
-    public function waySort(){
+    public function waySort()
+    {
         $this->sortCommon('way', 'addWay');
     }
 
     /**
      * 添加施工工序 以及 工序列表
      */
-    public function projectList(){
+    public function projectList()
+    {
         // 判断POST提交
         if (IS_POST) {
             // 验证只能输入汉字和字符
             $validate = array(array('pname', 'require', '工序名称不能为空'));
-            D('project')->setProperty("_validate",$validate);
+            D('project')->setProperty("_validate", $validate);
 
             // 创建数据集
             $data = D('project')->create();
@@ -121,12 +138,13 @@ class ConfigAction extends CommonAction {
     /**
      * 添加施工工序 以及 工序列表
      */
-    public function workProjectList(){
+    public function workProjectList()
+    {
         // 判断POST提交
         if (IS_POST) {
             // 验证只能输入汉字和字符
             $validate = array(array('pname', 'require', '工序名称不能为空'));
-            D('work_project')->setProperty("_validate",$validate);
+            D('work_project')->setProperty("_validate", $validate);
 
             // 创建数据集
             $data = D('work_project')->create();
@@ -158,10 +176,12 @@ class ConfigAction extends CommonAction {
             $this->display();
         }
     }
+
     /**
      * 更新施工工序
      */
-    public function updateProject(){
+    public function updateProject()
+    {
         // 判断POST提交
         if (IS_POST) {
             // 提取POST数据
@@ -183,16 +203,17 @@ class ConfigAction extends CommonAction {
             // ajax传值 被点击修改的工序ID
             $info = M('project')->where(array('id' => $this->_get('id')))->find();
 
-            $hidden = "<input type='hidden' name='id' value='".$info['id']."'>";  //标记需要修改的记录ID
-            $content = "<textarea class='form-control' name='pname' style='height:100px;'>".$info['pname']."</textarea>";
-            echo $hidden.$content;
+            $hidden = "<input type='hidden' name='id' value='" . $info['id'] . "'>";  //标记需要修改的记录ID
+            $content = "<textarea class='form-control' name='pname' style='height:100px;'>" . $info['pname'] . "</textarea>";
+            echo $hidden . $content;
         }
     }
 
     /**
      * 删除施工工序
      */
-    public function deleteProject(){
+    public function deleteProject()
+    {
         // 判断GET提交
         if (!IS_GET) {
             $this->error('您请求的页面不存在');
@@ -224,14 +245,16 @@ class ConfigAction extends CommonAction {
     /**
      * 排序
      */
-    public function sort(){
+    public function sort()
+    {
         $this->sortCommon('project', 'projectList');
     }
 
     /**
      * 选择当前公司的客户状态
      */
-    public function checkState(){
+    public function checkState()
+    {
         // 判断POST提交
         if (IS_POST) {
             // 获取POST数据
@@ -265,25 +288,26 @@ class ConfigAction extends CommonAction {
      * @param  $field  字段名称
      * @param  $table  表名称
      */
-    protected function addCommon($field, $table){
+    protected function addCommon($field, $table)
+    {
         // 判断是否POST提交
         if (IS_POST) {
             // 验证
             $validate = array(
-                array(''.$field.'', 'require', '名称不能为空'),
+                array('' . $field . '', 'require', '名称不能为空'),
                 //array(''.$field.'', '/^([\x{4e00}-\x{9fa5}]|[a-zA-Z]){3,10}$/u','只能输入汉字和字母')
             );
-            D(''.$table.'')->setProperty("_validate",$validate);
-            if (!D(''.$table.'')->create()) {
-                $this->error(D(''.$table.'')->getError(), __SELF__, 1);
+            D('' . $table . '')->setProperty("_validate", $validate);
+            if (!D('' . $table . '')->create()) {
+                $this->error(D('' . $table . '')->getError(), __SELF__, 1);
             }
 
             // 获取POST数据
-            $data[''.$field.''] = I(''.$field.'');
+            $data['' . $field . ''] = I('' . $field . '');
             $data['admin_id'] = session('uid');
 
             // 插入数据
-            if (M(''.$table.'')->add($data)) {
+            if (M('' . $table . '')->add($data)) {
                 $this->success('添加成功');
             } else {
                 $this->error('添加失败', __SELF__, 1);
@@ -292,9 +316,9 @@ class ConfigAction extends CommonAction {
         } else {
             // 获取来源列表
             if ($table == 'state') {
-                $list = M(''.$table.'')->where('id > 0')->select();
+                $list = M('' . $table . '')->where('id > 0')->select();
             } else {
-                $list = M(''.$table.'')->where(array('admin_id' => session('uid')))->order('sort asc')->select();
+                $list = M('' . $table . '')->where(array('admin_id' => session('uid')))->order('sort asc')->select();
             }
 
             $this->assign('list', $list);
@@ -308,37 +332,38 @@ class ConfigAction extends CommonAction {
      * @param  $table  表名称
      * @param  $link   跳转地址
      */
-    protected function updateCommon($field, $table, $link){
+    protected function updateCommon($field, $table, $link)
+    {
         // 判断是否POST提交
         if (IS_POST) {
             // 验证
             $validate = array(
-                array(''.$field.'', 'require', '名称不能为空'),
+                array('' . $field . '', 'require', '名称不能为空'),
                 //array(''.$field.'', '/^([\x{4e00}-\x{9fa5}]|[a-zA-Z]){3,10}$/u','只能输入汉字和字母')
             );
-            D(''.$table.'')->setProperty("_validate",$validate);
-            if (!D(''.$table.'')->create()) {
-                $this->error(D(''.$table.'')->getError(), U(''.$link.''), 1);
+            D('' . $table . '')->setProperty("_validate", $validate);
+            if (!D('' . $table . '')->create()) {
+                $this->error(D('' . $table . '')->getError(), U('' . $link . ''), 1);
             }
 
             // 获取POST数据
-            $data[''.$field.''] = I(''.$field.'');
+            $data['' . $field . ''] = I('' . $field . '');
             $data['id'] = I('post.id');
 
             // 插入数据
-            if (M(''.$table.'')->save($data)) {
-                $this->success('更新成功', U(''.$link.''));
+            if (M('' . $table . '')->save($data)) {
+                $this->success('更新成功', U('' . $link . ''));
             } else {
-                $this->error('更新失败', U(''.$link.''), 1);
+                $this->error('更新失败', U('' . $link . ''), 1);
             }
 
         } else {
             // ajax传值 被点击修改的工序ID
-            $info = M(''.$table.'')->where(array('id' => $this->_get('id')))->find();
+            $info = M('' . $table . '')->where(array('id' => $this->_get('id')))->find();
 
-            $hidden = "<input type='hidden' name='id' value='".$info['id']."'>";  //标记需要修改的记录ID
-            $content = "<textarea class='form-control' name='$field' style='height:100px;'>".$info[''.$field.'']."</textarea>";
-            echo $hidden.$content;
+            $hidden = "<input type='hidden' name='id' value='" . $info['id'] . "'>";  //标记需要修改的记录ID
+            $content = "<textarea class='form-control' name='$field' style='height:100px;'>" . $info['' . $field . ''] . "</textarea>";
+            echo $hidden . $content;
         }
     }
 
@@ -346,7 +371,8 @@ class ConfigAction extends CommonAction {
      * 状态 来源 装修方式 公共删除模块
      * @param  $table  表名称
      */
-    protected function deleteCommon($table){
+    protected function deleteCommon($table)
+    {
         // 获取要删除的信息ID
         $id = I('get.id', 0, 'intval');
 
@@ -356,7 +382,7 @@ class ConfigAction extends CommonAction {
 
         // 客户状态表
         if ($table == 'com_state') {
-            $id = '\','.$id.',\'';  //重组ID成字符串 防止模糊查询
+            $id = '\',' . $id . ',\'';  //重组ID成字符串 防止模糊查询
             $result = M('customer')->where(array('Userid' => array('IN', $user), '_string' => "POSITION($id IN CONCAT(',',State,','))"))->find();
         }
 
@@ -375,7 +401,7 @@ class ConfigAction extends CommonAction {
             $this->error('该记录下存在客户信息,不能删除,请先删除客户信息!');
         }
 
-        if (M(''.$table.'')->delete($id)) {
+        if (M('' . $table . '')->delete($id)) {
             $this->success('删除成功');
         } else {
             $this->error('删除失败');
@@ -387,7 +413,8 @@ class ConfigAction extends CommonAction {
      * @param $table    需要排序的数据表
      * @param $url      排序后的跳转路径
      */
-    protected function sortCommon($table, $url){
+    protected function sortCommon($table, $url)
+    {
         // 判断POST提交
         if (!IS_POST) {
             $this->error('您请求的页面不存在');
@@ -400,10 +427,10 @@ class ConfigAction extends CommonAction {
 
         // 更新排序 遍历更新
         foreach ($data as $key => $value) {
-             M(''.$table.'')->where(array('id' => $key))->setField('sort', $value);
+            M('' . $table . '')->where(array('id' => $key))->setField('sort', $value);
         }
 
-        $this->success('排序成功', U(''.$url.''), 1);
+        $this->success('排序成功', U('' . $url . ''), 1);
     }
 
     /**
@@ -411,18 +438,17 @@ class ConfigAction extends CommonAction {
      */
     public function newClass()
     {
-        if(IS_POST)
-        {
+        if (IS_POST) {
             $info = D('NewClass')->create();
-            if(!$info)
+            if (!$info)
                 $this->ajaxReturn(array('code' => 0, 'msg' => D('NewClass')->getError()));
             $res = D('NewClass')->add();
-            if($res)
+            if ($res)
                 $this->ajaxReturn(array('code' => 1, 'msg' => '添加成功'));
-        }else{
+        } else {
             $list = D("NewClass")->where(array('pid' => 0))->select();
             $pname = D("NewClass")->where(array('pid' => 0))->select();
-            foreach ($list as $k => $v){
+            foreach ($list as $k => $v) {
                 $list[$k]['child'] = D('NewClass')->where(array('pid' => $v['class_id']))->select();
             }
             $this->assign('list', $list);
@@ -437,7 +463,7 @@ class ConfigAction extends CommonAction {
     public function ajaxNewClass()
     {
         $list = D("NewClass")->where(array('pid' => 0))->select();
-        foreach ($list as $k => $v){
+        foreach ($list as $k => $v) {
             $list[$k]['child'] = D('NewClass')->where(array('pid' => $v['class_id']))->select();
         }
         $this->assign('list', $list);
@@ -449,16 +475,16 @@ class ConfigAction extends CommonAction {
      */
     public function alertNewClass()
     {
-        if(IS_POST){
+        if (IS_POST) {
             $info = D('NewClass')->create();
-            if(!$info) {
-                $this->ajaxReturn(array('code'=> 0, 'msg' => '没有任何修改'));
+            if (!$info) {
+                $this->ajaxReturn(array('code' => 0, 'msg' => '没有任何修改'));
             }
             $res = D('NewClass')->where(array('class_id' => $info['class_id']))->save($info);
-            if($res){
-                $this->ajaxReturn(array('code'=> 1, 'msg' => '修改成功'));
-            }else{
-                $this->ajaxReturn(array('code'=> 0, 'msg' => '修改失败'));
+            if ($res) {
+                $this->ajaxReturn(array('code' => 1, 'msg' => '修改成功'));
+            } else {
+                $this->ajaxReturn(array('code' => 0, 'msg' => '修改失败'));
             }
         }
     }
@@ -468,14 +494,14 @@ class ConfigAction extends CommonAction {
      */
     public function delNewClass()
     {
-        if(IS_POST){
+        if (IS_POST) {
             $class_id = $this->_param('class_id');
             $info = D('NewClass')->where(array('pid' => $class_id))->select();
-            if($info){
+            if ($info) {
                 $this->ajaxReturn(array('code' => 0, 'msg' => '存在二级数据，无法删除'));
             }
             $res = D('NewClass')->where(array('class_id' => $class_id))->delete();
-            if($res){
+            if ($res) {
                 $this->ajaxReturn(array('code' => 1, 'msg' => '删除成功'));
             }
         }
@@ -486,7 +512,7 @@ class ConfigAction extends CommonAction {
      */
     public function addStyle()
     {
-        if(IS_POST) {
+        if (IS_POST) {
             $action = $this->_param('action');
             if ($action == 'add') {
                 $info = D('RoomStyle')->create();
@@ -517,8 +543,62 @@ class ConfigAction extends CommonAction {
                     $this->ajaxReturn(array('code' => 1, 'msg' => '删除成功'));
                 }
             }
-        }else{
+        } else {
             $list = D("RoomStyle")->select();
+            $this->assign('list', $list);
+            $this->display();
+        }
+    }
+
+    /**
+     *户型管理
+     */
+    public function houseType()
+    {
+        $house_type = D('HouseType');
+
+        if (IS_POST) {
+            $action = $this->_param('action');
+            //添加户型
+            if ($action == 'add') {
+                $info = $house_type->create();
+                $info['create_time'] = time();
+                if (!$info)
+                    $this->ajaxReturn(array('code' => 0, 'msg' => $house_type->getError()));
+                $res = $house_type->add();
+                if ($res)
+                    $this->ajaxReturn(array('code' => 1, 'msg' => '添加成功'));
+                //获取列表
+            } elseif ($action == 'list') {
+
+                $list = $house_type->select();
+                $this->assign('list', $list);
+                $this->display('ajaxHouseType');
+
+                //修改户型
+            } elseif ($action == 'update') {
+                $info = $house_type->create();
+                if (!$info) {
+                    $this->ajaxReturn(array('code' => 0, 'msg' => '没有任何修改'));
+                }
+                $res = $house_type->where(array('type_id' => $info['type_id']))->save($info);
+                if ($res) {
+                    $this->ajaxReturn(array('code' => 1, 'msg' => '修改成功'));
+                } else {
+                    $this->ajaxReturn(array('code' => 0, 'msg' => '修改失败'));
+                }
+
+                //删除户型
+            } elseif ($action == 'delete') {
+
+                $type_id= $this->_param('type_id');
+                $res = $house_type->where(array('type_id' => $type_id))->delete();
+                if ($res) {
+                    $this->ajaxReturn(array('code' => 1, 'msg' => '删除成功'));
+                }
+            }
+        } else {
+            $list = $house_type->select();
             $this->assign('list', $list);
             $this->display();
         }

@@ -108,6 +108,12 @@
                                 <input type="hidden" name="status" value="{$_GET[status]?$_GET[status]:0}"/>
 								<input class="form-control input-sm" type="text" name="CName" placeholder="客户姓名" />
 								<input class="form-control input-sm" type="text" name="Tel" placeholder="联系方式" />
+                                <select name="Space" class="form-control input-sm">
+                                    <option value=''>区域</option>
+                                    <foreach name='space' item='w'>
+                                        <option value='{$w.class_id}'>{$w.class_name}</option>
+                                    </foreach>
+                                </select>
 								<input class="form-control input-sm" type="text" name="Address" placeholder="所在小区" />
                                 <select name="Userid" class="form-control input-sm">
                                     <option value=''>业务员</option>
@@ -139,6 +145,12 @@
 									<option value=''>装修方式</option>
 									<foreach name='way' item='w'>
 										<option value='{$w.id}'>{$w.wayname}</option>
+									</foreach>
+								</select>
+                                <select name="Style" class="form-control input-sm">
+									<option value=''>装修风格</option>
+									<foreach name='zhuang_style' item='w'>
+										<option value='{$w.id}'>{$w.style_name}</option>
 									</foreach>
 								</select>
                                 <input class="form-control input-sm date-picker" type="text" placeholder="咨询时间-" name="ConsultDate" /><input class="form-control input-sm date-picker" type="text" placeholder="-咨询时间" name="ConsultDate1" />

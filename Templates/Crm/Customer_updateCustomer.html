@@ -179,7 +179,12 @@
                                     </div>
                                     <label class="control-label col-md-2">户型</label>
                                     <div class="col-md-3">
-                                        <input type="text" name="huxing" class="form-control"/>
+                                        <select name="huxing" id="huxing" class="form-control">
+                                            <option value="">无</option>
+                                            <volist name="house_type_list" id="vo">
+                                                <option value="{$vo.type_id}" <eq name="vo['type_id']" value="$info.huxing">selected</eq> >{$vo.type_name}</option>
+                                            </volist>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">

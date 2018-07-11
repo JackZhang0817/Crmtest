@@ -8,6 +8,7 @@
     <td>{$vo.project_name}</td>
     <td>{$vo.start_time|date="Y-m-d", ###} ~ {$vo.end_time|date="Y-m-d", ###}</td>
     <td><a href="javascript:;" class="alertState" data-state="{$vo.chaoqi_state}" data-id="{$vo.customer_info.id}">{$vo.state}</a></td>
+    <td><a href="javascript:;" class="alertSatisfied" data-state="{$vo.satisfied_state}" data-id="{$vo.customer_info.id}">{$vo.satisfied}</a></td>
     <td>{$vo.create_time|date="Y-m-d", ###}</td>
     <td>[<a href="{:U('NewProject/getProContent', array('customer_id' => $vo['customer_info']['id']))}" >查看详细</a>]
     </td>

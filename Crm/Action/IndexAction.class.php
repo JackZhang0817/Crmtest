@@ -13,6 +13,9 @@ class IndexAction extends CommonAction {
     	
 		$this->assign('project_count', $this->project_count());
 		$this->assign('project_amount', $this->project_amount());
+
+		//平均单值
+        $this->assign('project_average', round($this->project_amount() / $this->project_count()));
 		
         // 当前用户本月到店客户
         $this->assign('user_come_count', $this->userMonthCount('ComeTime'));
@@ -708,10 +711,12 @@ class IndexAction extends CommonAction {
         $map['status'] = '0';
 		$map['Project']=array('gt',0);
 		$firstday = date('Y-01-01', strtotime(date('Y-m-d')));
-		$map['StartTime']=array('egt',$firstday); 
+//		$map['StartTime']=array('egt',$firstday);
+        $map['Hetongtime']=array('egt',$firstday);
         //查询符合条件的客户ID总数
         $count = M('Customer')->where($map)->count();
-		
+        $count = D('CustomerView')->where($map)->count();  // 符合查询条件的总单值
+
         return $count;
     }
 	
@@ -719,9 +724,12 @@ class IndexAction extends CommonAction {
         // 没有被删除的客户
         $map['status'] = '0';
 		$firstday = date('Y-01-01', strtotime(date('Y-m-d')));
-		$map['StartTime']=array('egt',$firstday); 
+//		$map['StartTime']=array('egt',$firstday);
+        $map['Hetongtime']=array('egt',$firstday);
         //查询符合条件的客户ID总数
-        $count = M('Customer')->where($map)->Sum('OrdersValue');
+        $count = D('CustomerView')->where($map)->Sum('OrdersValue');  // 符合查询条件的总单值
+//        $count = M('Customer')->where($map)->Sum('OrdersValue');
+//        dump(M('Customer')->getLastSql());
 
         return $count;
     }	

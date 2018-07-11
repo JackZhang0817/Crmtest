@@ -93,14 +93,17 @@ class CustomerAction extends CommonAction
             $group = M('group')->where($where)->field('id,title')->select();
 
             $list = D("NewClass")->where(array('pid' => 0))->select();
-//            foreach ($list as $k => $v) {
-//                $list[$k]['child'] = D('NewClass')->where(array('pid' => $v['class_id']))->select();
-//            }
+
+            //获取房屋类型
             $style_list = D('RoomStyle')->select();
             $this->assign('style_list', $style_list);
 
-            $this->assign('list', $list);
+            //获取户型列表
+            $house_type_list = D('HouseType')->select();
+            $this->assign('house_type_list', $house_type_list);
+
             $this->assign('materialTypeList', $materialTypeList);
+            $this->assign('list', $list);
             $this->group = $group;
             $this->attachedInfo();
             $this->display();
@@ -218,6 +221,10 @@ class CustomerAction extends CommonAction
             $list = D("NewClass")->where(array('pid' => 0))->select();
 
             $style_list = D('RoomStyle')->select();
+
+            //获取户型列表
+            $house_type_list = D('HouseType')->select();
+            $this->assign('house_type_list', $house_type_list);
 
             $this->assign('style_list', $style_list);
             $this->assign('list', $list);
@@ -395,10 +402,13 @@ class CustomerAction extends CommonAction
             // 追踪记录
             $record = M('record')->where(array('customer_id' => $this->_get('id')))->select();
 
+            // 处理户型
+            $info['huxing'] = D('HouseType')->where(array('type_id' => $info['huxing']))->getField('type_name');
+
             $materialType = D('MaterialType');
             $materialTypeList = $materialType->order('sort asc')->select();
             $material_info = json_decode($info['material_info'], true);
-            foreach ( $materialTypeList as &$ma){
+            foreach ($materialTypeList as &$ma) {
                 $ma['material_id'] = $material_info[$ma['type_id']];
                 $ma['material_name'] = getMaterialName($ma['material_id']);
             }
@@ -694,6 +704,8 @@ class CustomerAction extends CommonAction
         $ordertime1 = I('get.OrderTime1');
         $hetongtime = I('get.HetongTime');
         $hetongtime1 = I('get.HetongTime1');
+        $zhuang_style = I('get.Style');
+        $space = I('get.Space');
 
         // 客户姓名
         if (isset($customername) && !empty($customername)) {
@@ -702,11 +714,17 @@ class CustomerAction extends CommonAction
         if (isset($tel) && !empty($tel)) {
             $map['Tel'] = $tel;
         }
+        if (isset($zhuang_style) && !empty($zhuang_style)) {
+            $map['Style'] = $zhuang_style;
+        }
         if (isset($address) && !empty($address)) {
             $map['Address'] = $address;
         }
         if (isset($way) && !empty($way)) {
             $map['Way'] = $way;
+        }
+        if (isset($space) && !empty($space)) {
+            $map['address_id'] = $space;
         }
         if (isset($channel) && !empty($channel)) {
             $map['Channel'] = $channel;
@@ -1002,6 +1020,15 @@ class CustomerAction extends CommonAction
         // 装修方式
         $way = M('way')->field('id,wayname')->where($where)->order('sort')->select();
 
+        // 装修区域
+        $space = M('NewClass')->field('class_id,class_name')->where($where)->select();
+
+        //装修风格
+        $zhuang_style = M('RoomStyle')->field('id, style_name')->where($where)->select();
+
+        // 户型
+        $house_type = M('HouseType')->field('type_id, type_name')->where($where)->select();
+
         // 自定义显示字段
         $fields = M('user_defined')->field('display_field')->where(array('uid' => session('uid')))->find();
         session('display_field', $fields);
@@ -1029,6 +1056,10 @@ class CustomerAction extends CommonAction
         $this->assign('channel', $channel);
         $this->assign('room_type', $room_type);
         $this->assign('way', $way);
+        $this->assign('zhuang_style', $zhuang_style);
+        $this->assign('house_type', $house_type);
+        $this->assign('room_type', $room_type);
+        $this->assign('space', $space);
         $this->assign('designer', $designer);
         $this->assign('project', $projecter);
         $this->assign('caption', $captioner);
@@ -1971,6 +2002,26 @@ class CustomerAction extends CommonAction
                         $info[$k]['proportion'] = round($v['use_times'] / $total_num * 100, 2) . "％";
                     }
                     break;
+                case '7':
+                    $arr_id = D('HouseType')->field('type_id')->select();
+                    foreach ($arr_id as $k => $arr){
+                        $arr_id[$k] = $arr['type_id'];
+                    }
+                    $arr_id = implode(',', $arr_id);
+                    $where = array(
+                        'huxing' => array('in', $arr_id),
+                    );
+                    $where['_string'] = "POSITION($state IN CONCAT(',',State,','))";
+                    $total_num = D('customer')->where($where)->count();
+                    $info = D('customer')
+                        ->where($where)
+                        ->field('huxing, count(id) use_times')
+                        ->group('huxing')->order('use_times desc')->select();
+                    foreach ($info as $k => $v) {
+                        $info[$k]['marterial_name'] = D('HouseType')->where(array('type_id' => $v['huxing']))->getField('type_name');
+                        $info[$k]['proportion'] = round($v['use_times'] / $total_num * 100, 2) . "％";
+                    }
+                    break;
             }
             $this->ajaxReturn($info);
         } else {
@@ -1998,6 +2049,10 @@ class CustomerAction extends CommonAction
                 '6' => array(
                     'id'   => 6,
                     'name' => '面积'
+                ),
+                '7' => array(
+                    'id'   => 7,
+                    'name' => '户型'
                 ),
             );
             $this->assign('list', $list);

@@ -76,6 +76,7 @@
                         <div class="caption">
                             <i class="fa fa-cogs"></i>施工客户列表
                             (超期数: {$promotion_info.chaoqi_num} 超期率：{$promotion_info.promotion})
+                            (满意数: {$satisfied_info.satisfied_num} 满意率：{$satisfied_info.satisfied_pro})
                         </div>
                         <div class="tools">
                             <!--<select id="alert_type" class="form-control input-medium">-->
@@ -114,6 +115,9 @@
                                     </th>
                                     <th>
                                         施工状态
+                                    </th>
+                                    <th>
+                                        是否满意
                                     </th>
                                     <th>
                                         创建时间
@@ -296,6 +300,43 @@
                             ajax_url = "__SELF__"
                             $.post(ajax_url, {action: 'edit_state', id: id, state: result}, function (res) {
                                 toastr.success('修改状态成功', "修改成功")
+                                getAjaxList()
+                            })
+                        }
+                    }
+                })
+            })
+            $('body').delegate('.alertSatisfied', "click", function () {
+                var state = $(this).attr('data-state');
+                var id = $(this).attr('data-id')
+                bootbox.prompt({
+                    title: '修改是否满意',
+                    inputType: 'select',
+                    size: 'small',
+                    value: state,
+                    buttons: {
+                        confirm: {
+                            label: '确定',
+                            className: 'btn-success'
+                        }
+                    },
+                    inputOptions: [
+                        {
+                            text: '不满意',
+                            value: 0,
+                        },
+                        {
+                            text: '满意',
+                            value: 1,
+                        }
+                    ],
+                    callback: function (result) {
+                        if(result == state || result == null){
+                            toastr.error('没有作出修改', "修改失败")
+                        }else{
+                            ajax_url = "__SELF__"
+                            $.post(ajax_url, {action: 'edit_satisfied', id: id, state: result}, function (res) {
+                                toastr.success('修改满意度成功', "修改成功")
                                 getAjaxList()
                             })
                         }
