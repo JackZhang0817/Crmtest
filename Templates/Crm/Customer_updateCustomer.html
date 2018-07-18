@@ -192,10 +192,9 @@
                                     <div class="col-md-3">
                                         <select name="taochan" class="form-control" id="taochan">
                                             <option value="0" selected>请选择套餐类别</option>
-                                            <option>55800套餐</option>
-                                            <option>65800套餐</option>
-                                            <option>轻工辅料</option>
-                                            <option>清辅+主材</option>
+                                            <volist name="package_list" id="vo">
+                                                <option value="{$vo.id}" <eq name="vo['id']" value="$info.taocan">selected</eq>>{$vo.package_name}</option>
+                                            </volist>
                                         </select>
                                     </div>
                                     <label class="control-label col-md-2">预计造价</label>
@@ -581,7 +580,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="control-label col-md-6">中期款日期</label>
+                                        <label class="control-label col-md-6">尾款日期</label>
                                         <div class="col-md-6 input-icon">
                                             <i class="fa fa-calendar"></i>
                                             <input type="text" name="EndPayDate" class="form-control  date-picker"

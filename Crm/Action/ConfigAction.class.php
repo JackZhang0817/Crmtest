@@ -603,4 +603,57 @@ class ConfigAction extends CommonAction
             $this->display();
         }
     }
+    /**
+     *户型管理
+     */
+    public function package()
+    {
+        $house_type = D('Package');
+
+        if (IS_POST) {
+            $action = $this->_param('action');
+            //添加户型
+            if ($action == 'add') {
+                $info = $house_type->create();
+                $info['create_time'] = time();
+                if (!$info)
+                    $this->ajaxReturn(array('code' => 0, 'msg' => $house_type->getError()));
+                $res = $house_type->add();
+                if ($res)
+                    $this->ajaxReturn(array('code' => 1, 'msg' => '添加成功'));
+                //获取列表
+            } elseif ($action == 'list') {
+
+                $list = $house_type->select();
+                $this->assign('list', $list);
+                $this->display('ajaxPackage');
+
+                //修改户型
+            } elseif ($action == 'update') {
+                $info = $house_type->create();
+                if (!$info) {
+                    $this->ajaxReturn(array('code' => 0, 'msg' => '没有任何修改'));
+                }
+                $res = $house_type->where(array('type_id' => $info['type_id']))->save($info);
+                if ($res) {
+                    $this->ajaxReturn(array('code' => 1, 'msg' => '修改成功'));
+                } else {
+                    $this->ajaxReturn(array('code' => 0, 'msg' => '修改失败'));
+                }
+
+                //删除户型
+            } elseif ($action == 'delete') {
+
+                $type_id= $this->_param('type_id');
+                $res = $house_type->where(array('type_id' => $type_id))->delete();
+                if ($res) {
+                    $this->ajaxReturn(array('code' => 1, 'msg' => '删除成功'));
+                }
+            }
+        } else {
+            $list = $house_type->select();
+            $this->assign('list', $list);
+            $this->display();
+        }
+    }
 }

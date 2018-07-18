@@ -102,6 +102,10 @@ class CustomerAction extends CommonAction
             $house_type_list = D('HouseType')->select();
             $this->assign('house_type_list', $house_type_list);
 
+            // 获取套餐类型
+            $package_list = D('Package')->select();
+            $this->assign('package_list', $package_list);
+
             $this->assign('materialTypeList', $materialTypeList);
             $this->assign('list', $list);
             $this->group = $group;
@@ -225,6 +229,10 @@ class CustomerAction extends CommonAction
             //获取户型列表
             $house_type_list = D('HouseType')->select();
             $this->assign('house_type_list', $house_type_list);
+
+            // 获取套餐类型
+            $package_list = D('Package')->select();
+            $this->assign('package_list', $package_list);
 
             $this->assign('style_list', $style_list);
             $this->assign('list', $list);
@@ -401,6 +409,10 @@ class CustomerAction extends CommonAction
 
             // 追踪记录
             $record = M('record')->where(array('customer_id' => $this->_get('id')))->select();
+
+            // 获取套餐类型
+            $package_list = D('Package')->select();
+            $this->assign('package_list', $package_list);
 
             // 处理户型
             $info['huxing'] = D('HouseType')->where(array('type_id' => $info['huxing']))->getField('type_name');
@@ -706,6 +718,8 @@ class CustomerAction extends CommonAction
         $hetongtime1 = I('get.HetongTime1');
         $zhuang_style = I('get.Style');
         $space = I('get.Space');
+        $hetongno = I('get.HeTongNo');
+        $birthDate = I('get.BirthDate');
 
         // 客户姓名
         if (isset($customername) && !empty($customername)) {
@@ -766,6 +780,13 @@ class CustomerAction extends CommonAction
             } else {
                 $map['HetongTime'] = $hetongtime;
             }
+        }
+        if(isset($hetongno) && !empty($hetongno)) {
+            $map['Number'] = $hetongno;
+        }
+//        if(isset())
+        if(isset($birthDate) && !empty($birthDate)){
+            $map['Birthday'] = array('like', '%'. $birthDate .'%');
         }
 
         // 点击排序
@@ -1839,7 +1860,7 @@ class CustomerAction extends CommonAction
     {
         if (IS_POST) {
             $action = $this->_param('id');
-            $state = 8;
+            $state = 7;
             switch ($action) {
                 case '1':
                     $where = array(

@@ -1085,7 +1085,6 @@ function getMaterialName($material_id)
 {
     $info = M('material')->where(array('marterial_id' => $material_id))->getField('marterial_name');
     return $info;
-
 }
 
 /**
@@ -1111,4 +1110,48 @@ function array_sort($arr, $keys, $type = 'asc')
         $new_array[$k] = $arr[$k];
     }
     return $new_array;
+}
+
+/**
+ * 获取套餐名称
+ * @param $id
+ * @return mixed
+ */
+function getPackageName($id)
+{
+    $info = M('package')->where(array('id' => $id))->getField('package_name');
+    return $info;
+}
+
+/**
+ * 获取风格名称
+ * @param $id
+ * @return mixed
+ */
+function getRoomStyle($id)
+{
+    $info = M('room_style')->where(array('id' => $id))->getField('style_name');
+    return $info;
+}
+
+/**
+ * 获取户型名称
+ * @param $id
+ * @return mixed
+ */
+function getHouseType($id)
+{
+    $info = M('house_type')->where(array('type_id' => $id))->getField('type_name');
+    return $info;
+}
+
+/**
+ * 获取房屋类型
+ * @param $id
+ * @return mixed
+ */
+function getRoomType($id)
+{
+    $info = M('room_type')->where(array('id' => $id))->getField('room_type_name');
+    return $info;
 }

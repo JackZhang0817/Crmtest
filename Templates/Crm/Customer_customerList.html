@@ -265,7 +265,7 @@
                                         <option>轻工辅料</option>
                                         <option>清辅+主材</option>
                                     </select>
-                                    <input class="form-control input-sm date-picker" type="text" placeholder="生日"
+                                    <input class="form-control input-sm" type="text" placeholder="生日"
                                            name="BirthDate"/>
                                     <input class="form-control input-sm date-picker" type="text" placeholder="咨询时间-"
                                            name="ConsultDate"/><input class="form-control input-sm date-picker"
@@ -281,6 +281,7 @@
                                            name="HetongTime"/><input class="form-control input-sm date-picker"
                                                                      type="text" placeholder="-合同时间"
                                                                      name="HetongTime1"/>
+                                    <input class="form-control input-sm" type="text" placeholder="合同号" name="HeTongNo">
                                 </div>
                             </div>
                             <div class="col-md-1">
@@ -565,7 +566,7 @@
                                         style="background:{$v.markcolor|markcolor}">
                                         <empty name="v.huxing">--
                                             <else/>
-                                            {$v.huxing}
+                                            {$v.huxing|getHouseType}
                                         </empty>
                                     </td>
                                     <td class="c9" style="background:{$v.markcolor|markcolor}">
@@ -799,13 +800,13 @@
                                     <td class="c44" style="background:{$v.markcolor|markcolor}">
                                         <empty name="v.RoomType">--
                                             <else/>
-                                            {$v.RoomType}
+                                            {$v.RoomType|getRoomType}
                                         </empty>
                                     </td>
                                     <td class="c45" style="background:{$v.markcolor|markcolor}">
                                         <empty name="v.Style">--
                                             <else/>
-                                            {$v.Style}
+                                            {$v.Style|getRoomStyle}
                                         </empty>
                                     </td>
                                     <td class="c46" style="background:{$v.markcolor|markcolor}">

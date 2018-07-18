@@ -78,7 +78,7 @@
                             </tr>
                             <tr>
                                 <td align="right"><strong>风格：</strong></td>
-                                <td>{$info.Style}</td>
+                                <td>{$info.Style|getRoomStyle}</td>
                                 <td align="right"><strong>QQ/微信：</strong></td>
                                 <td>{$info.IM}</td>
                             </tr>
@@ -95,7 +95,8 @@
                             </tr>
                             <tr>
                                 <td align="right"><strong>套餐类别：</strong></td>
-                                <td>{$info.taochan}</td>
+                                <td>{$info.taochan|getPackageName}</td>
+                                <!--<td>{$info.taocan}</td>-->
                                 <td align="right"><strong>预计造价：</strong></td>
                                 <td>
                                     <empty name="info.zaojia">--

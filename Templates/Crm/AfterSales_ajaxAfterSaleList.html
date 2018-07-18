@@ -24,12 +24,11 @@
         <td>
             {$vo.service_content}
         </td>
+        <td><a href="javascript:;" class="alertComplete" data-state="{$vo.complete_state}" data-id="{$vo.after_id}">{$vo.complete}</a></td>
+        <td><a href="javascript:;" class="alertSatisfied" data-state="{$vo.satisfied_state}" data-id="{$vo.after_id}">{$vo.satisfied}</a></td>
         <td>
             {$vo.remark}
         </td>
-        <!--<td class="text-center">-->
-            <!--<span class="label label-sm {$vo['marterial_status'] == 1 ? 'label-success' : 'label-warning'}"> {$vo['marterial_status'] == 1 ? '正常' : '禁用'}</span>-->
-        <!--</td>-->
         <td>
 
         </td>
